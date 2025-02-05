@@ -27,12 +27,20 @@ const GameList: React.FC<GameListProps> = ({ games }) => {
     return <p className="no-games">Aucun jeu trouvé.</p>;
   }
 
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    const day = String(date.getDate()).padStart(2, "0"); // Ajouter un zéro devant le jour si nécessaire
+    const month = String(date.getMonth() + 1).padStart(2, "0"); // Ajouter un zéro devant le mois si nécessaire
+    const year = date.getFullYear();
+    return `${day}/${month}/${year}`;
+  };
+
   return (
     <div className="games-container">
       {loadedGames.map((game) => (
         <div
           key={game.id}
-          className={`game-card ${newGames.includes(game) ? "loading-more" : ""}`} // Animation sur les nouveaux jeux seulement
+          className={`game-card ${newGames.includes(game) ? "loading-more" : ""}`}
         >
           <img
             src={game.background_image}
@@ -41,7 +49,7 @@ const GameList: React.FC<GameListProps> = ({ games }) => {
           />
           <div className="game-info">
             <h2 className="game-title">{game.name}</h2>
-            <p className="game-release">{game.released}</p>
+            <p className="game-release">{formatDate(game.released)}</p> {/* Formater la date ici */}
             <p className="game-rating">Note : {game.rating}</p>
           </div>
         </div>

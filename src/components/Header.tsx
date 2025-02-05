@@ -1,5 +1,5 @@
-import React from 'react';
-import '../assets/css/header/header.css';
+import React from "react";
+import "../assets/css/header/header.css";
 
 interface HeaderProps {
   searchQuery: string;
@@ -20,7 +20,11 @@ const Header: React.FC<HeaderProps> = ({ searchQuery, onSearchChange }) => {
         {/* Barre de recherche */}
         <div className="header__item header__item_search">
           <div className="header__item header__item_center header__search">
-            <form className="header__search__form" role="search" onSubmit={(e) => e.preventDefault()}>
+            <form
+              className="header__search__form"
+              role="search"
+              onSubmit={(e) => e.preventDefault()}
+            >
               <div className="header__search__input__area">
                 <input
                   type="text"
@@ -30,11 +34,6 @@ const Header: React.FC<HeaderProps> = ({ searchQuery, onSearchChange }) => {
                   value={searchQuery}
                   onChange={(e) => onSearchChange(e.target.value)}
                 />
-                <div className="header__search__hotkey-help__wrap">
-                  <div className="header__search__hotkey-help-key">alt</div>
-                  <span>+</span>
-                  <div className="header__search__hotkey-help-key">enter</div>
-                </div>
               </div>
             </form>
           </div>
