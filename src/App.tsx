@@ -1,30 +1,26 @@
-import React, { useState, useEffect } from 'react';
-import { fetchGames, Game, GamesResponse } from './GameService';
-import './App.css'; // Assurez-vous de créer ce fichier CSS pour l'importer.
+import React, { useState, useEffect } from "react";
+import { useGames } from "./hooks/useGames";
+import Header from "./components/Header";
+import GameList from "./components/GameList";
+import "./assets/css/App.css"; // Import your styles
 
 const App: React.FC = () => {
-  const [games, setGames] = useState<Game[]>([]); 
-  const [loading, setLoading] = useState<boolean>(true);
-  const [page, setPage] = useState<number>(1); 
-  const [totalPages, setTotalPages] = useState<number>(1); 
+  const [page, setPage] = useState<number>(1);
+  const [searchQuery, setSearchQuery] = useState<string>("");
+  const [debouncedSearchQuery, setDebouncedSearchQuery] = useState<string>("");
 
-  const pageSize = 10;
+  const { games, loading, totalPages } = useGames(page, debouncedSearchQuery);
 
+  // ⏳ Debounce Effect (Wait 500ms before updating the search query)
   useEffect(() => {
-    const getGames = async () => {
-      setLoading(true);
-      const data: GamesResponse = await fetchGames(page, pageSize);
-      setGames(data.results);
-      setTotalPages(Math.ceil(data.count / pageSize));
-      setLoading(false);
-    };
+    const handler = setTimeout(() => {
+      setDebouncedSearchQuery(searchQuery);
+    }, 500);
 
-    getGames();
-  }, [page]);
+    return () => clearTimeout(handler);
+  }, [searchQuery]);
 
-  if (loading) {
-    return <div className="loading">Chargement des jeux...</div>;
-  }
+  const handleSearchChange = (query: string) => setSearchQuery(query);
 
   const handlePageChange = (newPage: number) => {
     if (newPage > 0 && newPage <= totalPages) {
@@ -34,34 +30,17 @@ const App: React.FC = () => {
 
   return (
     <div className="app">
+      <Header searchQuery={searchQuery} onSearchChange={handleSearchChange} />
       <h1 className="title">Bibliothèque de jeux vidéo</h1>
-      <div className="games-container">
-        {games.map((game) => (
-          <div key={game.id} className="game-card">
-            <img src={game.background_image} alt={game.name} className="game-image" />
-            <div className="game-info">
-              <h2 className="game-title">{game.name}</h2>
-              <p className="game-release">{game.released}</p>
-              <p className="game-rating">Note : {game.rating}</p>
-            </div>
-          </div>
-        ))}
-      </div>
+
+      {loading ? <div className="loading">Chargement des jeux...</div> : <GameList games={games} />}
 
       <div className="pagination">
-        <button 
-          onClick={() => handlePageChange(page - 1)} 
-          disabled={page === 1} 
-          className="pagination-btn"
-        >
+        <button onClick={() => handlePageChange(page - 1)} disabled={page === 1} className="pagination-btn">
           Précédent
         </button>
         <span className="page-info">Page {page} sur {totalPages}</span>
-        <button 
-          onClick={() => handlePageChange(page + 1)} 
-          disabled={page === totalPages} 
-          className="pagination-btn"
-        >
+        <button onClick={() => handlePageChange(page + 1)} disabled={page === totalPages} className="pagination-btn">
           Suivant
         </button>
       </div>
