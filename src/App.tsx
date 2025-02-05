@@ -2,48 +2,49 @@ import React, { useState, useEffect } from "react";
 import { useGames } from "./hooks/useGames";
 import Header from "./components/Header";
 import GameList from "./components/GameList";
-import "./assets/css/App.css"; // Import your styles
+import "./assets/css/App.css";
 
 const App: React.FC = () => {
   const [page, setPage] = useState<number>(1);
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [debouncedSearchQuery, setDebouncedSearchQuery] = useState<string>("");
 
-  const { games, loading, totalPages } = useGames(page, debouncedSearchQuery);
+  const { games, loading, hasMore } = useGames(page, debouncedSearchQuery);
 
-  // ⏳ Debounce Effect (Wait 500ms before updating the search query)
+  // ⏳ Debounce pour éviter de lancer la recherche à chaque frappe
   useEffect(() => {
     const handler = setTimeout(() => {
       setDebouncedSearchQuery(searchQuery);
     }, 500);
-
     return () => clearTimeout(handler);
   }, [searchQuery]);
 
   const handleSearchChange = (query: string) => setSearchQuery(query);
-
-  const handlePageChange = (newPage: number) => {
-    if (newPage > 0 && newPage <= totalPages) {
-      setPage(newPage);
-    }
-  };
 
   return (
     <div className="app">
       <Header searchQuery={searchQuery} onSearchChange={handleSearchChange} />
       <h1 className="title">Bibliothèque de jeux vidéo</h1>
 
-      {loading ? <div className="loading">Chargement des jeux...</div> : <GameList games={games} />}
+      {loading && page === 1 ? (
+        <div className="loading">Chargement des jeux...</div>
+      ) : (
+        <>
+          <GameList games={games} />
 
-      <div className="pagination">
-        <button onClick={() => handlePageChange(page - 1)} disabled={page === 1} className="pagination-btn">
-          Précédent
-        </button>
-        <span className="page-info">Page {page} sur {totalPages}</span>
-        <button onClick={() => handlePageChange(page + 1)} disabled={page === totalPages} className="pagination-btn">
-          Suivant
-        </button>
-      </div>
+          {/* Bouton "Charger plus" */}
+          {hasMore && (
+            <div className="load-more-container">
+              <button
+                className="load-more-btn"
+                onClick={() => setPage((prev) => prev + 1)}
+              >
+                Charger plus
+              </button>
+            </div>
+          )}
+        </>
+      )}
     </div>
   );
 };
