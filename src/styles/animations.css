@@ -1,0 +1,15 @@
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Applique l'animation uniquement aux nouveaux éléments ajoutés */
+.game-card.loading-more {
+  animation: fadeInUp 0.5s ease-out;
+}

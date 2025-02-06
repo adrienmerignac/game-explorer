@@ -1,5 +1,4 @@
 import React from "react";
-import "../assets/css/header/header.css";
 
 interface HeaderProps {
   searchQuery: string;

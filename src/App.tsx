@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useGames } from "./hooks/useGames";
 import Header from "./components/Header";
 import GameList from "./components/GameList";
-import "./assets/css/App.css";
+import "./styles/App.css";
 
 const App: React.FC = () => {
   const [page, setPage] = useState<number>(1);

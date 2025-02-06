@@ -1,0 +1,22 @@
+/* Autres règles CSS inchangées... */
+.load-more-btn {
+  background-color: #ff6600;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.load-more-btn:hover {
+  background-color: #cc5200;
+}
+
+.load-more-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding: 20px 0;
+}

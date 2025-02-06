@@ -1,3 +1,4 @@
+/* Body */
 a {
   font-weight: 500;
   color: #646cff;
@@ -8,7 +9,11 @@ a:hover {
 }
 
 body {
+  font-family: "Arial", sans-serif;
+  background-color: #1a1a1a;
   margin: 0;
+  padding: 0;
+  box-sizing: border-box;
   min-width: 320px;
   min-height: 100vh;
 }
@@ -18,7 +23,8 @@ h1 {
   line-height: 1.1;
 }
 
-h1, h2 {
+h1,
+h2 {
   color: white;
 }
 
@@ -52,4 +58,10 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
+}
+
+.title {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 20px;
 }

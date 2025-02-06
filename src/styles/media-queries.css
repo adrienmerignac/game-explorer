@@ -1,0 +1,23 @@
+/* Media queries pour les différentes tailles d'écran */
+
+/* Tablette (écrans de 768px à 1024px) : 2 éléments par ligne */
+@media (max-width: 1024px) {
+  .games-container {
+    grid-template-columns: repeat(2, 1fr); /* 2 colonnes sur tablette */
+  }
+
+  .game-image {
+    height: 180px; /* Ajuster la hauteur des images pour tablette */
+  }
+}
+
+/* Mobile (écrans de moins de 768px) : 1 élément par ligne */
+@media (max-width: 768px) {
+  .games-container {
+    grid-template-columns: 1fr; /* 1 colonne sur mobile */
+  }
+
+  .game-image {
+    height: 150px; /* Ajuster la hauteur des images pour mobile */
+  }
+}

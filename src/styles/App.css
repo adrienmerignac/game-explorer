@@ -1,0 +1,8 @@
+/* App.css */
+
+@import "./animations.css";
+@import "./base.css";
+@import "./buttons.css";
+@import "./gameList.css";
+@import "./header.css";
+@import "./media-queries.css";

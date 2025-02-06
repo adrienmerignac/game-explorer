@@ -1,28 +1,32 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import { Game } from "../services/GameService/GameService.types";
-import "../assets/css/App.css"; // Importer tes styles
 
 interface GameListProps {
   games: Game[];
 }
 
 const GameList: React.FC<GameListProps> = ({ games }) => {
-  console.log(games);
-  const [newGames, setNewGames] = useState<Game[]>([]); // Liste des nouveaux jeux à afficher avec l'animation
-  const [isFirstLoad, setIsFirstLoad] = useState<boolean>(true); // Vérifie si c'est le premier chargement
-  const [loadedGames, setLoadedGames] = useState<Game[]>([]); // Liste des jeux déjà chargés
+  console.log("Rendering GameList", games); // Vérifier le nombre d'affichages
+
+  const [newGames, setNewGames] = useState<Game[]>([]); // Liste des nouveaux jeux à animer
+  const [isFirstLoad, setIsFirstLoad] = useState<boolean>(true);
+  const [loadedGames, setLoadedGames] = useState<Game[]>([]);
 
   useEffect(() => {
     if (isFirstLoad) {
-      setIsFirstLoad(false); // Premier chargement, ne pas appliquer d'animation
-      setLoadedGames(games); // Charger les jeux sans animation
+      setIsFirstLoad(false);
+      setLoadedGames(games);
     } else {
-      // Si ce n'est pas le premier chargement, ajoutons les nouveaux jeux
-      const newGamesToAdd = games.slice(loadedGames.length); // Récupère uniquement les nouveaux jeux
-      setLoadedGames((prevGames) => [...prevGames, ...newGamesToAdd]); // Ajoute à la liste existante des jeux
-      setNewGames(newGamesToAdd); // Ces nouveaux jeux sont ceux à animer
+      if (games.length > loadedGames.length) {
+        const newGamesToAdd = games.slice(loadedGames.length);
+        setLoadedGames((prevGames) => [...prevGames, ...newGamesToAdd]);
+        setNewGames(newGamesToAdd);
+      }
     }
-  }, [games]); // Lorsque la liste des jeux change
+  }, [games, isFirstLoad, loadedGames]); // Ajout de `isFirstLoad` et `loadedGames` pour éviter des dépendances manquantes
+
+  // Utilisation de useMemo pour éviter des recalculs inutiles
+  const displayedGames = useMemo(() => loadedGames, [loadedGames]);
 
   if (games.length === 0) {
     return <p className="no-games">Aucun jeu trouvé.</p>;
@@ -30,15 +34,15 @@ const GameList: React.FC<GameListProps> = ({ games }) => {
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
-    const day = String(date.getDate()).padStart(2, "0"); // Ajouter un zéro devant le jour si nécessaire
-    const month = String(date.getMonth() + 1).padStart(2, "0"); // Ajouter un zéro devant le mois si nécessaire
+    const day = String(date.getDate()).padStart(2, "0");
+    const month = String(date.getMonth() + 1).padStart(2, "0");
     const year = date.getFullYear();
     return `${day}/${month}/${year}`;
   };
 
   return (
     <div className="games-container">
-      {loadedGames.map((game) => (
+      {displayedGames.map((game) => (
         <div
           key={game.id}
           className={`game-card ${
@@ -52,8 +56,7 @@ const GameList: React.FC<GameListProps> = ({ games }) => {
           />
           <div className="game-info">
             <h2 className="game-title">{game.name}</h2>
-            <p className="game-release">{formatDate(game.released)}</p>{" "}
-            {/* Formater la date ici */}
+            <p className="game-release">{formatDate(game.released)}</p>
             <p className="game-rating">Note : {game.rating}</p>
           </div>
         </div>

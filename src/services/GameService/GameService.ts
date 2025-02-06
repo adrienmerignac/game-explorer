@@ -1,6 +1,8 @@
 import axios from "axios";
-import { API_KEY, API_URL } from "./GameService.const";
+import { API_KEY } from "./GameService.const";
 import { GamesResponse } from "./GameService.types";
+
+const API_URL = `https://api.rawg.io/api/games?key=${API_KEY}`;
 
 // Fetch games with optional search query, page, and pageSize
 export const fetchGames = async (
