@@ -1,9 +1,10 @@
 export interface Game {
-  id: number;
-  name: string;
-  released: string;
-  rating: number;
   background_image: string;
+  id: number;
+  metacritic: number;
+  name: string;
+  rating: number;
+  released: string;
 }
 
 export interface GamesResponse {

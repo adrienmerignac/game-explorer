@@ -28,6 +28,18 @@ const GameList: React.FC<GameListProps> = ({ games }) => {
   // Utilisation de useMemo pour éviter des recalculs inutiles
   const displayedGames = useMemo(() => loadedGames, [loadedGames]);
 
+  useEffect(() => {
+    // Préchargement des images des jeux
+    if (games.length > 0) {
+      const largestImage = games[0].background_image; // On prend par défaut la première image
+      const link = document.createElement("link");
+      link.rel = "preload";
+      link.href = largestImage;
+      link.as = "image";
+      document.head.appendChild(link);
+    }
+  }, [games]);
+
   if (games.length === 0) {
     return <p className="no-games">Aucun jeu trouvé.</p>;
   }
@@ -38,6 +50,13 @@ const GameList: React.FC<GameListProps> = ({ games }) => {
     const month = String(date.getMonth() + 1).padStart(2, "0");
     const year = date.getFullYear();
     return `${day}/${month}/${year}`;
+  };
+
+  // Fonction pour déterminer la classe en fonction du score Metacritic
+  const getMetacriticClass = (score: number) => {
+    if (score >= 80) return "metacritic-green"; // Bon score : vert
+    if (score >= 60) return "metacritic-yellow"; // Score moyen : jaune
+    return "metacritic-red"; // Mauvais score : rouge
   };
 
   return (
@@ -55,7 +74,18 @@ const GameList: React.FC<GameListProps> = ({ games }) => {
             className="game-image"
           />
           <div className="game-info">
-            <h2 className="game-title">{game.name}</h2>
+            <h2 className="game-title">
+              {game.name}
+              {game.metacritic && (
+                <span
+                  className={`game-metacritic ${getMetacriticClass(
+                    game.metacritic
+                  )}`}
+                >
+                  {game.metacritic}
+                </span>
+              )}
+            </h2>
             <p className="game-release">{formatDate(game.released)}</p>
             <p className="game-rating">Note : {game.rating}</p>
           </div>
