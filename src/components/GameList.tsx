@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Game } from "../services/GameService";
+import { Game } from "../services/GameService/GameService.types";
 import "../assets/css/App.css"; // Importer tes styles
 
 interface GameListProps {
@@ -7,6 +7,7 @@ interface GameListProps {
 }
 
 const GameList: React.FC<GameListProps> = ({ games }) => {
+  console.log(games);
   const [newGames, setNewGames] = useState<Game[]>([]); // Liste des nouveaux jeux à afficher avec l'animation
   const [isFirstLoad, setIsFirstLoad] = useState<boolean>(true); // Vérifie si c'est le premier chargement
   const [loadedGames, setLoadedGames] = useState<Game[]>([]); // Liste des jeux déjà chargés
@@ -40,7 +41,9 @@ const GameList: React.FC<GameListProps> = ({ games }) => {
       {loadedGames.map((game) => (
         <div
           key={game.id}
-          className={`game-card ${newGames.includes(game) ? "loading-more" : ""}`}
+          className={`game-card ${
+            newGames.includes(game) ? "loading-more" : ""
+          }`}
         >
           <img
             src={game.background_image}
@@ -49,7 +52,8 @@ const GameList: React.FC<GameListProps> = ({ games }) => {
           />
           <div className="game-info">
             <h2 className="game-title">{game.name}</h2>
-            <p className="game-release">{formatDate(game.released)}</p> {/* Formater la date ici */}
+            <p className="game-release">{formatDate(game.released)}</p>{" "}
+            {/* Formater la date ici */}
             <p className="game-rating">Note : {game.rating}</p>
           </div>
         </div>

@@ -1,5 +1,9 @@
 import { useState, useEffect } from "react";
-import { fetchGames, Game, GamesResponse } from "../services/GameService";
+import {
+  fetchGames,
+  Game,
+  GamesResponse,
+} from "../services/GameService/GameService";
 
 export const useGames = (page: number, searchQuery: string) => {
   const [games, setGames] = useState<Game[]>([]);
