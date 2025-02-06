@@ -19,7 +19,9 @@ export const useGames = (page: number, searchQuery: string) => {
         );
 
         // Trier les jeux par note décroissante
-        const sortedGames = data.results.sort((a, b) => b.rating - a.rating);
+        const sortedGames = data.results.sort(
+          (a, b) => b.metacritic - a.metacritic
+        );
 
         // Si c'est la première page, on remplace, sinon on ajoute à la liste
         setGames((prevGames) =>
