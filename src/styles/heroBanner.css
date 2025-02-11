@@ -29,6 +29,7 @@
   border-radius: 8px; /* 🔥 Applique un border-radius au conteneur */
 }
 
+/* 🎯 Ajustement du slider */
 .slick-slider {
   width: 100%;
   height: 100%;
@@ -45,27 +46,16 @@
   position: relative;
 }
 
-.hero-slide {
-  width: 100%;
-  height: 100%; /* Chaque slide prend toute la hauteur */
-  display: flex;
-  justify-content: center; /* Centrer horizontalement */
-  align-items: center; /* Centrer verticalement */
-}
-
-/* 🔥 Assurer que l'image respecte le border-radius */
-.hero-slide__background {
-  background-size: cover;
-  background-position: center;
-  position: absolute;
-  top: 0;
-  left: 0;
+/* 🎯 Assurer que l'image respecte le border-radius et s'affiche rapidement */
+.hero-slide__image {
   width: 100%;
   height: 100%;
-  z-index: 1;
-  border-radius: 8px;
+  aspect-ratio: 16 / 9;
+  display: block;
+  border-radius: 8px; /* ✅ Applique le border-radius */
 }
 
+/* 🎯 Overlay pour améliorer la lisibilité */
 .hero-slide__overlay {
   position: absolute;
   bottom: 20px;
@@ -76,8 +66,8 @@
   background: rgba(0, 0, 0, 0.6); /* Fond sombre pour améliorer la lisibilité */
   padding: 20px;
   border-radius: 8px;
-  width: 80%; /* L'overlay occupe 80% de la largeur du carrousel */
-  z-index: 2; /* L'overlay (texte) doit être au-dessus de l'image */
+  width: 80%;
+  z-index: 2;
 }
 
 .hero-slide__overlay h2 {
@@ -89,7 +79,7 @@
   font-size: 1rem;
 }
 
-/* Flèches de navigation */
+/* 🎯 Flèches de navigation */
 .slick-prev,
 .slick-next {
   position: absolute;
@@ -110,31 +100,19 @@
   right: 10px !important; /* Positionner la flèche de droite */
 }
 
-/* Masquer les dots (petits cercles de navigation sous le carrousel) */
+/* 🎯 Style des dots */
 .slick-dots {
-  display: none; /* Masquer les dots */
-}
-
-/* Assurer que la liste des slides prend la bonne hauteur */
-.slick-list {
-  height: 500px !important; /* Fixer la hauteur du conteneur des slides */
-  overflow: hidden; /* Empêcher que les slides débordent */
-}
-
-/* Affichage des dots */
-.slick-dots {
-  display: block; /* Assurez-vous que les dots sont visibles */
+  display: block;
   position: absolute;
   bottom: 20px !important; /* Positionner les dots en bas du carrousel */
   left: 50%;
-  transform: translateX(-50%); /* Centrer les dots */
+  transform: translateX(-50%);
   z-index: 1000;
   padding: 0;
   margin: 0;
   list-style: none;
 }
 
-/* Style pour chaque dot */
 .slick-dots li {
   display: inline-block;
   margin: 0 5px;
@@ -145,17 +123,15 @@
   opacity: 1 !important; /* Opacité du dot inactif */
 }
 
-/* Style pour le dot actif */
 .slick-dots li.slick-active button::before {
   color: grey !important; /* Dot actif avec une couleur blanche */
 }
 
-/* Style pour chaque dot (bouton) */
 .slick-dots button {
   border: none;
-  background-color: rgba(0, 0, 0, 0.5); /* Couleur de fond pour chaque dot */
+  background-color: rgba(0, 0, 0, 0.5);
   border-radius: 50%;
-  width: 10px; /* Taille du dot */
+  width: 10px;
   height: 10px;
   padding: 0;
   cursor: pointer;

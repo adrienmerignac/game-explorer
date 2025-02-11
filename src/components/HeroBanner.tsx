@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Slider from "react-slick";
-import { getPopularGames } from "../services/GameService"; // Ajuste selon ton service
+import { getPopularGames } from "../services/GameService";
 import { Game } from "../services/GameService.types";
 import { Link } from "react-router-dom";
 
@@ -11,7 +11,17 @@ const HeroBanner: React.FC = () => {
     const fetchGames = async () => {
       try {
         const data = await getPopularGames();
-        setGames(data.results.slice(0, 10)); // Affiche les 5 premiers jeux
+        const gameList = data.results.slice(0, 10);
+        setGames(gameList);
+
+        // ✅ Vérifier si une image est bien définie avant de précharger
+        if (gameList.length > 0 && gameList[0].background_image) {
+          const link = document.createElement("link");
+          link.rel = "preload";
+          link.href = gameList[0].background_image;
+          link.as = "image";
+          document.head.appendChild(link);
+        }
       } catch (error) {
         console.error("Erreur lors du chargement des jeux populaires", error);
       }
@@ -34,22 +44,26 @@ const HeroBanner: React.FC = () => {
   return (
     <div className="hero-banner">
       <Slider {...settings}>
-        {games.map((game) => (
+        {games.map((game, index) => (
           <div key={game.id} className="hero-slide">
             <Link to={`/game/${game.id}`}>
-              <div
-                className="hero-slide__background"
-                style={{
-                  backgroundImage: `url(${game.background_image})`,
-                }}
-              >
-                <div className="hero-slide__overlay">
-                  <h2>{game.name}</h2>
-                  <p>
-                    ⭐ {game.rating} | 🎮{" "}
-                    {game.platforms.map((p) => p.platform.name).join(", ")}
-                  </p>
-                </div>
+              <picture>
+                {/* ✅ Plus de remplacement direct du format d’image */}
+                <source srcSet={game.background_image} type="image/webp" />
+                <img
+                  src={game.background_image}
+                  alt={game.name}
+                  className="hero-slide__image"
+                  loading={index === 0 ? "eager" : "lazy"}
+                />
+              </picture>
+
+              <div className="hero-slide__overlay">
+                <h2>{game.name}</h2>
+                <p>
+                  ⭐ {game.rating} | 🎮{" "}
+                  {game.platforms.map((p) => p.platform.name).join(", ")}
+                </p>
               </div>
             </Link>
           </div>

@@ -30,11 +30,18 @@ const GameList: React.FC<GameListProps> = ({ games }) => {
     <div className="games-container">
       {displayedGames.map((game) => (
         <div key={game.id} className="game-card">
-          <img
-            src={game.background_image}
-            alt={game.name}
-            className="game-image"
-          />
+          <Link to={`/games/${game.id}`} className="game-title-link">
+            <picture>
+              {/* ✅ Suppression du `replace(".jpg", ".webp")` */}
+              <source srcSet={game.background_image} type="image/webp" />
+              <img
+                src={game.background_image}
+                alt={game.name}
+                className="game-image"
+                loading="lazy"
+              />
+            </picture>
+          </Link>
           <div className="game-info">
             <div className="game-title">
               <Link to={`/games/${game.id}`} className="game-title-link">
@@ -51,7 +58,7 @@ const GameList: React.FC<GameListProps> = ({ games }) => {
               )}
             </div>
             <p className="game-release">{formatDate(game.released)}</p>
-            <p className="game-rating">Note : {game.rating}</p>
+            <p className="game-rating">⭐ {game.rating}</p>
           </div>
         </div>
       ))}
