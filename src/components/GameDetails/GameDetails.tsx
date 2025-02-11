@@ -1,7 +1,7 @@
 import React, { useEffect, useReducer, useCallback } from "react";
 import { useParams, Link } from "react-router-dom";
 import { getGameDetails } from "../../services/GameService";
-import sanitizeHtml from "sanitize-html";
+import DOMPurify from "dompurify"; // ✅ Remplacement de sanitize-html
 import { initialState, reducer } from "./GameDetails.const";
 
 const GameDetails: React.FC = () => {
@@ -14,7 +14,10 @@ const GameDetails: React.FC = () => {
       const data = await getGameDetails(id!);
       dispatch({ type: "SUCCESS", payload: data });
     } catch (err) {
-      dispatch({ type: "ERROR", payload: `Impossible de charger les détails du jeu. ${err}` });
+      dispatch({
+        type: "ERROR",
+        payload: `Impossible de charger les détails du jeu. ${err}`,
+      });
     }
   }, [id]);
 
@@ -50,7 +53,9 @@ const GameDetails: React.FC = () => {
             </nav>
 
             <div className="game__head-meta">
-              <div className="game__meta-date">Date de sortie : {state.game.released}</div>
+              <div className="game__meta-date">
+                Date de sortie : {state.game.released}
+              </div>
               <div className="platforms platforms_big">
                 {state.game.platforms?.map((platform) => (
                   <div
@@ -67,7 +72,9 @@ const GameDetails: React.FC = () => {
             <h2>{state.game.name}</h2>
             <div
               className="game-description"
-              dangerouslySetInnerHTML={{ __html: sanitizeHtml(state.game.description) }}
+              dangerouslySetInnerHTML={{
+                __html: DOMPurify.sanitize(state.game.description),
+              }} // ✅ Sécurisation avec DOMPurify
             />
             <p>Note : {state.game.rating}</p>
             <p>Metacritic : {state.game.metacritic}</p>
