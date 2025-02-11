@@ -14,7 +14,8 @@
     "lodash.debounce": "^4.0.8",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "react-router-dom": "^7.1.5"
+    "react-router-dom": "^7.1.5",
+    "sanitize-html": "^2.14.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.17.0",
@@ -22,6 +23,7 @@
     "@types/node": "^22.13.1",
     "@types/react": "^18.3.18",
     "@types/react-dom": "^18.3.5",
+    "@types/sanitize-html": "^2.13.0",
     "@vitejs/plugin-react": "^4.3.4",
     "autoprefixer": "^10.4.20",
     "eslint": "^9.17.0",

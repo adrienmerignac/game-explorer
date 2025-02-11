@@ -35,9 +35,20 @@
 .game-title {
   display: flex;
   font-size: 1.5rem;
+  color: white;
   margin: 10px 0;
   justify-content: space-between;
   align-items: center;
+}
+
+.game-title-link {
+  color: white;
+  text-decoration: none;
+}
+
+.game-title-link:hover {
+  color: white;
+  opacity: 0.6;
 }
 
 .game-metacritic {

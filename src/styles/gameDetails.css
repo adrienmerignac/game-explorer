@@ -1,0 +1,127 @@
+/* Global reset */
+body {
+  background-color: #151515;
+  color: #fff;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+/* Image de fond */
+.page__art {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -2;
+  width: 100%;
+  height: 100%;
+}
+
+.art-wrapper {
+  height: 100%;
+}
+
+.art_colored {
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+}
+
+/* Game details - Centrage et mise en page */
+.game-details {
+  max-width: 800px;
+  display: flex;
+  padding: 30px;
+  justify-content: center;
+  flex-direction: column;
+  margin: 0 auto; /* Ajouté pour centrer */
+}
+
+/* Breadcrumb */
+.breadcrumb {
+  text-align: left;
+  font-size: 0.9rem;
+  margin-bottom: 10px;
+}
+
+.breadcrumb a {
+  color: #aaa;
+  text-decoration: none;
+}
+
+.breadcrumb a:hover {
+  color: #fff;
+}
+
+/* Titre */
+.game-title {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+}
+
+/* Description */
+.game-description {
+  font-size: 1.1rem;
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+
+/* Infos supplémentaires */
+.game-info p {
+  font-size: 1rem;
+  margin: 5px 0;
+}
+
+.game__head-meta {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  margin: 20px 0;
+  color: white;
+  font-size: 1rem;
+}
+
+.game__meta-date,
+.game__meta-playtime {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 8px 15px;
+  border-radius: 5px;
+}
+
+.platforms {
+  display: flex;
+  gap: 10px;
+}
+
+.platforms__platform {
+  width: 30px;
+  height: 30px;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+/* Ajoute des icônes pour les plateformes (tu peux modifier selon ton besoin) */
+.platforms__platform_pc {
+  background-image: url("../assets/images/icons/pc.svg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 40px; /* Ajuste la taille si nécessaire */
+  height: 40px;
+}
+
+.platforms__platform_xbox {
+  background-image: url("/images/icons/xbox.svg");
+}
+
+.platforms__platform_playstation3,
+.platforms__platform_playstation4,
+.platforms__platform_playstation5 {
+  background-image: url("../assets/images/icons/playstation.svg"); /* Change .jpg par .png */
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 40px; /* Ajuste la taille si nécessaire */
+  height: 40px;
+}
+

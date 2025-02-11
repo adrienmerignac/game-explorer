@@ -1,13 +1,12 @@
 import React, { useEffect, useState, useMemo } from "react";
 import { Game } from "../services/GameService/GameService.types";
+import { Link } from "react-router-dom";
 
 interface GameListProps {
   games: Game[];
 }
 
 const GameList: React.FC<GameListProps> = ({ games }) => {
-  console.log("Rendering GameList", games); // Vérifier le nombre d'affichages
-
   const [newGames, setNewGames] = useState<Game[]>([]); // Liste des nouveaux jeux à animer
   const [isFirstLoad, setIsFirstLoad] = useState<boolean>(true);
   const [loadedGames, setLoadedGames] = useState<Game[]>([]);
@@ -74,8 +73,10 @@ const GameList: React.FC<GameListProps> = ({ games }) => {
             className="game-image"
           />
           <div className="game-info">
-            <h2 className="game-title">
-              {game.name}
+            <div className="game-title">
+              <Link to={`/games/${game.id}`} className="game-title-link">
+                {game.name}
+              </Link>
               {game.metacritic && (
                 <span
                   className={`game-metacritic ${getMetacriticClass(
@@ -85,7 +86,7 @@ const GameList: React.FC<GameListProps> = ({ games }) => {
                   {game.metacritic}
                 </span>
               )}
-            </h2>
+            </div>
             <p className="game-release">{formatDate(game.released)}</p>
             <p className="game-rating">Note : {game.rating}</p>
           </div>
