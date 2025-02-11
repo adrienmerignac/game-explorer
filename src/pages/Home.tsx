@@ -13,13 +13,13 @@ const Home: React.FC<HomeProps> = ({ searchQuery }) => {
 
   return (
     <div className="home-container">
+      <HeroBanner />
       <div className="home__discover">
         <h1 className="title">New and trending</h1>
         <p className="subtitle">
           Based on player counts and release date
         </p>
       </div>
-      <HeroBanner />
 
       {loading && page === 1 ? (
         <div className="loading">Chargement des jeux...</div>

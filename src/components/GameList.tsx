@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useMemo } from "react";
-import { Game } from "../services/GameService/GameService.types";
+import { Game } from "../services/GameService.types";
 import { Link } from "react-router-dom";
 
 interface GameListProps {
