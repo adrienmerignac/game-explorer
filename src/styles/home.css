@@ -1,0 +1,37 @@
+.home-container {
+    display: grid;
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  /* Breakpoint pour les écrans petits (mobiles) */
+  @media (max-width: 480px) {
+    .home-container {
+      max-width: 100%; /* Le conteneur prend toute la largeur de l'écran */
+      margin: 0 10px; /* Un peu d'espace sur les côtés */
+    }
+  }
+  
+  /* Breakpoint pour les écrans moyens (tablettes) */
+  @media (max-width: 768px) {
+    .home-container {
+      margin: 0 20px; /* Ajoute de l'espace sur les côtés */
+    }
+  }
+  
+  /* Breakpoint pour les écrans larges */
+  @media (max-width: 1190px) {
+    .home-container {
+      margin: 0 30px; /* Plus d'espace sur les côtés */
+    }
+  }
+  
+  /* Breakpoint pour les écrans très larges (bureau) */
+  @media (min-width: 1200px) {
+    .home-container {
+      max-width: 1200px; /* La largeur maximale est de 1200px */
+      margin: 0 auto; /* Centrage du conteneur */
+    }
+  }
+  

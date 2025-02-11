@@ -6,4 +6,8 @@
 @import "./gameDetails.css";
 @import "./gameList.css";
 @import "./header.css";
+@import "./home.css";
+@import "./heroBanner.css";
 @import "./media-queries.css";
+@import "slick-carousel/slick/slick.css"; 
+@import "slick-carousel/slick/slick-theme.css";

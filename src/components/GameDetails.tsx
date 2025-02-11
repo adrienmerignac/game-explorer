@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
-import { getGameDetails } from "../services/GameService/GameService";
-import { Game } from "../services/GameService/GameService.types";
+import { getGameDetails } from "../services/GameService";
+import { Game } from "../services/GameService.types";
 import sanitizeHtml from "sanitize-html";
 
 const GameDetails: React.FC = () => {

@@ -1,0 +1,140 @@
+/* Hero Banner */
+.hero-banner {
+  width: 100%;
+  height: 300px; /* Fixe la hauteur du carrousel */
+  position: relative;
+  overflow: hidden; /* Empêche l'image de dépasser du conteneur */
+  margin: 0 auto;
+  max-width: 1200px;
+}
+
+.slick-slider {
+  width: 100%;
+  height: 100%;
+}
+
+.slick-track {
+  display: flex;
+  height: 100%;
+}
+
+.slick-slide {
+  display: block;
+  height: 100%; /* Chaque slide prend toute la hauteur disponible */
+  position: relative;
+}
+
+.hero-slide {
+  width: 100%;
+  height: 100%; /* Chaque slide prend toute la hauteur */
+  display: flex;
+  justify-content: center; /* Centrer horizontalement */
+  align-items: center; /* Centrer verticalement */
+}
+
+.hero-slide__background {
+  background-size: cover; /* Assurer que l'image couvre le conteneur */
+  background-position: center center; /* Centrer l'image */
+  position: absolute; /* Positionner l'image en arrière-plan */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%; /* L'image doit couvrir toute la hauteur du conteneur */
+  z-index: 1; /* L'image de fond doit rester derrière le texte */
+}
+
+.hero-slide__overlay {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  color: white;
+  background: rgba(0, 0, 0, 0.6); /* Fond sombre pour améliorer la lisibilité */
+  padding: 20px;
+  border-radius: 8px;
+  width: 80%; /* L'overlay occupe 80% de la largeur du carrousel */
+  z-index: 2; /* L'overlay (texte) doit être au-dessus de l'image */
+}
+
+.hero-slide__overlay h2 {
+  font-size: 1.5rem;
+  margin-bottom: 5px;
+}
+
+.hero-slide__overlay p {
+  font-size: 1rem;
+}
+
+/* Flèches de navigation */
+.slick-prev,
+.slick-next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 999;
+  background-color: rgba(0, 0, 0, 0.5); /* Fond semi-transparent */
+  color: white;
+  border: none;
+  padding: 10px;
+}
+
+.slick-prev {
+  left: 10px !important; /* Positionner la flèche de gauche */
+}
+
+.slick-next {
+  right: 10px !important; /* Positionner la flèche de droite */
+}
+
+/* Masquer les dots (petits cercles de navigation sous le carrousel) */
+.slick-dots {
+  display: none; /* Masquer les dots */
+}
+
+/* Assurer que la liste des slides prend la bonne hauteur */
+.slick-list {
+  height: 300px !important; /* Fixer la hauteur du conteneur des slides */
+  overflow: hidden; /* Empêcher que les slides débordent */
+}
+
+/* Affichage des dots */
+.slick-dots {
+  display: block; /* Assurez-vous que les dots sont visibles */
+  position: absolute;
+  bottom: 20px !important; /* Positionner les dots en bas du carrousel */
+  left: 50%;
+  transform: translateX(-50%); /* Centrer les dots */
+  z-index: 1000;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+/* Style pour chaque dot */
+.slick-dots li {
+  display: inline-block;
+  margin: 0 5px;
+}
+
+.slick-dots li button::before {
+  color: white !important; /* Couleur du dot inactif */
+  opacity: 1 !important; /* Opacité du dot inactif */
+}
+
+/* Style pour le dot actif */
+.slick-dots li.slick-active button::before {
+  color: grey !important; /* Dot actif avec une couleur blanche */
+}
+
+/* Style pour chaque dot (bouton) */
+.slick-dots button {
+  border: none;
+  background-color: rgba(0, 0, 0, 0.5); /* Couleur de fond pour chaque dot */
+  border-radius: 50%;
+  width: 10px; /* Taille du dot */
+  height: 10px;
+  padding: 0;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
