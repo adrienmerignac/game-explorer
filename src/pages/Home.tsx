@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useGames } from "../hooks/useGames";
 import HeroBanner from "../components/HeroBanner";
-import GameList from "../components/GameList";
+import GameList from "../components/GameList/GameList";
 
 interface HomeProps {
   searchQuery: string; // ✅ Ajoute la prop searchQuery
@@ -16,9 +16,7 @@ const Home: React.FC<HomeProps> = ({ searchQuery }) => {
       <HeroBanner />
       <div className="home__discover">
         <h1 className="title">New and trending</h1>
-        <p className="subtitle">
-          Based on player counts and release date
-        </p>
+        <p className="subtitle">Based on player counts and release date</p>
       </div>
 
       {loading && page === 1 ? (

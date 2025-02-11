@@ -11,7 +11,6 @@ const HeroBanner: React.FC = () => {
     const fetchGames = async () => {
       try {
         const data = await getPopularGames();
-        console.log("Data fetched:", data);  // Vérifie les données dans la console
         setGames(data.results.slice(0, 5)); // Affiche les 5 premiers jeux
       } catch (error) {
         console.error("Erreur lors du chargement des jeux populaires", error);

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
 import Home from "./pages/Home";
-import GameDetails from "./components/GameDetails";
+import GameDetails from "./components/GameDetails/GameDetails";
 import "./styles/App.css";
 
 const App: React.FC = () => {
