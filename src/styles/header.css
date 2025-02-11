@@ -231,3 +231,78 @@
     padding: 8px 12px;
   }
 }
+
+/* 📌 Conteneur des suggestions */
+.search-suggestions {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background: #444;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+  max-height: 200px;
+  overflow-y: auto;
+  z-index: 1000;
+
+  /* 🎨 Personnalisation de la scrollbar */
+  scrollbar-width: thin; /* Firefox */
+  scrollbar-color: #666 #333; /* Firefox */
+}
+
+/* 🎨 Scrollbar pour Chrome, Edge, Safari */
+.search-suggestions::-webkit-scrollbar {
+  width: 8px; /* Taille de la scrollbar */
+}
+
+.search-suggestions::-webkit-scrollbar-track {
+  background: #333; /* Couleur du fond de la scrollbar */
+  border-radius: 5px;
+}
+
+.search-suggestions::-webkit-scrollbar-thumb {
+  background: #666; /* Couleur de la barre de défilement */
+  border-radius: 5px;
+  transition: background 0.3s ease;
+}
+
+.search-suggestions::-webkit-scrollbar-thumb:hover {
+  background: #888; /* Légère variation de couleur au hover */
+}
+
+/* 📌 Chaque suggestion */
+.search-suggestion {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #555;
+  text-decoration: none;
+  color: white;
+  transition: background 0.3s ease, opacity 0.3s ease;
+}
+
+.search-suggestion:last-child {
+  border-bottom: none;
+}
+
+/* 🔥 Effet au hover */
+.search-suggestion:hover {
+  color: white;
+  background: #555;
+  opacity: 0.8;
+}
+
+/* 📌 Image dans la suggestion */
+.suggestion-img {
+  width: 40px;
+  height: 40px;
+  margin-right: 10px;
+  object-fit: cover;
+  border-radius: 5px;
+  transition: opacity 0.3s ease;
+}
+
+/* 🔥 Effet au hover pour l'image */
+.search-suggestion:hover .suggestion-img {
+  opacity: 0.7;
+}

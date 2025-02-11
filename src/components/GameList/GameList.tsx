@@ -1,32 +1,15 @@
-import React, { useEffect, useReducer, useMemo } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { GameListProps } from "./GameList.types";
-import { initialState, reducer } from "./GameList.const";
 
 const GameList: React.FC<GameListProps> = ({ games }) => {
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [loadedGames, setLoadedGames] = useState(games);
 
   useEffect(() => {
-    if (state.isFirstLoad) {
-      dispatch({ type: "INITIAL_LOAD", payload: games });
-    } else if (games.length > state.loadedGames.length) {
-      const newGamesToAdd = games.slice(state.loadedGames.length);
-      dispatch({ type: "ADD_NEW_GAMES", payload: newGamesToAdd });
-    }
-  }, [games, state.isFirstLoad, state.loadedGames.length]);
-
-  const displayedGames = useMemo(() => state.loadedGames, [state.loadedGames]);
-
-  useEffect(() => {
-    if (games.length > 0) {
-      const largestImage = games[0].background_image;
-      const link = document.createElement("link");
-      link.rel = "preload";
-      link.href = largestImage;
-      link.as = "image";
-      document.head.appendChild(link);
-    }
+    setLoadedGames(games);
   }, [games]);
+
+  const displayedGames = useMemo(() => loadedGames, [loadedGames]);
 
   if (games.length === 0) {
     return <p className="no-games">Aucun jeu trouvé.</p>;
@@ -46,10 +29,7 @@ const GameList: React.FC<GameListProps> = ({ games }) => {
   return (
     <div className="games-container">
       {displayedGames.map((game) => (
-        <div
-          key={game.id}
-          className={`game-card ${state.newGames.includes(game) ? "loading-more" : ""}`}
-        >
+        <div key={game.id} className="game-card">
           <img
             src={game.background_image}
             alt={game.name}
@@ -62,7 +42,9 @@ const GameList: React.FC<GameListProps> = ({ games }) => {
               </Link>
               {game.metacritic && (
                 <span
-                  className={`game-metacritic ${getMetacriticClass(game.metacritic)}`}
+                  className={`game-metacritic ${getMetacriticClass(
+                    game.metacritic
+                  )}`}
                 >
                   {game.metacritic}
                 </span>

@@ -1,11 +1,53 @@
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
+import { useSearch } from "../context/SearchContext";
+import { fetchGames } from "../services/GameService";
+import { Game } from "../services/GameService.types";
+import { Link } from "react-router-dom";
 
-interface HeaderProps {
-  searchQuery: string;
-  onSearchChange: (query: string) => void;
-}
+const Header: React.FC = () => {
+  const { searchQuery, setSearchQuery, debouncedQuery } = useSearch();
+  const [suggestions, setSuggestions] = useState<Game[]>([]);
+  const [showSuggestions, setShowSuggestions] = useState(false);
+  const searchRef = useRef<HTMLInputElement>(null);
 
-const Header: React.FC<HeaderProps> = ({ searchQuery, onSearchChange }) => {
+  useEffect(() => {
+    const fetchSuggestions = async () => {
+      if (debouncedQuery.length > 1) {
+        try {
+          const data = await fetchGames(1, 5, debouncedQuery);
+          setSuggestions(data.results);
+          setShowSuggestions(true);
+        } catch (error) {
+          console.error(
+            "Erreur lors de la récupération des suggestions :",
+            error
+          );
+        }
+      } else {
+        setSuggestions([]);
+        setShowSuggestions(false);
+      }
+    };
+
+    fetchSuggestions();
+  }, [debouncedQuery]);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        searchRef.current &&
+        !searchRef.current.contains(event.target as Node)
+      ) {
+        setShowSuggestions(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   return (
     <header className="header page__header">
       <div className="header__wrapper">
@@ -16,8 +58,8 @@ const Header: React.FC<HeaderProps> = ({ searchQuery, onSearchChange }) => {
           </a>
         </div>
 
-        {/* Barre de recherche */}
-        <div className="header__item header__item_search">
+        {/* Barre de recherche avec suggestions */}
+        <div className="header__item header__item_search" ref={searchRef}>
           <div className="header__item header__item_center header__search">
             <form
               className="header__search__form"
@@ -29,10 +71,31 @@ const Header: React.FC<HeaderProps> = ({ searchQuery, onSearchChange }) => {
                   type="text"
                   className="header__search__input"
                   role="searchbox"
-                  placeholder="Search 880,571 games"
+                  placeholder="Rechercher un jeu..."
                   value={searchQuery}
-                  onChange={(e) => onSearchChange(e.target.value)}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  onFocus={() => setShowSuggestions(true)}
                 />
+                {/* Afficher les suggestions uniquement si `showSuggestions` est true */}
+                {showSuggestions && suggestions.length > 0 && (
+                  <div className="search-suggestions">
+                    {suggestions.map((game) => (
+                      <Link
+                        key={game.id}
+                        to={`/games/${game.id}`}
+                        className="search-suggestion"
+                        onClick={() => setSearchQuery("")}
+                      >
+                        <img
+                          src={game.background_image}
+                          alt={game.name}
+                          className="suggestion-img"
+                        />
+                        <span>{game.name}</span>
+                      </Link>
+                    ))}
+                  </div>
+                )}
               </div>
             </form>
           </div>

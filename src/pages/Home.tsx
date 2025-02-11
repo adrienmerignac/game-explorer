@@ -1,36 +1,31 @@
 import React, { useState, useEffect } from "react";
+import { useSearch } from "../context/SearchContext"; // 🔥 Import du contexte de recherche
 import { useGames } from "../hooks/useGames";
 import HeroBanner from "../components/HeroBanner";
 import GameList from "../components/GameList/GameList";
 
-interface HomeProps {
-  searchQuery: string;
-}
-
-const Home: React.FC<HomeProps> = ({ searchQuery }) => {
+const Home: React.FC = () => {
+  const { debouncedQuery } = useSearch(); // 🔥 On utilise uniquement `debouncedQuery`
   const [page, setPage] = useState(1);
-  const { games, loading, hasMore } = useGames(page, searchQuery);
+  const { games, loading, hasMore } = useGames(page, ""); // 🔥 On ne passe plus `debouncedQuery` ici
 
-  // 🔥 Réinitialiser la page lorsqu'on effectue une nouvelle recherche
   useEffect(() => {
     setPage(1);
-  }, [searchQuery]);
+  }, [debouncedQuery]); // 🔥 L'effet ne fait que réinitialiser la page, mais ne recharge pas les jeux
 
   return (
     <div className="home-container">
-      {/* 🎠 Hero Banner */}
-      <div className="hero-banner-container">
-        {/* 🎯 Ajout du titre au-dessus du carrousel */}
-        <div className="hero-header">
-          <h1 className="hero-title">🔥 Top Trending Games</h1>
-          <p className="hero-subtitle">
-            Découvrez les jeux les plus populaires du moment
-          </p>
-        </div>
+      <div className="hero-header">
+        <h1 className="hero-title">🔥 Top Trending Games</h1>
+        <p className="hero-subtitle">
+          Découvrez les jeux les plus populaires du moment
+        </p>
+      </div>
+
+      <div className="hero-banner">
         <HeroBanner />
       </div>
 
-      {/* 🎮 Section des jeux */}
       <div className="games-section">
         <div className="home__discover">
           <h1 className="title">New and Trending</h1>

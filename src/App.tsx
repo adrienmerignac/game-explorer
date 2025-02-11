@@ -1,26 +1,24 @@
-import React, { useState } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { SearchProvider } from "./context/SearchContext"; // 🔥 Vérifie que le chemin est correct
 import Header from "./components/Header";
 import Home from "./pages/Home";
 import GameDetails from "./components/GameDetails/GameDetails";
 import "./styles/App.css";
 
 const App: React.FC = () => {
-  const [searchQuery, setSearchQuery] = useState(""); // ✅ Remis ici pour le Header
-
   return (
-    <BrowserRouter>
-      <div className="app">
-        {/* ✅ Correction : passage des props à Header */}
-        <Header searchQuery={searchQuery} onSearchChange={setSearchQuery} />
-
+    <SearchProvider>
+      {" "}
+      {/* 🔥 Le provider englobe toute l'application */}
+      <Router>
+        <Header />
         <Routes>
-          {/* Passer searchQuery à Home */}
-          <Route path="/" element={<Home searchQuery={searchQuery} />} />
+          <Route path="/" element={<Home />} />
           <Route path="/games/:id" element={<GameDetails />} />
         </Routes>
-      </div>
-    </BrowserRouter>
+      </Router>
+    </SearchProvider>
   );
 };
 
