@@ -72,9 +72,14 @@ button:focus-visible {
   margin: 0;
 }
 
+.subtitle {
+  color: #ccc;
+}
+
 /* Breakpoint pour les écrans petits (mobiles) */
 @media (max-width: 480px) {
-  .title {
+  .title,
+  .hero-title {
     font-size: 28px; /* Taille du titre réduite pour les petits écrans */
     line-height: 32px; /* Ajuste la hauteur de ligne pour éviter que le texte se chevauche */
   }
@@ -82,7 +87,8 @@ button:focus-visible {
 
 /* Breakpoint pour les écrans moyens (tablettes) */
 @media (max-width: 768px) {
-  .title {
+  .title,
+  .hero-title {
     font-size: 48px; /* Taille du titre réduite pour les tablettes */
     line-height: 50px; /* Ajuste la hauteur de ligne */
   }
@@ -90,7 +96,8 @@ button:focus-visible {
 
 /* Breakpoint pour les écrans larges (petits ordinateurs portables) */
 @media (max-width: 1024px) {
-  .title {
+  .title,
+  .hero-title {
     font-size: 60px; /* Taille du titre ajustée pour les écrans moyens */
     line-height: 64px; /* Ajuste la hauteur de ligne */
   }
@@ -98,7 +105,8 @@ button:focus-visible {
 
 /* Breakpoint pour les écrans très larges (bureau) */
 @media (min-width: 1200px) {
-  .title {
+  .title,
+  .hero-title {
     font-size: 72px; /* Taille originale pour les grands écrans */
     line-height: 74px; /* Hauteur de ligne originale */
   }

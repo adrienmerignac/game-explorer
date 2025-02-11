@@ -11,7 +11,7 @@ const HeroBanner: React.FC = () => {
     const fetchGames = async () => {
       try {
         const data = await getPopularGames();
-        setGames(data.results.slice(0, 5)); // Affiche les 5 premiers jeux
+        setGames(data.results.slice(0, 10)); // Affiche les 5 premiers jeux
       } catch (error) {
         console.error("Erreur lors du chargement des jeux populaires", error);
       }
@@ -45,7 +45,10 @@ const HeroBanner: React.FC = () => {
               >
                 <div className="hero-slide__overlay">
                   <h2>{game.name}</h2>
-                  <p>⭐ {game.rating} | 🎮 {game.platforms.map(p => p.platform.name).join(", ")}</p>
+                  <p>
+                    ⭐ {game.rating} | 🎮{" "}
+                    {game.platforms.map((p) => p.platform.name).join(", ")}
+                  </p>
                 </div>
               </div>
             </Link>
