@@ -1,10 +1,25 @@
 /* Général */
-/* ✅ HEADER FIX */
 .page__header {
-  background-color: transparent;
-  padding: 24px 40px;
+  background-color: #151515;
   color: white;
   font-family: Arial, sans-serif;
+  padding: 24px 40px;
+  position: sticky;
+  top: 0;
+  z-index: 99999;
+}
+
+/* ✅ Header avec fond coloré (uniquement sur la page Home) */
+.header--colored {
+  background-color: #151515;
+  color: white;
+}
+
+/* ✅ Header transparent (utilisé pour la page de détails du jeu) */
+.header--transparent {
+  background-color: transparent;
+  color: white;
+  transition: background 0.3s ease-in-out;
 }
 
 /* ✅ Ajout d'un espace pour éviter la superposition */
