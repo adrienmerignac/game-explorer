@@ -72,12 +72,13 @@ body {
 }
 
 .game__head-meta {
-  display: flex;
-  gap: 20px;
   align-items: center;
-  margin: 20px 0;
   color: white;
+  display: flex;
   font-size: 1rem;
+  gap: 20px;
+  justify-content: space-between;
+  margin: 20px 0;
 }
 
 .game__meta-date,
@@ -109,8 +110,14 @@ body {
   height: 40px;
 }
 
-.platforms__platform_xbox {
-  background-image: url("/images/icons/xbox.svg");
+.platforms__platform_xbox,
+.platforms__platform_xbox-one {
+  background-image: url("../assets/images/icons/xbox.svg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 40px; /* Ajuste la taille si nécessaire */
+  height: 40px;
 }
 
 .platforms__platform_playstation3,
