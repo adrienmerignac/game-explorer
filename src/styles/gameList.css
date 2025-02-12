@@ -28,7 +28,10 @@
 }
 
 .game-info {
-  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 16px;
 }
 
 .game-title {
@@ -42,12 +45,19 @@
 
 .game-title-link {
   color: white;
+  font-size: 20px;
+  margin: 0;
   text-decoration: none;
 }
 
 .game-title-link:hover {
   color: white;
-  opacity: 0.6;
+}
+
+.game-notations {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .game-metacritic {
@@ -83,6 +93,7 @@
 .game-release {
   font-size: 1rem;
   color: #777;
+  margin: 0;
 }
 
 .game-rating {

@@ -13,6 +13,7 @@ export const getPopularGames = async (
   try {
     const response = await axios.get(API_URL, {
       params: {
+        genres: "role-playing-games-rpg", // ✅ Filtre les RPG
         key: API_KEY,
         ordering: "-rating", // Trier par note décroissante
         page: page,
@@ -20,12 +21,18 @@ export const getPopularGames = async (
       },
     });
 
+    // 🔥 Exclure les jeux qui contiennent "indie" dans leurs genres
+    const filteredResults = response.data.results.filter(
+      (game: Game) =>
+        game.genres && !game.genres.some((genre) => genre.slug === "simulation")
+    );
+
     return {
-      results: response.data.results,
-      count: response.data.count,
+      results: filteredResults,
+      count: filteredResults.length,
     };
   } catch (error) {
-    console.error("Erreur lors de la récupération des jeux populaires : ", error);
+    console.error("Erreur lors de la récupération des jeux RPG : ", error);
     return { results: [], count: 0 };
   }
 };
@@ -67,7 +74,10 @@ export const getGameDetails = async (id: string): Promise<Game> => {
 
     return response.data; // Retourne les détails du jeu
   } catch (error) {
-    console.error("Erreur lors de la récupération des détails du jeu : ", error);
+    console.error(
+      "Erreur lors de la récupération des détails du jeu : ",
+      error
+    );
     throw new Error("Erreur lors du chargement des détails du jeu.");
   }
 };

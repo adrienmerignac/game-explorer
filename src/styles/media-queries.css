@@ -1,23 +1,270 @@
-/* Media queries pour les différentes tailles d'écran */
+/* ============================= */
+/* 📌 GLOSSAIRE */
+/* ============================= */
+/*
+  1️⃣ Général - Ajustements généraux du layout
+  2️⃣ Titres - Ajustement des tailles de titres selon les écrans
+  3️⃣ Hero Banner - Styles et responsive pour la bannière principale
+  4️⃣ Grille des jeux - Responsive pour la grille d'affichage des jeux
+  5️⃣ Conteneur principal (home-container) - Ajustements selon la taille de l'écran
+  6️⃣ Header - Responsive du menu et barre de recherche
+  7️⃣ Liste de Suggestions - Responsive de la liste de suggestions sous la barre de recherche
+*/
 
-/* Tablette (écrans de 768px à 1024px) : 2 éléments par ligne */
-@media (max-width: 1024px) {
-  .games-container {
-    grid-template-columns: repeat(2, 1fr); /* 2 colonnes sur tablette */
-  }
+/* ============================= */
+/* 1️⃣ GÉNÉRAL */
+/* ============================= */
 
-  .game-image {
-    height: 180px; /* Ajuster la hauteur des images pour tablette */
+/* Ajoute ici les styles globaux si besoin */
+
+/* ============================= */
+/* 2️⃣ TITRES - ADAPTATION RESPONSIVE */
+/* ============================= */
+
+/* 📱 Mobile (jusqu'à 480px) */
+@media (max-width: 480px) {
+  .title,
+  .hero-title {
+    font-size: 28px;
+    line-height: 32px;
+    margin-top: 16px;
   }
 }
 
-/* Mobile (écrans de moins de 768px) : 1 élément par ligne */
+/* 📱 Tablettes (481px à 768px) */
+@media (min-width: 481px) and (max-width: 768px) {
+  .title,
+  .hero-title {
+    font-size: 48px;
+    line-height: 50px;
+    margin-top: 24px;
+  }
+}
+
+/* 💻 Petits ordinateurs (769px à 1199px) */
+@media (min-width: 769px) and (max-width: 1199px) {
+  .title,
+  .hero-title {
+    font-size: 60px;
+    line-height: 64px;
+  }
+}
+
+/* 🖥️ Desktop (1200px et plus) */
+@media (min-width: 1200px) {
+  .title,
+  .hero-title {
+    font-size: 72px;
+    line-height: 74px;
+  }
+}
+
+/* ============================= */
+/* 3️⃣ HERO BANNER - RESPONSIVE */
+/* ============================= */
+
+/* 🖥 Desktop (écrans larges) */
+@media (min-width: 1200px) {
+  .hero-banner {
+    height: 500px;
+  }
+}
+
+/* 💻 Petits ordinateurs portables */
+@media (max-width: 1199px) {
+  .hero-banner {
+    height: 400px;
+  }
+}
+
+/* 📱 Tablettes */
 @media (max-width: 768px) {
+  .hero-banner {
+    height: 300px;
+  }
+}
+
+/* 📱 Mobiles */
+@media (max-width: 480px) {
+  .hero-banner {
+    height: 250px;
+    border-radius: 0;
+  }
+}
+
+/* ============================= */
+/* 4️⃣ GRILLE DES JEUX - RESPONSIVE */
+/* ============================= */
+
+@media (max-width: 1024px) {
   .games-container {
-    grid-template-columns: 1fr; /* 1 colonne sur mobile */
+    grid-template-columns: repeat(2, 1fr);
   }
 
   .game-image {
-    height: 150px; /* Ajuster la hauteur des images pour mobile */
+    height: 250px;
+  }
+}
+
+@media (max-width: 768px) {
+  .games-container {
+    grid-template-columns: 1fr;
+  }
+
+  .game-image {
+    height: 250px;
+  }
+}
+
+/* ============================= */
+/* 5️⃣ CONTENEUR PRINCIPAL (HOME-CONTAINER) */
+/* ============================= */
+
+@media (max-width: 480px) {
+  .home-container {
+    gap: 16px;
+    max-width: 100%;
+    margin: 0 16px;
+  }
+}
+
+@media (min-width: 481px) and (max-width: 768px) {
+  .home-container {
+    gap: 24px;
+    margin: 0 24px;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1199px) {
+  .home-container {
+    margin: 0 30px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .home-container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+}
+
+/* ============================= */
+/* 6️⃣ HEADER - RESPONSIVE */
+/* ============================= */
+
+@media (max-width: 768px) {
+  .page__header {
+    padding: 16px 30px;
+  }
+
+  .header__wrapper {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 8px;
+  }
+
+  .logo {
+    font-size: 20px;
+  }
+
+  .header__item_search {
+    justify-content: flex-start;
+    margin-top: 10px;
+    width: 100%;
+  }
+
+  .header__search__input {
+    width: 350px;
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  .header__item-link {
+    font-size: 14px;
+  }
+
+  .header__avatar-link {
+    margin-top: 10px;
+  }
+
+  .header__notifications-icon {
+    width: 20px;
+    height: 20px;
+    margin-left: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .page__header {
+    padding: 8px 20px;
+  }
+
+  .header__wrapper {
+    padding: 10px;
+  }
+
+  .logo {
+    font-size: 18px;
+  }
+
+  .header__search__input {
+    width: 100%;
+    padding: 8px;
+    font-size: 14px;
+  }
+
+  .header__item {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .header__item_search {
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  .header__avatar-link,
+  .header__notifications-icon {
+    display: none;
+  }
+
+  .header__library-link {
+    font-size: 12px;
+    padding: 8px 12px;
+  }
+}
+
+/* ============================= */
+/* 7️⃣ LISTE DE SUGGESTIONS - RESPONSIVE */
+/* ============================= */
+
+@media (max-width: 480px) {
+  .search-suggestions {
+    max-height: 150px;
+    font-size: 14px;
+    padding: 6px;
+  }
+
+  .suggestion-img {
+    width: 30px;
+    height: 30px;
+    margin-right: 8px;
+  }
+}
+
+@media (min-width: 481px) and (max-width: 768px) {
+  .search-suggestions {
+    max-height: 180px;
+  }
+
+  .suggestion-img {
+    width: 35px;
+    height: 35px;
+  }
+}
+
+@media (min-width: 768px) {
+  .search-suggestions {
+    max-height: 250px;
   }
 }

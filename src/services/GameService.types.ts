@@ -1,14 +1,21 @@
 export interface Game {
   background_image: string;
-  id: number;
   description: string;
+  genres: [
+    {
+      id: number;
+      name: string;
+      slug: string;
+    }
+  ];
+  id: number;
   metacritic: number;
   name: string;
-  playtime: number;
   platforms: GamePlateform[];
-  slug: string;
+  playtime: number;
   rating: number;
   released: string;
+  slug: string;
 }
 
 export interface GamesResponse {
@@ -21,10 +28,10 @@ export interface GamePlateform {
     id: number;
     name: string;
     slug: string;
-  },
+  };
   released_at: string;
   requirements: {
     minimum: string;
     recommended: string;
-  }
+  };
 }

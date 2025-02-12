@@ -18,7 +18,7 @@ const Home: React.FC = () => {
       <div className="hero-header">
         <h1 className="hero-title">🔥 Top Trending Games</h1>
         <p className="hero-subtitle">
-          Découvrez les jeux les plus populaires du moment
+          Discover the most popular games of the moment
         </p>
       </div>
 

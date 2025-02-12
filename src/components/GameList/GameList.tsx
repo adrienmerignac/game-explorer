@@ -29,10 +29,13 @@ const GameList: React.FC<GameListProps> = ({ games }) => {
   return (
     <div className="games-container">
       {displayedGames.map((game) => (
-        <div key={game.id} className="game-card">
-          <Link to={`/games/${game.id}`} className="game-title-link">
+        <Link
+          key={game.id}
+          to={`/games/${game.id}`}
+          className="game-title-link"
+        >
+          <div className="game-card">
             <picture>
-              {/* ✅ Suppression du `replace(".jpg", ".webp")` */}
               <source srcSet={game.background_image} type="image/webp" />
               <img
                 src={game.background_image}
@@ -41,26 +44,25 @@ const GameList: React.FC<GameListProps> = ({ games }) => {
                 loading="lazy"
               />
             </picture>
-          </Link>
-          <div className="game-info">
-            <div className="game-title">
-              <Link to={`/games/${game.id}`} className="game-title-link">
-                {game.name}
-              </Link>
-              {game.metacritic && (
-                <span
-                  className={`game-metacritic ${getMetacriticClass(
-                    game.metacritic
-                  )}`}
-                >
-                  {game.metacritic}
-                </span>
-              )}
+            <div className="game-info">
+              <h2 className="game-title-link">{game.name}</h2>
+              <p className="game-release">{formatDate(game.released)}</p>
+
+              <div className="game-notations">
+                <span className="game-rating">⭐ {game.rating}</span>
+                {game.metacritic && (
+                  <span
+                    className={`game-metacritic ${getMetacriticClass(
+                      game.metacritic
+                    )}`}
+                  >
+                    {game.metacritic}
+                  </span>
+                )}
+              </div>
             </div>
-            <p className="game-release">{formatDate(game.released)}</p>
-            <p className="game-rating">⭐ {game.rating}</p>
           </div>
-        </div>
+        </Link>
       ))}
     </div>
   );

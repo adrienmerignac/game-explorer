@@ -82,22 +82,6 @@
   font-weight: bold;
 }
 
-.dropdown_search-suggestions {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  background-color: white;
-  color: black;
-  padding: 8px;
-  width: 100%;
-  border-radius: 8px;
-  display: none;
-}
-
-.dropdown_search-suggestions.active {
-  display: block;
-}
-
 /* Avatar et notifications */
 .header__avatar-link {
   display: flex;
@@ -139,99 +123,6 @@
   background-color: #555;
 }
 
-/* Media Queries for responsiveness */
-
-/* Pour les écrans de tablettes et plus petits */
-@media (max-width: 768px) {
-  .page__header {
-    padding: 16px 30px; /* Réduit le padding pour les tablettes et petits écrans */
-  }
-
-  .header__wrapper {
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 8px;
-  }
-
-  .logo {
-    font-size: 20px;
-  }
-
-  .header__item_search {
-    justify-content: flex-start;
-    margin-top: 10px;
-    width: 100%;
-  }
-
-  .header__search__input {
-    width: 350px;
-    font-size: 14px;
-    padding: 10px;
-  }
-
-  .header__item-link {
-    font-size: 14px;
-  }
-
-  .header__avatar-link {
-    margin-top: 10px;
-  }
-
-  .header__notifications-icon {
-    width: 20px;
-    height: 20px;
-    margin-left: 10px;
-  }
-}
-
-/* Pour les appareils mobiles */
-@media (max-width: 480px) {
-  .page__header {
-    padding: 8px 20px; /* Réduit encore plus le padding pour les petits écrans */
-  }
-
-  .header__wrapper {
-    padding: 10px;
-  }
-
-  .logo {
-    font-size: 18px;
-  }
-
-  .header__search__input {
-    width: 100%;
-    padding: 8px;
-    font-size: 14px;
-  }
-
-  .header__search__input:focus {
-    width: 100%;
-  }
-
-  .header__item {
-    width: 100%;
-    justify-content: space-between;
-  }
-
-  .header__item_search {
-    width: 100%;
-    margin-top: 10px;
-  }
-
-  .header__avatar-link {
-    display: none; /* Masquer l'avatar sur mobile pour la simplicité */
-  }
-
-  .header__notifications-icon {
-    display: none; /* Masquer l'icône de notification sur mobile */
-  }
-
-  .header__library-link {
-    font-size: 12px;
-    padding: 8px 12px;
-  }
-}
-
 /* 📌 Conteneur des suggestions */
 .search-suggestions {
   position: absolute;
@@ -239,38 +130,39 @@
   left: 0;
   width: 100%;
   background: #444;
+  color: white;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
   border-radius: 5px;
   max-height: 200px;
   overflow-y: auto;
   z-index: 1000;
+  padding: 8px;
+  padding-right: 0;
+  transition: max-height 0.3s ease;
 
-  /* 🎨 Personnalisation de la scrollbar */
-  scrollbar-width: thin; /* Firefox */
-  scrollbar-color: #666 #333; /* Firefox */
+  scrollbar-width: thin;
+  scrollbar-color: #666 #333;
 }
 
-/* 🎨 Scrollbar pour Chrome, Edge, Safari */
 .search-suggestions::-webkit-scrollbar {
-  width: 8px; /* Taille de la scrollbar */
+  width: 8px;
 }
 
 .search-suggestions::-webkit-scrollbar-track {
-  background: #333; /* Couleur du fond de la scrollbar */
+  background: #333;
   border-radius: 5px;
 }
 
 .search-suggestions::-webkit-scrollbar-thumb {
-  background: #666; /* Couleur de la barre de défilement */
+  background: #666;
   border-radius: 5px;
   transition: background 0.3s ease;
 }
 
 .search-suggestions::-webkit-scrollbar-thumb:hover {
-  background: #888; /* Légère variation de couleur au hover */
+  background: #888;
 }
 
-/* 📌 Chaque suggestion */
 .search-suggestion {
   display: flex;
   align-items: center;
@@ -285,14 +177,12 @@
   border-bottom: none;
 }
 
-/* 🔥 Effet au hover */
 .search-suggestion:hover {
   color: white;
   background: #555;
   opacity: 0.8;
 }
 
-/* 📌 Image dans la suggestion */
 .suggestion-img {
   width: 40px;
   height: 40px;
@@ -302,7 +192,6 @@
   transition: opacity 0.3s ease;
 }
 
-/* 🔥 Effet au hover pour l'image */
 .search-suggestion:hover .suggestion-img {
   opacity: 0.7;
 }

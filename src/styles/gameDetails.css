@@ -69,7 +69,6 @@ body {
 /* Infos supplémentaires */
 .game-info p {
   font-size: 1rem;
-  margin: 5px 0;
 }
 
 .game__head-meta {
@@ -124,4 +123,3 @@ body {
   width: 40px; /* Ajuste la taille si nécessaire */
   height: 40px;
 }
-
