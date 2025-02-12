@@ -120,6 +120,15 @@ body {
   height: 40px;
 }
 
+.platforms__platform_nintendo-switch {
+  background-image: url("../assets/images/icons/switch.svg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 40px; /* Ajuste la taille si nécessaire */
+  height: 40px;
+}
+
 .platforms__platform_playstation3,
 .platforms__platform_playstation4,
 .platforms__platform_playstation5 {
