@@ -1,0 +1,18 @@
+# Utiliser Node.js comme base
+FROM node:18
+
+# Définir le dossier de travail
+WORKDIR /app
+
+# Copier package.json et installer les dépendances
+COPY package.json package-lock.json ./
+RUN npm install
+
+# Copier le reste du code
+COPY . .
+
+# Exposer le port de Vite (5173 par défaut)
+EXPOSE 5173
+
+# Lancer le serveur de développement Vite
+CMD ["npm", "run", "dev", "--", "--host"]
