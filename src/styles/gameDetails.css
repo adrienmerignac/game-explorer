@@ -29,12 +29,19 @@ body {
 
 /* Game details - Centrage et mise en page */
 .game-details {
-  max-width: 800px;
+  max-width: 900px;
   display: flex;
-  padding: 30px;
-  justify-content: center;
   flex-direction: column;
-  margin: 0 auto; /* Ajouté pour centrer */
+  gap: 24px;
+  padding: 30px;
+  margin: 0 auto;
+}
+
+.game__head-meta {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* 2 colonnes */
+  gap: 16px; /* Espacement entre les éléments */
+  align-items: start; /* Aligne les éléments en haut */
 }
 
 /* Breadcrumb */
@@ -62,8 +69,12 @@ body {
 /* Description */
 .game-description {
   font-size: 1.1rem;
-  margin-bottom: 20px;
   line-height: 1.5;
+}
+
+.game-description p {
+  margin-block-start: 0;
+  margin-block-end: 0;
 }
 
 /* Infos supplémentaires */
@@ -71,71 +82,152 @@ body {
   font-size: 1rem;
 }
 
-.game__head-meta {
-  align-items: center;
-  color: white;
-  display: flex;
-  font-size: 1rem;
-  gap: 20px;
-  justify-content: space-between;
-  margin: 20px 0;
-}
-
 .game__meta-date,
-.game__meta-playtime {
+.game__meta-playtime,
+.game__meta-esrb {
   background: rgba(255, 255, 255, 0.1);
   padding: 8px 15px;
   border-radius: 5px;
+  width: fit-content;
 }
 
+.game__meta-esrb,
+.game__meta-playtime {
+  justify-self: end;
+}
+
+/* Game Title */
+.game__detail-title {
+  margin: 0;
+}
+
+/* Plateformes */
 .platforms {
   display: flex;
   gap: 10px;
 }
 
 .platforms__platform {
-  width: 30px;
-  height: 30px;
+  width: 40px;
+  height: 40px;
   background-size: contain;
   background-repeat: no-repeat;
+  background-position: center;
 }
 
-/* Ajoute des icônes pour les plateformes (tu peux modifier selon ton besoin) */
+/* Ajoute des icônes pour les plateformes */
 .platforms__platform_pc {
   background-image: url("../assets/images/icons/pc.svg");
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-  width: 40px; /* Ajuste la taille si nécessaire */
-  height: 40px;
 }
 
-.platforms__platform_xbox,
-.platforms__platform_xbox-one {
+.platforms__platform_xbox {
   background-image: url("../assets/images/icons/xbox.svg");
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-  width: 40px; /* Ajuste la taille si nécessaire */
-  height: 40px;
 }
 
-.platforms__platform_nintendo-switch {
+.platforms__platform_nintendo {
   background-image: url("../assets/images/icons/switch.svg");
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-  width: 40px; /* Ajuste la taille si nécessaire */
-  height: 40px;
 }
 
-.platforms__platform_playstation3,
-.platforms__platform_playstation4,
-.platforms__platform_playstation5 {
-  background-image: url("../assets/images/icons/playstation.svg"); /* Change .jpg par .png */
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-  width: 40px; /* Ajuste la taille si nécessaire */
-  height: 40px;
+.platforms__platform_playstation {
+  background-image: url("../assets/images/icons/playstation.svg");
+}
+
+.platforms__platform_mac {
+  background-image: url("../assets/images/icons/mac.svg");
+}
+
+/* 🎯 Notes - Barres de progression */
+.ratings {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.rating span {
+  display: block;
+  font-size: 0.9rem;
+  margin-bottom: 5px;
+}
+
+.rating-bar {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 5px;
+  height: 10px;
+  overflow: hidden;
+}
+
+.rating-fill {
+  background: #4caf50;
+  height: 100%;
+}
+
+/* 🏆 Metacritic Scores */
+.metacritic-scores {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.metacritic-score {
+  background: #666;
+  padding: 8px 12px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.platform-name {
+  font-size: 0.9rem;
+  color: #fff;
+}
+
+.score {
+  background: #fff;
+  color: #000;
+  font-weight: bold;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+/* 🎭 ESRB Rating */
+.esrb-rating {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.esrb-rating img {
+  width: 50px;
+  height: auto;
+}
+
+.esrb-rating span {
+  font-size: 1rem;
+}
+
+/* 🖼️ Screenshots */
+.screenshots img {
+  width: 100%;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.2);
+}
+
+/* 🔗 Liens externes */
+.external-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.external-links a {
+  background: #213547;
+  color: #fff;
+  padding: 8px 15px;
+  border-radius: 5px;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.external-links a:hover {
+  background: #333;
 }

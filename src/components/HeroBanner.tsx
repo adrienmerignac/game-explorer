@@ -46,7 +46,7 @@ const HeroBanner: React.FC = () => {
       <Slider {...settings}>
         {games.map((game, index) => (
           <div key={game.id} className="hero-slide">
-            <Link to={`/game/${game.id}`}>
+            <Link to={`/games/${game.id}`}>
               <picture>
                 {/* ✅ Plus de remplacement direct du format d’image */}
                 <source srcSet={game.background_image} type="image/webp" />

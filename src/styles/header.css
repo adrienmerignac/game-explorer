@@ -4,9 +4,6 @@
   color: white;
   font-family: Arial, sans-serif;
   padding: 24px 40px;
-  position: sticky;
-  top: 0;
-  z-index: 99999;
 }
 
 /* ✅ Header avec fond coloré (uniquement sur la page Home) */
