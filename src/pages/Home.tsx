@@ -3,6 +3,8 @@ import { useSearch } from "../context/SearchContext"; // 🔥 Import du contexte
 import { useGames } from "../hooks/useGames";
 import HeroBanner from "../components/HeroBanner";
 import GameList from "../components/GameList/GameList";
+import RecommendedGames from "../components/RecommendedGames/RecommendedGames";
+import TrendingGames from "../components/TrendingGames/TrendingGames";
 
 const Home: React.FC = () => {
   const { debouncedQuery } = useSearch(); // 🔥 On utilise uniquement `debouncedQuery`
@@ -21,14 +23,14 @@ const Home: React.FC = () => {
           Discover the most popular games of the moment
         </p>
       </div>
-
       <div className="hero-banner">
         <HeroBanner />
       </div>
-
+      <RecommendedGames />
+      <TrendingGames />
       <div className="games-section">
         <div className="home__discover">
-          <h1 className="title">New and Trending</h1>
+          <h2 className="title">🔥New and Trending</h2>
           <p className="subtitle">Based on player counts and release date</p>
         </div>
 

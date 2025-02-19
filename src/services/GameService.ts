@@ -47,6 +47,7 @@ export const fetchGames = async (
     const response = await axios.get(API_URL, {
       params: {
         key: API_KEY,
+        ordering: "-metacritic", // Trier par note
         page: page,
         page_size: pageSize,
         search: searchQuery, // Ajout de la recherche
@@ -79,5 +80,39 @@ export const getGameDetails = async (id: string): Promise<Game> => {
       error
     );
     throw new Error("Erreur lors du chargement des détails du jeu.");
+  }
+};
+
+export const getRecommendedGames = async () => {
+  try {
+    const response = await axios.get(API_URL, {
+      params: {
+        genres: "action", // ✅ Filtre les RPG
+        key: API_KEY,
+        ordering: "-rating", // Trier par note
+        page_size: 5, // 6 recommandations
+      },
+    });
+
+    return response.data.results;
+  } catch (error) {
+    console.error("Erreur lors du chargement des recommandations :", error);
+    return [];
+  }
+};
+
+export const getTrendingGames = async () => {
+  try {
+    const response = await axios.get(API_URL, {
+      params: {
+        key: API_KEY,
+        ordering: "-added", // 🔥 Trie par popularité (nombre d'ajouts)
+        page_size: 5,
+      },
+    });
+    return response.data.results;
+  } catch (error) {
+    console.error("Erreur lors du chargement des jeux tendances :", error);
+    return [];
   }
 };

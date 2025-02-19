@@ -1,0 +1,131 @@
+/* ✅ Section principale */
+.trending-section {
+  padding: 40px 0;
+  width: 100%;
+  overflow: hidden; /* ✅ Empêche les débordements */
+}
+
+.trending-section h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #fff;
+}
+
+/* ✅ Conteneur des jeux */
+.trending-games {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(180px, 1fr)
+  ); /* 🔥 Ajusté pour éviter les débordements */
+  gap: 20px;
+  justify-content: center;
+  align-items: start;
+  max-width: 100%; /* ✅ Évite le débordement sur mobile */
+  margin: 0 auto;
+}
+
+/* ✅ Cartes des jeux */
+.game-card-trending {
+  background-color: #2c2c2c;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  width: 100%;
+}
+
+.game-card-trending:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+/* ✅ Image du jeu */
+.game-card__image {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+}
+
+/* ✅ Contenu de la carte */
+.game-card__content {
+  padding: 12px;
+  color: #fff;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.game-card__content p {
+  font-weight: bold;
+}
+
+/* ✅ Titre avec ellipsis si trop long */
+.game-card__content h3 {
+  font-size: 16px;
+  font-weight: bold;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ✅ Nombre de joueurs */
+.game-card__content p {
+  font-size: 14px;
+  color: #ffcc00;
+  margin-top: 5px;
+}
+
+/* ✅ Responsive pour tablette */
+@media (max-width: 1024px) {
+  .trending-games {
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  }
+
+  .game-card__image {
+    height: 120px;
+  }
+}
+
+/* ✅ Responsive pour mobile */
+@media (max-width: 768px) {
+  .trending-games {
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    padding: 0 5px; /* 🔥 Évite l'overflow horizontal */
+  }
+
+  .game-card-trending {
+    min-height: 180px;
+  }
+
+  .game-card__image {
+    height: 100px;
+  }
+
+  .game-card__content h3 {
+    font-size: 14px;
+  }
+}
+
+/* ✅ Très petits écrans */
+@media (max-width: 480px) {
+  .trending-games {
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  }
+
+  .game-card-trending {
+    min-height: 170px;
+  }
+
+  .game-card__image {
+    height: 90px;
+  }
+
+  .game-card__content h3 {
+    font-size: 13px;
+  }
+}

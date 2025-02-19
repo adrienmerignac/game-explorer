@@ -18,15 +18,16 @@ export const useGames = (page: number, searchQuery: string) => {
           searchQuery
         );
 
-        // Trier les jeux par note décroissante
-        const sortedGames = data.results.sort(
+        // 🔥 Trier uniquement les nouveaux jeux avant de les ajouter
+        const sortedNewGames = data.results.sort(
           (a, b) => b.metacritic - a.metacritic
         );
 
-        // Si c'est la première page, on remplace, sinon on ajoute à la liste
-        setGames((prevGames) =>
-          page === 1 ? sortedGames : [...prevGames, ...sortedGames]
-        );
+        setGames((prevGames) => {
+          return page === 1
+            ? sortedNewGames
+            : [...prevGames, ...sortedNewGames];
+        });
 
         // Vérifier s'il reste des jeux à charger
         setHasMore(data.results.length === pageSize);

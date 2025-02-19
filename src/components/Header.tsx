@@ -29,7 +29,7 @@ const Header: React.FC = () => {
         </label>
 
         {/* ✅ Sidebar (mobile uniquement) */}
-        <aside className="sidebar">
+        <div className="sidebar">
           <label htmlFor="sidebar-toggle" className="sidebar-close">
             ✖
           </label>
@@ -49,7 +49,7 @@ const Header: React.FC = () => {
               </li>
             </ul>
           </nav>
-        </aside>
+        </div>
 
         {/* ✅ Logo */}
         <div className="header__item">

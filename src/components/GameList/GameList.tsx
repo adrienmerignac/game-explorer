@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { GameListProps } from "./GameList.types";
+import fallbackImage from "../../assets/images/fallback-image.webp";
 
 const GameList: React.FC<GameListProps> = ({ games }) => {
   const [loadedGames, setLoadedGames] = useState(games);
@@ -38,8 +39,8 @@ const GameList: React.FC<GameListProps> = ({ games }) => {
             <picture>
               <source srcSet={game.background_image} type="image/webp" />
               <img
-                src={game.background_image}
-                alt={game.name}
+                src={game.background_image || fallbackImage} // 🔥 Utilisation du fallback
+                alt={game.name || "Image non disponible"}
                 className="game-image"
                 loading="lazy"
               />
@@ -49,7 +50,9 @@ const GameList: React.FC<GameListProps> = ({ games }) => {
               <p className="game-release">{formatDate(game.released)}</p>
 
               <div className="game-notations">
-                <span className="game-rating">⭐ {game.rating}</span>
+                <span className="game-rating">
+                  ⭐ {game.rating > 0 ? game.rating : "Assessment pending"}
+                </span>
                 {game.metacritic && (
                   <span
                     className={`game-metacritic ${getMetacriticClass(

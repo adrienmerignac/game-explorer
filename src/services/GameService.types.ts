@@ -1,4 +1,5 @@
 export interface Game {
+  added: number;
   background_image: string;
   background_image_additional: string;
   description: string;

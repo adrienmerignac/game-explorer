@@ -28,6 +28,10 @@ h2 {
   color: white;
 }
 
+h2 {
+  margin-top: 0;
+}
+
 button {
   border-radius: 8px;
   border: 1px solid transparent;
@@ -60,14 +64,6 @@ button:focus-visible {
   }
 }
 
-.title {
-  font-size: 72px;
-  line-height: 74px;
-  font-weight: 700;
-  margin: 0;
-}
-
-.title,
 .subtitle {
   margin: 0;
 }
