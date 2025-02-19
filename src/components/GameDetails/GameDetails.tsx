@@ -37,8 +37,6 @@ const GameDetails: React.FC = () => {
 
   const { game } = state;
 
-  console.log("game", game);
-
   return (
     <>
       {game && (
@@ -126,7 +124,10 @@ const GameDetails: React.FC = () => {
               {game.ratings &&
                 Object.entries(game.ratings).map(([key, value]: any) => (
                   <div key={key} className="rating">
-                    <span>{value.title}</span>
+                    <span>
+                      {value.title.charAt(0).toUpperCase() +
+                        value.title.slice(1)}
+                    </span>
                     <div className="rating-bar">
                       <div
                         className="rating-fill"
@@ -183,7 +184,7 @@ const GameDetails: React.FC = () => {
                 </a>
               )}
 
-              {game.youtube_count && (
+              {game.youtube_count > 0 && (
                 <a
                   href={`https://www.youtube.com/results?search_query=${game.name}`}
                   target="_blank"

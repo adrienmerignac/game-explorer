@@ -161,7 +161,6 @@
   .header__wrapper {
     flex-direction: column;
     align-items: flex-start;
-    padding: 8px;
   }
 
   .logo {
@@ -197,11 +196,13 @@
 
 @media (max-width: 480px) {
   .page__header {
-    padding: 8px 20px;
+    margin-top: 64px;
+    padding: 0px 30px;
   }
 
   .header__wrapper {
-    padding: 10px;
+    padding-left: 0;
+    width: 100%;
   }
 
   .logo {
@@ -248,7 +249,7 @@
     max-height: 150px;
     font-size: 14px;
     padding: 6px;
-    width: initial;
+    width: -webkit-fill-available;
   }
 
   .suggestion-img {
