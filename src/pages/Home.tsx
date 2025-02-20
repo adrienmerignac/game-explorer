@@ -5,7 +5,7 @@ import HeroBanner from "../components/HeroBanner";
 import GameList from "../components/GameList/GameList";
 import RecommendedGames from "../components/RecommendedGames/RecommendedGames";
 import TrendingGames from "../components/TrendingGames/TrendingGames";
-import UpcomingReleases from "../components/UpcomingReleases/UpcomingReleases"; // ✅ Import du composant
+import UpcomingReleases from "../components/UpcomingReleases/UpcomingReleases";
 
 import "../styles/heroHeader.css";
 
@@ -32,7 +32,7 @@ const Home: React.FC = () => {
 
   // ✅ Préchargement correct de l’image LCP sans erreur 404
   useEffect(() => {
-    if (document.querySelector('link[rel="preload"][as="image"]')) return; // ✅ Empêche les doublons
+    if (document.querySelector('link[rel="preload"][as="image"]')) return;
 
     const mobileQuery = window.matchMedia("(max-width: 768px)");
 
@@ -57,19 +57,19 @@ const Home: React.FC = () => {
           </p>
         </div>
 
-        {/* ✅ Image LCP optimisée avec placeholder dynamique */}
+        {/* ✅ Image LCP optimisée avec placeholder géré correctement */}
         <div className="hero-header__image">
-          {/* 🔥 Placeholder ultra-léger affiché immédiatement */}
+          {/* ✅ Placeholder affiché immédiatement */}
           <img
             src={homePageImagePlaceholder}
             alt="Loading placeholder"
             className={`lcp-placeholder ${imageLoaded ? "fade-out" : ""}`}
-            width="100%"
-            height="100%"
           />
 
-          <picture>
-            {/* 🔥 Version mobile optimisée */}
+          {/* ✅ Image LCP avec fade-in */}
+          <picture
+            className={`lcp-wrapper ${imageLoaded ? "image-loaded" : ""}`}
+          >
             <source
               srcSet={homePageImageMobileAVIF}
               type="image/avif"
@@ -81,21 +81,17 @@ const Home: React.FC = () => {
               media="(max-width: 768px)"
             />
 
-            {/* ✅ Version desktop optimisée */}
             <source srcSet={homePageImageAVIF} type="image/avif" />
             <source srcSet={homePageImageWebP} type="image/webp" />
 
-            {/* 🔥 Image LCP principale */}
             <img
               src={homePageImageWebP}
               alt="Featured Game"
               className="lcp-image"
               loading="eager"
               decoding="async"
-              width="100%"
-              height="100%"
               fetchPriority="high"
-              onLoad={() => setImageLoaded(true)} // ✅ Détecte le chargement
+              onLoad={() => setImageLoaded(true)}
             />
           </picture>
         </div>

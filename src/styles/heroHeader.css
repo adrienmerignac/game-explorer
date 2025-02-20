@@ -47,23 +47,22 @@
   color: #ccc;
 }
 
-/* ✅ Assurer la hauteur de l'image LCP */
+/* ✅ Conteneur de l’image LCP */
 .hero-header__image {
-  align-items: center;
+  position: relative;
+  width: 100%;
+  min-height: 50vh; /* ✅ Empêche les décalages sur mobile */
   display: flex;
-  height: auto; /* 🔥 Hauteur auto pour éviter CLS */
+  align-items: center;
   justify-content: center;
-  max-width: 600px;
   overflow: hidden;
-  width: 50%;
 }
 
 .hero-header__image picture {
   height: inherit;
 }
 
-/* ✅ Image LCP bien intégrée */
-/* ✅ Placeholder visible au début */
+/* ✅ Placeholder initial */
 .lcp-placeholder {
   position: absolute;
   top: 0;
@@ -72,13 +71,27 @@
   height: 100%;
   object-fit: cover;
   z-index: 2;
-  transition: opacity 0.6s ease-in-out; /* ✅ Transition fluide */
+  transition: opacity 0.5s ease-in-out;
 }
 
-/* ✅ Masque le placeholder quand l’image LCP est chargée */
+/* ✅ Masque progressivement le placeholder quand l’image est chargée */
 .lcp-placeholder.fade-out {
   opacity: 0;
   visibility: hidden;
+}
+
+/* ✅ Appliquer une transition douce sur l’image principale */
+.lcp-wrapper img.lcp-image {
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+/* ✅ Dès que l’image est chargée, elle apparaît progressivement */
+.lcp-wrapper.image-loaded img.lcp-image {
+  opacity: 1;
 }
 
 /* ✅ Version mobile */
@@ -104,7 +117,16 @@
   }
 
   .hero-header__image {
+    min-height: 40vh;
+  }
+
+  .lcp-wrapper img.lcp-image {
     width: 100%;
-    height: 350px; /* 🔥 Fixe la hauteur de l’image pour éviter CLS */
+    height: auto;
+  }
+
+  .lcp-placeholder {
+    width: 100%;
+    height: auto;
   }
 }
