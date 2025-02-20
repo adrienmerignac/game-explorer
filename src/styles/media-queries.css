@@ -104,7 +104,10 @@
 
 @media (max-width: 768px) {
   .games-container {
-    grid-template-columns: 1fr;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    margin: initial;
   }
 
   .game-image {
@@ -119,21 +122,14 @@
 @media (max-width: 480px) {
   .home-container {
     gap: 48px;
-    max-width: 100%;
-    margin: 0 16px;
+    padding: 0 16px;
+    margin: 0 auto;
   }
 }
 
-@media (min-width: 481px) and (max-width: 768px) {
+@media (min-width: 481px) and (max-width: 1199px) {
   .home-container {
-    gap: 24px;
-    margin: 0 24px;
-  }
-}
-
-@media (min-width: 769px) and (max-width: 1199px) {
-  .home-container {
-    margin: 0 30px;
+    padding: 0 24px;
   }
 }
 

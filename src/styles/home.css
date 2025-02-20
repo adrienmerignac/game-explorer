@@ -1,10 +1,12 @@
+/* 🔥 Fix overflow et largeur sur mobile */
 .home-container {
-  margin: 0 auto;
-  max-width: 1200px;
-  align-items: center;
-  display: grid;
+  display: flex;
   flex-direction: column;
-  gap: 40px;
+  align-items: center;
+  max-width: 100%;
+  overflow-x: hidden; /* ✅ Empêche tout débordement horizontal */
+  margin: 0 auto;
+  padding: 0;
 }
 
 /* 🎮 Section des jeux */
@@ -19,14 +21,6 @@
 /* 🏆 En-tête "New and Trending" */
 .home__discover {
   margin-bottom: 20px;
-}
-
-.games-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 20px;
-  width: 100%;
-  justify-content: center;
 }
 
 /* ✅ Très petits écrans */

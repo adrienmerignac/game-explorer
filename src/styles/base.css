@@ -1,4 +1,11 @@
 /* Body */
+/* 🔥 Empêche le dépassement horizontal global */
+html,
+body {
+  overflow-x: hidden;
+  width: 100vw;
+}
+
 a {
   font-weight: 500;
   color: #646cff;

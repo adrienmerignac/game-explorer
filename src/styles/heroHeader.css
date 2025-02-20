@@ -28,7 +28,6 @@
 
 /* ✅ Zone de texte */
 .hero-header__text {
-  max-width: 50%;
   text-align: left;
 }
 
@@ -86,12 +85,14 @@
 
 /* ✅ Dès que l’image est chargée */
 .image-loaded .lcp-image {
+  border-radius: 8px;
   opacity: 1;
 }
 
 /* ✅ Version mobile */
 @media (max-width: 768px) {
   .hero-header {
+    padding: 24px 0;
     height: 80vh; /* 🔥 Moins grand sur mobile */
     flex-direction: column;
   }
