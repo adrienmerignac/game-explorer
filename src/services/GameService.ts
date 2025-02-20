@@ -116,3 +116,26 @@ export const getTrendingGames = async () => {
     return [];
   }
 };
+
+export const getUpcomingGames = async () => {
+  try {
+    const today = new Date();
+    const formattedToday = today.toISOString().split("T")[0]; // Formate en "YYYY-MM-DD"
+    const endOfYear = `${today.getFullYear()}-12-31`;
+
+    dates: `${formattedToday},${endOfYear}`;
+
+    const response = await axios.get(API_URL, {
+      params: {
+        key: API_KEY,
+        dates: `${formattedToday},${endOfYear}`,
+        ordering: "released",
+        page_size: 10, // Récupère 10 jeux
+      },
+    });
+    return response.data.results;
+  } catch (error) {
+    console.error("Erreur lors du chargement des jeux à venir:", error);
+    return [];
+  }
+};

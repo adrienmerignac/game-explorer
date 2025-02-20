@@ -36,11 +36,7 @@ const GameList: React.FC<GameListProps> = ({ games }) => {
   return (
     <div className="games-container">
       {displayedGames.map((game) => (
-        <Link
-          key={game.id}
-          to={`/games/${game.id}`}
-          className="game-title-link"
-        >
+        <Link key={game.id} to={`/games/${game.id}`} className="game-card-link">
           <div className="game-card">
             <picture>
               {/* ✅ Utilisation du composant OptimizedImage */}

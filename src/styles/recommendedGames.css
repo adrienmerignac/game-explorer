@@ -5,6 +5,10 @@
   overflow: hidden;
 }
 
+.recommended-section h2 {
+  text-transform: uppercase;
+}
+
 /* ✅ Conteneur des cartes */
 .recommended-games {
   display: grid;

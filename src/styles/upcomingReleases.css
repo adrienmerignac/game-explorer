@@ -1,0 +1,151 @@
+/* ✅ Conteneur principal */
+.upcoming-releases {
+  padding: 50px 0;
+}
+
+/* ✅ Titre de la section */
+.section-title {
+  font-size: 24px;
+  font-weight: bold;
+  color: #fff;
+  margin-bottom: 20px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+/* ✅ Conteneur des cartes avec CSS Grid */
+.upcoming-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); /* Adaptatif */
+  gap: 20px;
+  justify-content: center;
+}
+
+/* ✅ Carte d'un jeu */
+.upcoming-card {
+  background-color: #222;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s;
+  display: grid; /* 🔥 Utilisation de CSS Grid */
+  grid-template-rows: auto 1fr auto; /* ✅ Assure une structure fixe */
+  align-items: start;
+}
+
+.upcoming-card:hover {
+  transform: translateY(-5px);
+}
+
+/* ✅ Image */
+.upcoming-image {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 10px 10px 0 0;
+}
+
+/* ✅ Infos */
+.upcoming-info {
+  padding: 15px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1; /* 🔥 Permet aux titres longs de ne pas pousser le bouton */
+  justify-content: space-between;
+}
+
+/* ✅ Titre du jeu */
+.upcoming-info h3 {
+  font-size: 16px;
+  color: #fff;
+  margin-bottom: 10px;
+  min-height: 40px; /* 🔥 Fixe une hauteur pour éviter le décalage */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 10px;
+}
+
+.upcoming-info p {
+  font-size: 14px;
+  color: #aaa;
+}
+
+/* ✅ Bouton Wishlist */
+.wishlist-btn {
+  align-items: center;
+  align-self: center; /* 🔥 Centre le bouton verticalement */
+  background-color: #d62c2c;
+  border-radius: 5px;
+  border: none;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  font-size: 14px;
+  font-weight: bold;
+  gap: 8px;
+  justify-content: center;
+  margin-top: auto; /* ✅ Place le bouton toujours en bas */
+  max-width: 180px;
+  padding: 10px 14px;
+  transition: background 0.3s, transform 0.2s;
+  width: 100%;
+}
+
+.wishlist-btn:hover {
+  background-color: #b52222; /* 🔥 Rouge encore plus foncé au hover */
+}
+
+/* ✅ Icône du cœur avec un meilleur contraste */
+.wishlist-btn svg {
+  width: 18px;
+  height: 18px;
+  fill: white; /* ✅ Passe en blanc pour un contraste maximal */
+}
+
+.wishlist-icon {
+  width: 18px;
+  height: 18px;
+  fill: white;
+}
+
+/* ✅ RESPONSIVE DESIGN */
+@media (max-width: 1024px) {
+  .upcoming-container {
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  }
+
+  .upcoming-image {
+    height: 150px;
+  }
+
+  .upcoming-info h3 {
+    font-size: 14px;
+    min-height: 36px;
+  }
+
+  .upcoming-info p {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 768px) {
+  .upcoming-container {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  }
+
+  .upcoming-info h3 {
+    font-size: 12px;
+    min-height: 32px;
+  }
+
+  .upcoming-image {
+    height: 120px;
+  }
+
+  .wishlist-btn {
+    padding: 6px 10px;
+  }
+}

@@ -5,6 +5,10 @@
   overflow: hidden;
 }
 
+.trending-section h2 {
+  text-transform: uppercase;
+}
+
 /* ✅ Conteneur des jeux */
 .trending-games {
   display: grid;

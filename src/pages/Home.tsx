@@ -5,6 +5,8 @@ import HeroBanner from "../components/HeroBanner";
 import GameList from "../components/GameList/GameList";
 import RecommendedGames from "../components/RecommendedGames/RecommendedGames";
 import TrendingGames from "../components/TrendingGames/TrendingGames";
+import UpcomingReleases from "../components/UpcomingReleases/UpcomingReleases"; // ✅ Import du composant
+
 import "../styles/heroHeader.css";
 import "lazysizes";
 
@@ -84,6 +86,9 @@ const Home: React.FC = () => {
           </picture>
         </div>
       </section>
+
+      {/* ✅ Section des jeux à venir */}
+      <UpcomingReleases />
 
       {/* ✅ 2️⃣ HeroBanner plus bas */}
       <HeroBanner />
