@@ -116,7 +116,7 @@
 /* ✅ Très petits écrans */
 @media (max-width: 480px) {
   .trending-section {
-    padding: 24px 0;
+    padding: 32px 0;
   }
 
   .trending-games {

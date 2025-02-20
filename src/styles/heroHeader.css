@@ -1,15 +1,31 @@
 /* ✅ SECTION HEADER ULTRA-LÉGÈRE */
 .hero-header {
+  align-items: center;
+  border-radius: 8px;
   display: flex;
   flex-direction: row;
-  align-items: center;
+  height: 85vh;
   justify-content: space-between; /* 🔥 Sépare bien le texte et l'image */
-  width: 100%;
-  max-width: 1200px;
   margin: 0 auto;
-  padding: 42px 0px; /* 🔥 Ajoute de l'espace autour du texte */
+  max-width: 1200px;
   min-height: 550px; /* 🔥 Fixe une hauteur pour éviter les shifts */
-  border-radius: 8px;
+  scroll-snap-align: start; /* ✅ Chaque section s’aligne parfaitement au viewport */
+  width: 100%;
+}
+
+/* ✅ Effet de fondu sur le texte pour améliorer la transition */
+.hero-header h1,
+.hero-header p {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeIn 1s ease-in-out forwards;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* ✅ Zone de texte */
@@ -59,10 +75,11 @@
 /* ✅ Version mobile */
 @media (max-width: 768px) {
   .hero-header {
-    flex-direction: column; /* 🔥 Passe en colonne sur mobile */
-    text-align: center;
+    height: 60vh;
+    justify-content: unset;
+    flex-direction: column;
     min-height: 400px; /* 🔥 Ajuste la hauteur sur mobile */
-    padding: 24px 0px;
+    padding: 32px 0px;
   }
 
   .hero-header__text {

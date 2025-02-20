@@ -204,7 +204,7 @@
 /* 🔥 Très petits écrans */
 @media (max-width: 480px) {
   .hero-banner-section {
-    padding: 24px 0px;
+    padding: 32px 0px;
   }
 
   .hero-banner {

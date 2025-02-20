@@ -98,7 +98,7 @@ const Home: React.FC = () => {
       <TrendingGames />
 
       {/* ✅ 4️⃣ Liste des jeux */}
-      <div className="games-section">
+      <section className="games-section">
         <div className="home__discover">
           <h2 className="title">🔥 New and Trending</h2>
           <p className="subtitle">Based on player counts and release date</p>
@@ -121,7 +121,7 @@ const Home: React.FC = () => {
             )}
           </>
         )}
-      </div>
+      </section>
     </div>
   );
 };
