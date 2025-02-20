@@ -5,9 +5,14 @@ import HeroBanner from "../components/HeroBanner";
 import GameList from "../components/GameList/GameList";
 import RecommendedGames from "../components/RecommendedGames/RecommendedGames";
 import TrendingGames from "../components/TrendingGames/TrendingGames";
-import homePageImage from "../assets/images/home-page-image.webp";
-import homePageImageMobile from "../assets/images/home-page-image-mobile.webp";
 import "../styles/heroHeader.css";
+
+// ✅ Importation des images AVIF, WebP et fallback
+import homePageImageAVIF from "../assets/images/home-page-image.avif";
+import homePageImageWebP from "../assets/images/home-page-image.webp";
+
+import homePageImageMobileAVIF from "../assets/images/home-page-image-mobile.avif";
+import homePageImageMobileWebP from "../assets/images/home-page-image-mobile.webp";
 
 const Home: React.FC = () => {
   const { debouncedQuery } = useSearch();
@@ -28,19 +33,36 @@ const Home: React.FC = () => {
             Explore the most popular games of the moment
           </p>
         </div>
+
         {/* ✅ Image rapide en LCP avec optimisation */}
         <div className="hero-header__image">
           <picture>
-            <source srcSet={homePageImageMobile} media="(max-width: 768px)" />
+            {/* 🔥 Version mobile optimisée */}
+            <source
+              srcSet={homePageImageMobileAVIF}
+              type="image/avif"
+              media="(max-width: 768px)"
+            />
+            <source
+              srcSet={homePageImageMobileWebP}
+              type="image/webp"
+              media="(max-width: 768px)"
+            />
+
+            {/* ✅ Version desktop optimisée */}
+            <source srcSet={homePageImageAVIF} type="image/avif" />
+            <source srcSet={homePageImageWebP} type="image/webp" />
+
+            {/* 🔥 Fallback si aucune image n'est compatible */}
             <img
-              src={homePageImage}
+              src={homePageImageWebP}
               alt="Featured Game"
               className="lcp-image"
               loading="eager"
               decoding="async"
               width="100%"
               height="100%"
-              {...({ fetchpriority: "high" } as any)} // 🔥 Correction TS
+              fetchPriority="high"
             />
           </picture>
         </div>
