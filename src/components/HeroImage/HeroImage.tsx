@@ -14,14 +14,14 @@ const HeroImage: React.FC = () => {
 
   return (
     <div className="hero-header__image">
-      {/* ✅ Placeholder affiché immédiatement */}
+      {/* ✅ Placeholder en arrière-plan */}
       <img
         src={homePageImagePlaceholder}
         alt="Loading placeholder"
-        className={`lcp-placeholder ${imageLoaded ? "fade-out" : ""}`}
+        className="lcp-placeholder"
       />
 
-      {/* ✅ Image principale avec fade-in */}
+      {/* ✅ Image LCP avec fade-in */}
       <picture className={`lcp-wrapper ${imageLoaded ? "image-loaded" : ""}`}>
         <source
           srcSet={homePageImageMobileAVIF}

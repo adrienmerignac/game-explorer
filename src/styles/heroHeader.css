@@ -1,16 +1,14 @@
 /* ✅ SECTION HEADER ULTRA-LÉGÈRE */
 .hero-header {
-  align-items: center;
-  border-radius: 8px;
   display: flex;
   flex-direction: row;
-  height: 85vh;
-  justify-content: space-between; /* 🔥 Sépare bien le texte et l'image */
-  margin: 0 auto;
-  max-width: 1200px;
-  min-height: 550px; /* 🔥 Fixe une hauteur pour éviter les shifts */
-  scroll-snap-align: start; /* ✅ Chaque section s’aligne parfaitement au viewport */
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
   width: 100%;
+  height: 100vh; /* 🔥 Prend tout l'écran */
+  overflow: hidden;
 }
 
 /* ✅ Effet de fondu sur le texte pour améliorer la transition */
@@ -47,22 +45,22 @@
   color: #ccc;
 }
 
-/* ✅ Conteneur de l’image LCP */
+/* ✅ Image principale */
 .hero-header__image {
   position: relative;
   width: 100%;
-  min-height: 50vh; /* ✅ Empêche les décalages sur mobile */
+  height: 60%;
+  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow: hidden;
 }
 
 .hero-header__image picture {
   height: inherit;
 }
 
-/* ✅ Placeholder initial */
+/* ✅ Placeholder bien positionné */
 .lcp-placeholder {
   position: absolute;
   top: 0;
@@ -70,63 +68,45 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  z-index: 2;
-  transition: opacity 0.5s ease-in-out;
+  filter: blur(10px);
+  transition: opacity 0.3s ease-in-out;
 }
 
-/* ✅ Masque progressivement le placeholder quand l’image est chargée */
-.lcp-placeholder.fade-out {
-  opacity: 0;
-  visibility: hidden;
-}
-
-/* ✅ Appliquer une transition douce sur l’image principale */
-.lcp-wrapper img.lcp-image {
-  opacity: 0;
-  transition: opacity 1s ease-in-out;
+/* ✅ Image LCP avec transition fluide */
+.lcp-image {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
-  height: auto;
+  height: 100%;
   object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.8s ease-in-out;
 }
 
-/* ✅ Dès que l’image est chargée, elle apparaît progressivement */
-.lcp-wrapper.image-loaded img.lcp-image {
+/* ✅ Dès que l’image est chargée */
+.image-loaded .lcp-image {
   opacity: 1;
 }
 
 /* ✅ Version mobile */
 @media (max-width: 768px) {
   .hero-header {
-    height: 60vh;
-    justify-content: unset;
+    height: 80vh; /* 🔥 Moins grand sur mobile */
     flex-direction: column;
-    min-height: 400px; /* 🔥 Ajuste la hauteur sur mobile */
-    padding: 32px 0px;
-  }
-
-  .hero-header__text {
-    max-width: 100%;
-  }
-
-  .hero-title {
-    font-size: 1.8rem;
-  }
-
-  .hero-subtitle {
-    font-size: 1rem;
   }
 
   .hero-header__image {
-    min-height: 40vh;
-  }
-
-  .lcp-wrapper img.lcp-image {
-    width: 100%;
-    height: auto;
+    height: 100%;
   }
 
   .lcp-placeholder {
-    width: 100%;
-    height: auto;
+    filter: blur(
+      8px
+    ); /* ✅ Réduit le flou pour éviter un effet trop prononcé */
+  }
+
+  .lcp-image {
+    object-fit: cover;
   }
 }
