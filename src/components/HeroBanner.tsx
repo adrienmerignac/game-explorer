@@ -7,7 +7,7 @@ import fallbackImage from "../assets/images/fallback-image.webp"; // ✅ Placeho
 
 const HeroBanner: React.FC = () => {
   const [games, setGames] = useState<Game[]>([]);
-  const [isLoading, setIsLoading] = useState(true); // ✅ Ajout d'un état de chargement
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchGames = async () => {
@@ -15,7 +15,7 @@ const HeroBanner: React.FC = () => {
         const data = await getPopularGames();
         const gameList = data.results.slice(0, 10);
         setGames(gameList);
-        setIsLoading(false); // ✅ Désactive le loader une fois les jeux récupérés
+        setIsLoading(false);
 
         // ✅ Préchargement de la première image
         if (gameList.length > 0 && gameList[0].background_image) {
@@ -40,50 +40,68 @@ const HeroBanner: React.FC = () => {
     speed: 1000,
     slidesToShow: 1,
     slidesToScroll: 1,
-    autoplay: false,
+    autoplay: true,
     autoplaySpeed: 4000,
     fade: true,
   };
 
   return (
     <section className="hero-banner-section">
-      <h2 className="hero-banner-title">🔥 Featured Games</h2>{" "}
-      {/* ✅ Ajout du titre */}
+      <h2 className="hero-banner-title">🔥 Featured Games</h2>
+
       <div className="hero-banner">
         {isLoading ? (
-          // ✅ Placeholder visible tant que les jeux ne sont pas chargés
           <div className="hero-placeholder">
             <img
               src={fallbackImage}
               alt="Chargement..."
               className="hero-placeholder__image"
+              role="presentation"
             />
           </div>
         ) : (
           <Slider {...settings}>
-            {games.map((game, index) => (
-              <div key={game.id} className="hero-slide">
-                <Link to={`/games/${game.id}`}>
-                  <picture>
-                    <source srcSet={game.background_image} type="image/webp" />
-                    <img
-                      src={game.background_image || fallbackImage} // ✅ Utilisation du fallback si besoin
-                      alt={game.name}
-                      className="hero-slide__image"
-                      loading={index === 0 ? "eager" : "lazy"} // ✅ Chargement rapide pour le premier slide
-                    />
-                  </picture>
+            {games.map((game, index) => {
+              const isHidden = index !== 0; // 🔥 Seul le premier est visible
 
-                  <div className="hero-slide__overlay">
-                    <h3>{game.name}</h3>
-                    <p>
-                      ⭐ {game.rating} | 🎮{" "}
-                      {game.platforms.map((p) => p.platform.name).join(", ")}
-                    </p>
-                  </div>
-                </Link>
-              </div>
-            ))}
+              return (
+                <div
+                  key={game.id}
+                  className="hero-slide"
+                  aria-hidden={isHidden} // ✅ Désactive l'accessibilité des slides cachées
+                >
+                  <Link
+                    to={`/games/${game.id}`}
+                    tabIndex={isHidden ? -1 : 0} // ✅ Empêche le focus sur les slides cachées
+                    aria-hidden={isHidden}
+                  >
+                    <picture>
+                      <source
+                        srcSet={game.background_image}
+                        type="image/webp"
+                      />
+                      <img
+                        src={game.background_image || fallbackImage}
+                        alt={game.name}
+                        className="hero-slide__image"
+                        loading={index === 0 ? "eager" : "lazy"}
+                        fetchPriority={index === 0 ? "high" : "low"}
+                        tabIndex={isHidden ? -1 : 0} // ✅ Désactive la sélection des images cachées
+                        role="presentation" // ✅ Évite d’être annoncé par les lecteurs d’écran
+                      />
+                    </picture>
+
+                    <div className="hero-slide__overlay">
+                      <h3>{game.name}</h3>
+                      <p>
+                        ⭐ {game.rating} | 🎮{" "}
+                        {game.platforms.map((p) => p.platform.name).join(", ")}
+                      </p>
+                    </div>
+                  </Link>
+                </div>
+              );
+            })}
           </Slider>
         )}
       </div>
