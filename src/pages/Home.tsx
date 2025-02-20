@@ -9,12 +9,11 @@ import "../styles/heroHeader.css";
 import "lazysizes";
 
 // ✅ Résolution correcte des fichiers pour éviter 404 en production
-const homePageImageAVIF = "/assets/images/home-page-image.avif";
-const homePageImageWebP = "/assets/images/home-page-image.webp";
-const homePageImagePlaceholder = "/assets/images/home-page-placeholder.avif";
+import homePageImageAVIF from "../assets/images/home-page-image.avif";
+import homePageImageWebP from "../assets/images/home-page-image.webp";
 
-const homePageImageMobileAVIF = "/assets/images/home-page-image-mobile.avif";
-const homePageImageMobileWebP = "/assets/images/home-page-image-mobile.webp";
+import homePageImageMobileAVIF from "../assets/images/home-page-image-mobile.avif";
+import homePageImageMobileWebP from "../assets/images/home-page-image-mobile.webp";
 
 const Home: React.FC = () => {
   const { debouncedQuery } = useSearch();
@@ -55,7 +54,7 @@ const Home: React.FC = () => {
         {/* ✅ Image LCP optimisée avec placeholder */}
         <div className="hero-header__image">
           <picture>
-            {/* 🔥 Version Mobile */}
+            {/* 🔥 Version mobile optimisée */}
             <source
               srcSet={homePageImageMobileAVIF}
               type="image/avif"
@@ -67,34 +66,22 @@ const Home: React.FC = () => {
               media="(max-width: 768px)"
             />
 
-            {/* 🔥 Version Desktop */}
+            {/* ✅ Version desktop optimisée */}
             <source srcSet={homePageImageAVIF} type="image/avif" />
             <source srcSet={homePageImageWebP} type="image/webp" />
-            <source srcSet={homePageImagePlaceholder} type="image/avif" />
 
-            {/* 📌 Affichage immédiat du placeholder pour éviter le flash blanc */}
+            {/* 🔥 Fallback si aucune image n'est compatible */}
             <img
-              src={homePageImagePlaceholder} // ✅ Placeholder instantané
+              src={homePageImageWebP}
               alt="Featured Game"
-              className="lcp-image lazyload"
+              className="lcp-image"
               loading="eager"
               decoding="async"
-              width="1200"
-              height="500"
+              width="100%"
+              height="100%"
               fetchPriority="high"
             />
           </picture>
-
-          {/* ✅ Fallback pour navigateurs sans JS */}
-          <noscript>
-            <img
-              src={homePageImagePlaceholder}
-              alt="Featured Game"
-              className="lcp-image"
-              width="1200"
-              height="500"
-            />
-          </noscript>
         </div>
       </section>
 
