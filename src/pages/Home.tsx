@@ -8,11 +8,12 @@ import TrendingGames from "../components/TrendingGames/TrendingGames";
 import UpcomingReleases from "../components/UpcomingReleases/UpcomingReleases"; // ✅ Import du composant
 
 import "../styles/heroHeader.css";
-import "lazysizes";
 
 // ✅ Résolution correcte des fichiers pour éviter 404 en production
 import homePageImageAVIF from "../assets/images/home-page-image.avif";
 import homePageImageWebP from "../assets/images/home-page-image.webp";
+
+import homePageImagePlaceholder from "../assets/images/home-page-image-mobile-placeholder.avif";
 
 import homePageImageMobileAVIF from "../assets/images/home-page-image-mobile.avif";
 import homePageImageMobileWebP from "../assets/images/home-page-image-mobile.webp";
@@ -21,6 +22,9 @@ const Home: React.FC = () => {
   const { debouncedQuery } = useSearch();
   const [page, setPage] = useState(1);
   const { games, loading, hasMore } = useGames(page, "");
+
+  // ✅ État pour détecter quand l’image LCP est chargée
+  const [imageLoaded, setImageLoaded] = useState(false);
 
   useEffect(() => {
     setPage(1);
@@ -53,8 +57,17 @@ const Home: React.FC = () => {
           </p>
         </div>
 
-        {/* ✅ Image LCP optimisée avec placeholder */}
+        {/* ✅ Image LCP optimisée avec placeholder dynamique */}
         <div className="hero-header__image">
+          {/* 🔥 Placeholder ultra-léger affiché immédiatement */}
+          <img
+            src={homePageImagePlaceholder}
+            alt="Loading placeholder"
+            className={`lcp-placeholder ${imageLoaded ? "fade-out" : ""}`}
+            width="100%"
+            height="100%"
+          />
+
           <picture>
             {/* 🔥 Version mobile optimisée */}
             <source
@@ -72,7 +85,7 @@ const Home: React.FC = () => {
             <source srcSet={homePageImageAVIF} type="image/avif" />
             <source srcSet={homePageImageWebP} type="image/webp" />
 
-            {/* 🔥 Fallback si aucune image n'est compatible */}
+            {/* 🔥 Image LCP principale */}
             <img
               src={homePageImageWebP}
               alt="Featured Game"
@@ -82,6 +95,7 @@ const Home: React.FC = () => {
               width="100%"
               height="100%"
               fetchPriority="high"
+              onLoad={() => setImageLoaded(true)} // ✅ Détecte le chargement
             />
           </picture>
         </div>

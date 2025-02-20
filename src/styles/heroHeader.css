@@ -63,13 +63,22 @@
 }
 
 /* ✅ Image LCP bien intégrée */
-.lcp-image {
-  background-color: #1a1a1a; /* 🔥 Évite le flash blanc */
-  border-radius: 8px;
-  display: block;
-  height: inherit;
-  object-fit: cover;
+/* ✅ Placeholder visible au début */
+.lcp-placeholder {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 2;
+  transition: opacity 0.6s ease-in-out; /* ✅ Transition fluide */
+}
+
+/* ✅ Masque le placeholder quand l’image LCP est chargée */
+.lcp-placeholder.fade-out {
+  opacity: 0;
+  visibility: hidden;
 }
 
 /* ✅ Version mobile */
