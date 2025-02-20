@@ -6,13 +6,16 @@ import GameList from "../components/GameList/GameList";
 import RecommendedGames from "../components/RecommendedGames/RecommendedGames";
 import TrendingGames from "../components/TrendingGames/TrendingGames";
 import "../styles/heroHeader.css";
+import "lazysizes";
 
-// ✅ Importation des images AVIF, WebP et fallback
+// ✅ Importation des images AVIF, WebP et placeholders ultra-légers
 import homePageImageAVIF from "../assets/images/home-page-image.avif";
 import homePageImageWebP from "../assets/images/home-page-image.webp";
+import homePageImagePlaceholder from "../assets/images/home-page-placeholder.avif"; // 📌 Placeholder ultra-léger
 
 import homePageImageMobileAVIF from "../assets/images/home-page-image-mobile.avif";
 import homePageImageMobileWebP from "../assets/images/home-page-image-mobile.webp";
+import homePageImageMobilePlaceholder from "../assets/images/home-page-image-mobile-placeholder.avif"; // 📌 Placeholder mobile ultra-léger
 
 const Home: React.FC = () => {
   const { debouncedQuery } = useSearch();
@@ -22,6 +25,22 @@ const Home: React.FC = () => {
   useEffect(() => {
     setPage(1);
   }, [debouncedQuery]);
+
+  // ✅ Préchargement conditionnel de l’image LCP pour mobile et desktop
+  useEffect(() => {
+    if (document.querySelector('link[rel="preload"][as="image"]')) return; // ✅ Empêche les doublons
+
+    const mobileQuery = window.matchMedia("(max-width: 768px)");
+
+    const link = document.createElement("link");
+    link.rel = "preload";
+    link.as = "image";
+    link.type = "image/avif";
+    link.href = mobileQuery.matches
+      ? homePageImageMobileAVIF
+      : homePageImageAVIF; // ✅ Charge l’image adaptée à l’écran
+    document.head.appendChild(link);
+  }, []);
 
   return (
     <div className="home-container">
@@ -34,10 +53,10 @@ const Home: React.FC = () => {
           </p>
         </div>
 
-        {/* ✅ Image rapide en LCP avec optimisation */}
+        {/* ✅ Image LCP optimisée avec placeholder */}
         <div className="hero-header__image">
           <picture>
-            {/* 🔥 Version mobile optimisée */}
+            {/* 🔥 Version Mobile */}
             <source
               srcSet={homePageImageMobileAVIF}
               type="image/avif"
@@ -48,27 +67,44 @@ const Home: React.FC = () => {
               type="image/webp"
               media="(max-width: 768px)"
             />
+            <source
+              srcSet={homePageImageMobilePlaceholder}
+              type="image/avif"
+              media="(max-width: 768px)"
+            />
 
-            {/* ✅ Version desktop optimisée */}
+            {/* 🔥 Version Desktop */}
             <source srcSet={homePageImageAVIF} type="image/avif" />
             <source srcSet={homePageImageWebP} type="image/webp" />
+            <source srcSet={homePageImagePlaceholder} type="image/avif" />
 
-            {/* 🔥 Fallback si aucune image n'est compatible */}
+            {/* 📌 Affichage immédiat du placeholder pour éviter le flash blanc */}
             <img
-              src={homePageImageWebP}
+              src={homePageImagePlaceholder} // ✅ Placeholder instantané
               alt="Featured Game"
-              className="lcp-image"
+              className="lcp-image lazyload"
               loading="eager"
               decoding="async"
-              width="100%"
-              height="100%"
-              fetchPriority="high"
+              width="1200" // ✅ Largeur correcte pour CLS
+              height="500"
+              fetchPriority="high" // ✅ Correction TS
             />
           </picture>
+
+          {/* ✅ Fallback pour navigateurs sans JS */}
+          <noscript>
+            <img
+              src={homePageImagePlaceholder}
+              alt="Featured Game"
+              className="lcp-image"
+              width="1200"
+              height="500"
+            />
+          </noscript>
         </div>
       </section>
 
-      {/* ✅ 2️⃣ Le HeroBanner est déplacé plus bas */}
+      {/* ✅ 2️⃣ HeroBanner plus bas */}
       <HeroBanner />
 
       {/* ✅ 3️⃣ Sections de jeux */}
