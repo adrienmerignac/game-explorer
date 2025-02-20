@@ -1,6 +1,6 @@
 /* ✅ Section principale */
 .recommended-section {
-  padding: 40px 0;
+  padding: 50px 0;
   width: 100%;
   overflow: hidden;
 }
@@ -115,6 +115,10 @@
 
 /* ✅ Très petits écrans */
 @media (max-width: 480px) {
+  .recommended-section {
+    padding: 24px 0px;
+  }
+
   .recommended-games {
     grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
   }

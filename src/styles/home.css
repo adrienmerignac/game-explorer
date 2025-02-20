@@ -11,6 +11,7 @@
 .games-section {
   display: flex;
   flex-direction: column;
+  padding: 50px 0;
   width: 100%;
   max-width: 1200px;
 }
@@ -26,4 +27,11 @@
   gap: 20px;
   width: 100%;
   justify-content: center;
+}
+
+/* ✅ Très petits écrans */
+@media (max-width: 480px) {
+  .games-section {
+    padding: 24px 0px;
+  }
 }
