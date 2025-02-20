@@ -8,14 +8,32 @@ import TrendingGames from "../components/TrendingGames/TrendingGames";
 import "../styles/heroHeader.css";
 import "lazysizes";
 
-// ✅ Importation des images AVIF, WebP et placeholders ultra-légers
-import homePageImageAVIF from "../assets/images/home-page-image.avif";
-import homePageImageWebP from "../assets/images/home-page-image.webp";
-import homePageImagePlaceholder from "../assets/images/home-page-placeholder.avif"; // 📌 Placeholder ultra-léger
+// ✅ Résolution correcte des fichiers pour éviter 404 en production
+const homePageImageAVIF = new URL(
+  "../assets/images/home-page-image.avif",
+  import.meta.url
+).href;
+const homePageImageWebP = new URL(
+  "../assets/images/home-page-image.webp",
+  import.meta.url
+).href;
+const homePageImagePlaceholder = new URL(
+  "../assets/images/home-page-placeholder.avif",
+  import.meta.url
+).href;
 
-import homePageImageMobileAVIF from "../assets/images/home-page-image-mobile.avif";
-import homePageImageMobileWebP from "../assets/images/home-page-image-mobile.webp";
-import homePageImageMobilePlaceholder from "../assets/images/home-page-image-mobile-placeholder.avif"; // 📌 Placeholder mobile ultra-léger
+const homePageImageMobileAVIF = new URL(
+  "../assets/images/home-page-image-mobile.avif",
+  import.meta.url
+).href;
+const homePageImageMobileWebP = new URL(
+  "../assets/images/home-page-image-mobile.webp",
+  import.meta.url
+).href;
+const homePageImageMobilePlaceholder = new URL(
+  "../assets/images/home-page-image-mobile-placeholder.avif",
+  import.meta.url
+).href;
 
 const Home: React.FC = () => {
   const { debouncedQuery } = useSearch();
@@ -26,7 +44,7 @@ const Home: React.FC = () => {
     setPage(1);
   }, [debouncedQuery]);
 
-  // ✅ Préchargement conditionnel de l’image LCP pour mobile et desktop
+  // ✅ Préchargement correct de l’image LCP sans erreur 404
   useEffect(() => {
     if (document.querySelector('link[rel="preload"][as="image"]')) return; // ✅ Empêche les doublons
 
@@ -38,7 +56,7 @@ const Home: React.FC = () => {
     link.type = "image/avif";
     link.href = mobileQuery.matches
       ? homePageImageMobileAVIF
-      : homePageImageAVIF; // ✅ Charge l’image adaptée à l’écran
+      : homePageImageAVIF;
     document.head.appendChild(link);
   }, []);
 
@@ -85,9 +103,9 @@ const Home: React.FC = () => {
               className="lcp-image lazyload"
               loading="eager"
               decoding="async"
-              width="1200" // ✅ Largeur correcte pour CLS
+              width="1200"
               height="500"
-              fetchPriority="high" // ✅ Correction TS
+              fetchPriority="high"
             />
           </picture>
 
