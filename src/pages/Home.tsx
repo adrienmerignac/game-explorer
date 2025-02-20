@@ -9,31 +9,12 @@ import "../styles/heroHeader.css";
 import "lazysizes";
 
 // ✅ Résolution correcte des fichiers pour éviter 404 en production
-const homePageImageAVIF = new URL(
-  "../assets/images/home-page-image.avif",
-  import.meta.url
-).href;
-const homePageImageWebP = new URL(
-  "../assets/images/home-page-image.webp",
-  import.meta.url
-).href;
-const homePageImagePlaceholder = new URL(
-  "../assets/images/home-page-placeholder.avif",
-  import.meta.url
-).href;
+const homePageImageAVIF = "/assets/images/home-page-image.avif";
+const homePageImageWebP = "/assets/images/home-page-image.webp";
+const homePageImagePlaceholder = "/assets/images/home-page-placeholder.avif";
 
-const homePageImageMobileAVIF = new URL(
-  "../assets/images/home-page-image-mobile.avif",
-  import.meta.url
-).href;
-const homePageImageMobileWebP = new URL(
-  "../assets/images/home-page-image-mobile.webp",
-  import.meta.url
-).href;
-const homePageImageMobilePlaceholder = new URL(
-  "../assets/images/home-page-image-mobile-placeholder.avif",
-  import.meta.url
-).href;
+const homePageImageMobileAVIF = "/assets/images/home-page-image-mobile.avif";
+const homePageImageMobileWebP = "/assets/images/home-page-image-mobile.webp";
 
 const Home: React.FC = () => {
   const { debouncedQuery } = useSearch();
@@ -83,11 +64,6 @@ const Home: React.FC = () => {
             <source
               srcSet={homePageImageMobileWebP}
               type="image/webp"
-              media="(max-width: 768px)"
-            />
-            <source
-              srcSet={homePageImageMobilePlaceholder}
-              type="image/avif"
               media="(max-width: 768px)"
             />
 
