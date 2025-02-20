@@ -1,14 +1,13 @@
 import React, { useRef } from "react";
 import { useSearch } from "../context/SearchContext";
-import SearchSuggestions from "./Search/SearchSuggestions"; // ✅ Suggestions
-import { useLocation } from "react-router-dom"; // ✅ Import de useLocation
+import SearchSuggestions from "./Search/SearchSuggestions";
+import { useLocation } from "react-router-dom";
+import Wishlist from "./Wishlist/Wishlist"; // ✅ Import du composant Wishlist
 
 const Header: React.FC = () => {
   const { searchQuery, setSearchQuery } = useSearch();
   const searchRef = useRef<HTMLInputElement>(null);
-  const location = useLocation(); // ✅ Détection de la page active
-
-  // ✅ Vérifie si on est sur la page Home ("/"), sinon header transparent
+  const location = useLocation();
   const isHomePage = location.pathname === "/";
 
   return (
@@ -18,7 +17,6 @@ const Header: React.FC = () => {
       }`}
     >
       <div className="header__wrapper">
-        {/* ✅ Toggle pour la Sidebar (mobile uniquement) */}
         <input
           type="checkbox"
           id="sidebar-toggle"
@@ -28,7 +26,6 @@ const Header: React.FC = () => {
           ☰
         </label>
 
-        {/* ✅ Sidebar (mobile uniquement) */}
         <div className="sidebar">
           <label htmlFor="sidebar-toggle" className="sidebar-close">
             ✖
@@ -51,7 +48,6 @@ const Header: React.FC = () => {
           </nav>
         </div>
 
-        {/* ✅ Logo */}
         <div className="header__item">
           <a className="header__item-link header-logo" href="/">
             <div className="logo">GameHub</div>
@@ -75,11 +71,15 @@ const Header: React.FC = () => {
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                 />
-                {/* ✅ Suggestions */}
                 <SearchSuggestions searchRef={searchRef} />
               </div>
             </form>
           </div>
+        </div>
+
+        {/* ✅ Intégration du bouton Wishlist */}
+        <div className="header__item header__wishlist">
+          <Wishlist />
         </div>
       </div>
     </header>
