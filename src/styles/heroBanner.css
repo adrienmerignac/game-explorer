@@ -1,51 +1,31 @@
-/* Hero Banner */
-/* ✅ Placeholder affiché avant le chargement du carrousel */
-.hero-placeholder {
+/* ✅ Nouvelle section Hero Banner */
+.hero-banner-section {
+  padding: 50px 0;
   width: 100%;
-  height: 500px; /* 🔥 Même hauteur que le HeroBanner */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #222; /* 🔥 Fond sombre pour garder une cohérence */
-  border-radius: 8px;
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+  overflow: hidden; /* 🔥 Empêche les débordements */
 }
 
-.hero-placeholder__image {
-  max-width: 80%;
-  max-height: 100%;
-  object-fit: contain;
-  opacity: 0.6;
-}
-
-/* ✅ Assurer une transition fluide entre le Placeholder et le Slider */
-.hero-banner.loading {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.hero-title {
-  color: #fff;
+/* ✅ Titre de la section */
+.hero-banner-title {
+  font-size: 24px;
   font-weight: bold;
-  margin-bottom: 0;
-  margin-top: 40px;
-  text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+  color: #fff;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
-.hero-subtitle {
-  font-size: 1rem;
-  color: #ccc;
-  margin-bottom: 0;
-}
-
+/* ✅ Conteneur du Hero Banner */
 .hero-banner {
   width: 100%;
   height: 500px;
   position: relative;
-  overflow: hidden; /* 🔥 Empêche l'image de dépasser */
-  margin: 0 auto;
+  overflow: hidden;
   max-width: 1200px;
-  border-radius: 8px; /* 🔥 Applique un border-radius au conteneur */
+  border-radius: 8px;
 }
 
 /* 🎯 Ajustement du slider */
@@ -59,30 +39,51 @@
   height: 100%;
 }
 
+.slick-list {
+  height: inherit;
+}
+
 .slick-slide {
-  display: block;
-  height: 100%; /* Chaque slide prend toute la hauteur disponible */
+  height: 500px; /* ✅ Fixe la hauteur pour éviter les sauts */
   position: relative;
+  overflow: hidden;
 }
 
-.slick-slide div:not(.hero-slide__overlay) {
-  height: 100%;
+.slick-slide div {
+  height: inherit;
 }
 
-/* Assurer que le slide est positionné relativement pour l'overlay */
+/* ✅ Slide et image */
 .hero-slide {
-  position: relative;
   width: 100%;
   height: 100%;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-/* Image principale du slide */
+/* ✅ Correction des images */
 .hero-slide__image {
   width: 100%;
   height: 100%;
-  object-fit: cover; /* ✅ S'assure que l'image couvre bien le conteneur */
+  object-fit: cover;
   display: block;
-  border-radius: 8px; /* ✅ Applique le border-radius */
+  border-radius: 8px;
+  transition: opacity 0.6s ease-in-out, filter 0.6s ease-in-out;
+}
+
+/* ✅ Effet de flou au chargement */
+.hero-slide__image.loading {
+  filter: blur(10px);
+  opacity: 0.5;
+}
+
+/* ✅ Transition propre après chargement */
+.hero-slide__image.loaded {
+  filter: blur(0);
+  opacity: 1;
 }
 
 /* ✅ Overlay bien positionné au-dessus de l'image */
@@ -91,16 +92,27 @@
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5); /* ✅ Améliore la visibilité du texte */
+  height: auto;
+  min-height: 120px;
+  background: rgba(0, 0, 0, 0.5);
   display: flex;
   flex-direction: column;
-  justify-content: flex-end; /* ✅ Place le texte en bas */
+  justify-content: center;
   align-items: center;
   text-align: center;
-  padding-bottom: 40px; /* ✅ Ajoute de l'espace pour le texte */
+  padding: 20px;
   color: white;
   border-radius: 8px;
+  z-index: 2;
+}
+
+/* ✅ Correction : Overlay toujours visible */
+.hero-slide__overlay h3,
+.hero-slide__overlay p {
+  font-size: 20px;
+  font-weight: bold;
+  margin: 5px 0;
+  color: #fff;
 }
 
 /* 🎯 Flèches de navigation */
@@ -110,58 +122,105 @@
   top: 50%;
   transform: translateY(-50%);
   z-index: 999;
-  background-color: rgba(0, 0, 0, 0.5); /* Fond semi-transparent */
+  background-color: rgba(0, 0, 0, 0.5);
   color: white;
   border: none;
   padding: 10px;
 }
 
 .slick-prev {
-  left: 10px !important; /* Positionner la flèche de gauche */
+  left: 10px !important;
 }
 
 .slick-next {
-  right: 10px !important; /* Positionner la flèche de droite */
+  right: 10px !important;
 }
 
 /* 🎯 Style des dots */
 .slick-dots {
   display: block;
-  position: absolute;
-  bottom: 20px !important; /* Positionner les dots en bas du carrousel */
+  position: relative !important;
+  bottom: 35px !important;
   left: 50%;
   transform: translateX(-50%);
-  z-index: 1000;
-  padding: 0;
-  margin: 0;
-  list-style: none;
-}
-
-.slick-dots li {
-  display: inline-block;
-  margin: 0 5px;
+  z-index: 10;
 }
 
 .slick-dots li button::before {
-  color: white !important; /* Couleur du dot inactif */
-  opacity: 1 !important; /* Opacité du dot inactif */
+  color: white !important;
+  opacity: 1 !important;
 }
 
 .slick-dots li.slick-active button::before {
-  color: grey !important; /* Dot actif avec une couleur blanche */
+  color: grey !important;
 }
 
-.slick-dots button {
-  border: none;
-  background-color: rgba(0, 0, 0, 0.5);
-  border-radius: 50%;
-  width: 10px;
-  height: 10px;
-  padding: 0;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+/* ✅ RESPONSIVE DESIGN */
+
+/* 🔥 Tablettes */
+@media (max-width: 1024px) {
+  .hero-banner {
+    height: 400px;
+  }
+
+  .slick-slide {
+    height: 400px;
+  }
+
+  .hero-slide {
+    height: 400px;
+  }
+
+  .hero-slide__overlay h3,
+  .hero-slide__overlay p {
+    font-size: 18px;
+  }
 }
 
-.slick-list {
-  height: 100%;
+/* 🔥 Mobile */
+@media (max-width: 768px) {
+  .hero-banner {
+    height: 350px;
+  }
+
+  .slick-slide {
+    height: 350px;
+  }
+
+  .hero-slide {
+    height: 350px;
+  }
+
+  .hero-slide__overlay {
+    padding: 15px;
+  }
+
+  .hero-slide__overlay h3,
+  .hero-slide__overlay p {
+    font-size: 16px;
+  }
+}
+
+/* 🔥 Très petits écrans */
+@media (max-width: 480px) {
+  .hero-banner {
+    height: 280px;
+  }
+
+  .slick-slide {
+    height: 280px;
+  }
+
+  .hero-slide {
+    height: 280px;
+  }
+
+  .hero-slide__overlay {
+    padding: 10px;
+  }
+
+  .hero-slide__overlay h3,
+  .hero-slide__overlay p {
+    font-size: 14px;
+  }
 }

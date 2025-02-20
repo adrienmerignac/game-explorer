@@ -1,4 +1,4 @@
-/* Liste de jeux */
+/* ✅ Liste de jeux */
 .games-container {
   display: grid;
   grid-template-columns: repeat(3, 1fr); /* Toujours 3 colonnes par défaut */
@@ -7,7 +7,7 @@
   margin: 0 auto;
 }
 
-/* Assurez-vous que les cartes restent responsives */
+/* ✅ Assurez-vous que les cartes restent responsives */
 .game-card {
   background-color: #383737;
   border-radius: 8px;
@@ -21,12 +21,7 @@
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
 }
 
-.game-image {
-  width: 100%;
-  aspect-ratio: 16 / 9; /* Garde une proportion fixe */
-  object-fit: cover;
-}
-
+/* ✅ Informations sur le jeu */
 .game-info {
   display: flex;
   flex-direction: column;
@@ -57,12 +52,14 @@
   color: white;
 }
 
+/* ✅ Notations */
 .game-notations {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
+/* ✅ Metacritic */
 .game-metacritic {
   align-items: center;
   padding: 0.2rem 0.6rem;
@@ -77,28 +74,30 @@
   justify-content: center;
 }
 
-/* Classes pour le score Metacritic */
+/* ✅ Classes pour le score Metacritic */
 .metacritic-green {
-  color: #4caf50; /* Vert doux */
+  color: #4caf50;
   border-color: #4caf50;
 }
 
 .metacritic-yellow {
-  color: #ffc107; /* Jaune doré */
+  color: #ffc107;
   border-color: #ffc107;
 }
 
 .metacritic-red {
-  color: #f44336; /* Rouge corail */
+  color: #f44336;
   border-color: #f44336;
 }
 
+/* ✅ Date de sortie */
 .game-release {
   font-size: 1rem;
   color: #777;
   margin: 0;
 }
 
+/* ✅ Note du jeu */
 .game-rating {
   font-size: 1.1rem;
   font-weight: bold;

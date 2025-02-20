@@ -40,50 +40,54 @@ const HeroBanner: React.FC = () => {
     speed: 1000,
     slidesToShow: 1,
     slidesToScroll: 1,
-    autoplay: true,
+    autoplay: false,
     autoplaySpeed: 4000,
     fade: true,
   };
 
   return (
-    <div className="hero-banner">
-      {isLoading ? (
-        // ✅ Placeholder visible tant que les jeux ne sont pas chargés
-        <div className="hero-placeholder">
-          <img
-            src={fallbackImage}
-            alt="Chargement..."
-            className="hero-placeholder__image"
-          />
-        </div>
-      ) : (
-        <Slider {...settings}>
-          {games.map((game, index) => (
-            <div key={game.id} className="hero-slide">
-              <Link to={`/games/${game.id}`}>
-                <picture>
-                  <source srcSet={game.background_image} type="image/webp" />
-                  <img
-                    src={game.background_image || fallbackImage} // ✅ Utilisation du fallback si besoin
-                    alt={game.name}
-                    className="hero-slide__image"
-                    loading={index === 0 ? "eager" : "lazy"} // ✅ Chargement rapide pour le premier slide
-                  />
-                </picture>
+    <section className="hero-banner-section">
+      <h2 className="hero-banner-title">🔥 Featured Games</h2>{" "}
+      {/* ✅ Ajout du titre */}
+      <div className="hero-banner">
+        {isLoading ? (
+          // ✅ Placeholder visible tant que les jeux ne sont pas chargés
+          <div className="hero-placeholder">
+            <img
+              src={fallbackImage}
+              alt="Chargement..."
+              className="hero-placeholder__image"
+            />
+          </div>
+        ) : (
+          <Slider {...settings}>
+            {games.map((game, index) => (
+              <div key={game.id} className="hero-slide">
+                <Link to={`/games/${game.id}`}>
+                  <picture>
+                    <source srcSet={game.background_image} type="image/webp" />
+                    <img
+                      src={game.background_image || fallbackImage} // ✅ Utilisation du fallback si besoin
+                      alt={game.name}
+                      className="hero-slide__image"
+                      loading={index === 0 ? "eager" : "lazy"} // ✅ Chargement rapide pour le premier slide
+                    />
+                  </picture>
 
-                <div className="hero-slide__overlay">
-                  <h2>{game.name}</h2>
-                  <p>
-                    ⭐ {game.rating} | 🎮{" "}
-                    {game.platforms.map((p) => p.platform.name).join(", ")}
-                  </p>
-                </div>
-              </Link>
-            </div>
-          ))}
-        </Slider>
-      )}
-    </div>
+                  <div className="hero-slide__overlay">
+                    <h3>{game.name}</h3>
+                    <p>
+                      ⭐ {game.rating} | 🎮{" "}
+                      {game.platforms.map((p) => p.platform.name).join(", ")}
+                    </p>
+                  </div>
+                </Link>
+              </div>
+            ))}
+          </Slider>
+        )}
+      </div>
+    </section>
   );
 };
 

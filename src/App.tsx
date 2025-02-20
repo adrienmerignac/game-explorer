@@ -4,6 +4,8 @@ import { SearchProvider } from "./context/SearchContext"; // 🔥 Vérifie que l
 import Header from "./components/Header";
 import Home from "./pages/Home";
 import GameDetails from "./components/GameDetails/GameDetails";
+import { SpeedInsights } from "@vercel/speed-insights/react";
+
 import "./styles/App.css";
 
 const App: React.FC = () => {
@@ -18,6 +20,7 @@ const App: React.FC = () => {
           <Route path="/games/:id" element={<GameDetails />} />
         </Routes>
       </Router>
+      <SpeedInsights />
     </SearchProvider>
   );
 };

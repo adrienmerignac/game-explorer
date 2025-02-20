@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { GameListProps } from "./GameList.types";
 import fallbackImage from "../../assets/images/fallback-image.webp";
+import OptimizedImage from "../OptimizedImage/OptimizedImage"; // ✅ Import du composant réutilisable
 
 const GameList: React.FC<GameListProps> = ({ games }) => {
   const [loadedGames, setLoadedGames] = useState(games);
@@ -27,6 +28,11 @@ const GameList: React.FC<GameListProps> = ({ games }) => {
     return "metacritic-red";
   };
 
+  const getOptimizedImage = (url?: string) => {
+    if (!url) return fallbackImage;
+    return url.replace("/media/", "/media/resize/640/-/");
+  };
+
   return (
     <div className="games-container">
       {displayedGames.map((game) => (
@@ -37,12 +43,10 @@ const GameList: React.FC<GameListProps> = ({ games }) => {
         >
           <div className="game-card">
             <picture>
-              <source srcSet={game.background_image} type="image/webp" />
-              <img
-                src={game.background_image || fallbackImage} // 🔥 Utilisation du fallback
-                alt={game.name || "Image non disponible"}
-                className="game-image"
-                loading="lazy"
+              {/* ✅ Utilisation du composant OptimizedImage */}
+              <OptimizedImage
+                src={getOptimizedImage(game.background_image)}
+                alt={game.name}
               />
             </picture>
             <div className="game-info">
