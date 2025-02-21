@@ -3,7 +3,21 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <link rel="preload" href="/styles/heroHeader.css" as="style" />
+
+    <!-- ✅ Script pour détecter et précharger dynamiquement le fichier CSS chunké -->
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const cssFile = document.querySelector('link[rel="stylesheet"]');
+        if (cssFile) {
+          const href = cssFile.getAttribute("href");
+          const preloadLink = document.createElement("link");
+          preloadLink.rel = "preload";
+          preloadLink.href = href;
+          preloadLink.as = "style";
+          document.head.appendChild(preloadLink);
+        }
+      });
+    </script>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
