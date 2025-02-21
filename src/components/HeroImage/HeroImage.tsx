@@ -13,6 +13,11 @@ const HeroImage: React.FC = () => {
     <div className="hero-header__image">
       <picture
         className={`lcp-wrapper ${imageLoaded ? "image-loaded" : "preloading"}`}
+        style={{
+          visibility: "visible",
+          opacity: imageLoaded ? 1 : 0,
+          transition: "opacity 0.3s ease-in",
+        }}
       >
         <source
           srcSet={homePageImageMobileAVIF}
@@ -34,6 +39,7 @@ const HeroImage: React.FC = () => {
           decoding="async"
           fetchPriority="high"
           onLoad={() => setImageLoaded(true)}
+          style={{ visibility: "visible", opacity: 1 }}
         />
       </picture>
     </div>
