@@ -172,17 +172,16 @@ button:focus-visible {
   button:not(
     .wishlist-btn,
     .load-more-btn,
-    .slick-dots li button,
-    .slick-arrow,
-    .remove-btn
+    .remove-btn,
+    .slider-controls button
   ) {
   background-color: #f9f9f9;
 }
 
 .light-mode h1,
 .light-mode h2,
-.light-mode h3:not(.hero-slide__overlay h3) {
-  color: black !important;
+.light-mode h3:not(.slide-overlay h3) {
+  color: black;
 }
 
 .light-mode .game-card-recommended,

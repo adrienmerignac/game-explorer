@@ -1,230 +1,159 @@
-/* ✅ Nouvelle section Hero Banner */
-.hero-banner-section {
-  padding: 50px 0;
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-  position: relative;
-  overflow: hidden; /* 🔥 Empêche les débordements */
-}
-
-/* ✅ Titre de la section */
-.hero-banner-title {
-  font-size: 24px;
-  font-weight: bold;
-  color: #fff;
-  margin-bottom: 20px;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
-
-/* ✅ Conteneur du Hero Banner */
+/* ✅ Conteneur principal */
 .hero-banner {
   width: 100%;
-  height: 500px;
-  position: relative;
-  overflow: hidden;
   max-width: 1200px;
-  border-radius: 8px;
-}
-
-/* 🎯 Ajustement du slider */
-.slick-slider {
-  width: 100%;
-  height: 100%;
-}
-
-.slick-track {
-  display: flex;
-  height: 100%;
-}
-
-.slick-list {
-  height: inherit;
-}
-
-.slick-slide {
-  height: 500px; /* ✅ Fixe la hauteur pour éviter les sauts */
-  position: relative;
+  height: 400px;
   overflow: hidden;
-}
-
-.slick-slide div {
-  height: inherit;
-}
-
-/* ✅ Slide et image */
-.hero-slide {
-  width: 100%;
-  height: 100%;
   position: relative;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  border-radius: 10px;
 }
 
-/* ✅ Correction des images */
-.hero-slide__image {
+/* ✅ Slider : translation fluide */
+.slider {
+  display: flex;
+  width: 100%; /* Ajusté au nombre de slides */
+  height: 100%;
+  transition: transform 0.5s ease-in-out;
+}
+
+/* ✅ Slides */
+.slide {
+  flex: 0 0 100%;
+  position: relative;
+  height: 100%;
+}
+
+.slide a {
+  color: white;
+  transition: color 0.3s ease-in-out, opacity 0.3s ease-in-out;
+}
+
+.slide a:hover {
+  color: white;
+  opacity: 0.8;
+}
+
+/* ✅ Image */
+.slide-image {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  display: block;
-  border-radius: 8px;
-  transition: opacity 0.6s ease-in-out, filter 0.6s ease-in-out;
 }
 
-/* ✅ Effet de flou au chargement */
-.hero-slide__image.loading {
-  filter: blur(10px);
-  opacity: 0.5;
-}
-
-/* ✅ Transition propre après chargement */
-.hero-slide__image.loaded {
-  filter: blur(0);
-  opacity: 1;
-}
-
-/* ✅ Overlay bien positionné au-dessus de l'image */
-.hero-slide__overlay {
+/* ✅ Overlay */
+.slide-overlay {
   position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: auto;
-  min-height: 120px;
-  background: rgba(0, 0, 0, 0.5);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.6);
+  padding: 32px;
   text-align: center;
-  padding: 20px;
+  border-radius: 5px;
   color: white;
-  border-radius: 8px;
+  font-size: 18px;
+  width: 80%;
   z-index: 2;
 }
 
-/* ✅ Correction : Overlay toujours visible */
-.hero-slide__overlay h3,
-.hero-slide__overlay p {
-  font-size: 20px;
-  font-weight: bold;
-  margin: 5px 0;
-  color: #fff;
+.slide-overlay h3 {
+  margin: 0;
 }
 
-/* 🎯 Flèches de navigation */
-.slick-prev,
-.slick-next {
+/* ✅ Boutons Previous / Next */
+.slider-controls {
   position: absolute;
   top: 50%;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
   transform: translateY(-50%);
-  z-index: 999;
-  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 3;
+}
+
+/* ✅ Boutons Previous / Next bien circulaires */
+.slider-controls button {
+  background: rgba(0, 0, 0, 0.5);
   color: white;
   border: none;
   padding: 10px;
+  font-size: 18px;
+  cursor: pointer;
+  border-radius: 50%; /* Rend les boutons bien ronds */
+  transition: background 0.3s ease-in-out, transform 0.2s ease-in-out;
+  width: 40px; /* Taille fixe */
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.slick-prev {
-  left: 10px !important;
+.slider-controls button:hover {
+  background: rgba(0, 0, 0, 0.8);
 }
 
-.slick-next {
-  right: 10px !important;
-}
-
-/* 🎯 Style des dots */
-.slick-dots {
-  display: block;
-  position: relative !important;
-  bottom: 35px !important;
+/* ✅ Dots */
+.slider-dots {
+  display: flex;
+  justify-content: center;
+  gap: 6px; /* Moins d’espace entre les dots */
+  position: absolute;
+  bottom: 30px;
   left: 50%;
   transform: translateX(-50%);
-  z-index: 10;
 }
 
-.slick-dots li button::before {
-  color: white !important;
-  opacity: 1 !important;
+/* ✅ Correction de la forme des dots */
+.dot {
+  background: white;
+  border-radius: 50%; /* Garde une forme circulaire */
+  border: none; /* Supprime la bordure pour éviter l'effet ovale */
+  cursor: pointer;
+  display: inline-block; /* Corrige d’éventuels soucis d'affichage */
+  font-size: 5px;
+  height: 10px; /* Assure que le dot reste bien rond */
+  opacity: 0.5;
+  transition: opacity 0.3s ease-in-out, transform 0.2s ease-in-out;
+  width: 10px; /* Ajustement pour une meilleure visibilité */
 }
 
-.slick-dots li.slick-active button::before {
-  color: grey !important;
+/* ✅ Active dot */
+.dot.active {
+  opacity: 1;
+  background: grey;
 }
 
-/* ✅ RESPONSIVE DESIGN */
-
-/* 🔥 Tablettes */
-@media (max-width: 1024px) {
-  .hero-banner {
-    height: 400px;
-  }
-
-  .slick-slide {
-    height: 400px;
-  }
-
-  .hero-slide {
-    height: 400px;
-  }
-
-  .hero-slide__overlay h3,
-  .hero-slide__overlay p {
-    font-size: 18px;
-  }
+/* ✅ Hover */
+.dot:hover {
+  opacity: 0.8;
 }
 
-/* 🔥 Mobile */
+/* ✅ Responsive */
 @media (max-width: 768px) {
   .hero-banner {
     height: 350px;
   }
-
-  .slick-slide {
-    height: 350px;
-  }
-
-  .hero-slide {
-    height: 350px;
-  }
-
-  .hero-slide__overlay {
-    padding: 15px;
-  }
-
-  .hero-slide__overlay h3,
-  .hero-slide__overlay p {
+  .slide-overlay {
     font-size: 16px;
   }
 }
 
-/* 🔥 Très petits écrans */
 @media (max-width: 480px) {
-  .hero-banner-section {
-    padding: 32px 0px;
-  }
-
   .hero-banner {
     height: 280px;
   }
-
-  .slick-slide {
-    height: 280px;
-  }
-
-  .hero-slide {
-    height: 280px;
-  }
-
-  .hero-slide__overlay {
-    padding: 10px;
-  }
-
-  .hero-slide__overlay h3,
-  .hero-slide__overlay p {
+  .slide-overlay {
     font-size: 14px;
+    padding: 20px;
+  }
+
+  .slider-dots {
+    bottom: 23px;
+  }
+
+  .dot {
+    font-size: 4px;
+    height: 8px;
+    width: 8px;
   }
 }
