@@ -3,6 +3,21 @@ import { useParams, Link } from "react-router-dom";
 import { getGameDetails } from "../../services/GameService";
 import DOMPurify from "dompurify"; // ✅ Sécurisation du HTML
 import { initialState, reducer } from "./GameDetails.const";
+import "../../styles/gameDetails.css";
+
+import pcIcon from "../../assets/images/icons/pc.svg";
+import xboxIcon from "../../assets/images/icons/xbox.svg";
+import nintendoIcon from "../../assets/images/icons/switch.svg";
+import playstationIcon from "../../assets/images/icons/playstation.svg";
+import macIcon from "../../assets/images/icons/mac.svg";
+
+const platformIcons: Record<string, string> = {
+  pc: pcIcon,
+  xbox: xboxIcon,
+  nintendo: nintendoIcon,
+  playstation: playstationIcon,
+  mac: macIcon,
+};
 
 const GameDetails: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -87,12 +102,19 @@ const GameDetails: React.FC = () => {
                       return [family, slug];
                     })
                   ).values()
-                ).map((slug) => (
-                  <div
-                    key={slug}
-                    className={`platforms__platform platforms__platform_big platforms__platform_${slug}`}
-                  />
-                ))}
+                ).map(
+                  (slug) =>
+                    slug && (
+                      <div key={slug} className="platforms__platform">
+                        <img
+                          src={platformIcons[slug]}
+                          alt={slug}
+                          height="40"
+                          width="40"
+                        />
+                      </div>
+                    )
+                )}
               </div>
 
               {game.esrb_rating && (

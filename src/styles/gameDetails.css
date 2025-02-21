@@ -102,35 +102,6 @@
   gap: 10px;
 }
 
-.platforms__platform {
-  width: 40px;
-  height: 40px;
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-}
-
-/* Ajoute des icônes pour les plateformes */
-.platforms__platform_pc {
-  background-image: url("../assets/images/icons/pc.svg");
-}
-
-.platforms__platform_xbox {
-  background-image: url("../assets/images/icons/xbox.svg");
-}
-
-.platforms__platform_nintendo {
-  background-image: url("../assets/images/icons/switch.svg");
-}
-
-.platforms__platform_playstation {
-  background-image: url("../assets/images/icons/playstation.svg");
-}
-
-.platforms__platform_mac {
-  background-image: url("../assets/images/icons/mac.svg");
-}
-
 /* 🎯 Notes - Barres de progression */
 .ratings {
   display: flex;
