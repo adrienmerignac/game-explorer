@@ -7,28 +7,38 @@ import homePageImageMobileWebP from "../assets/images/home-page-image-mobile.web
 
 export const usePreloadLCP = () => {
   useEffect(() => {
-    if (document.querySelector('link[rel="preload"][as="image"]')) return;
+    const existingPreload = document.querySelector(
+      'link[rel="preload"][as="image"]'
+    );
+    if (existingPreload) return;
 
     const mobileQuery = window.matchMedia("(max-width: 768px)");
-    const avifLink = document.createElement("link");
-    const webpLink = document.createElement("link");
-
-    avifLink.rel = "preload";
-    avifLink.as = "image";
-    avifLink.href = mobileQuery.matches
+    const avifImage = mobileQuery.matches
       ? homePageImageMobileAVIF
       : homePageImageAVIF;
-    avifLink.setAttribute("fetchPriority", "high");
-    avifLink.type = "image/avif";
-    document.head.appendChild(avifLink);
-
-    webpLink.rel = "preload";
-    webpLink.as = "image";
-    webpLink.href = mobileQuery.matches
+    const webpImage = mobileQuery.matches
       ? homePageImageMobileWebP
       : homePageImageWebP;
-    webpLink.setAttribute("fetchPriority", "high");
-    webpLink.type = "image/webp";
-    document.head.appendChild(webpLink);
+
+    const preloadLinkAVIF = document.createElement("link");
+    preloadLinkAVIF.rel = "preload";
+    preloadLinkAVIF.as = "image";
+    preloadLinkAVIF.href = avifImage;
+    preloadLinkAVIF.setAttribute("fetchpriority", "high");
+    preloadLinkAVIF.type = "image/avif";
+    document.head.appendChild(preloadLinkAVIF);
+
+    const preloadLinkWebP = document.createElement("link");
+    preloadLinkWebP.rel = "preload";
+    preloadLinkWebP.as = "image";
+    preloadLinkWebP.href = webpImage;
+    preloadLinkWebP.setAttribute("fetchpriority", "high");
+    preloadLinkWebP.type = "image/webp";
+    document.head.appendChild(preloadLinkWebP);
+
+    // ✅ Crée une balise img pour forcer le navigateur à charger l’image immédiatement
+    const img = new Image();
+    img.src = avifImage;
+    img.decode().catch(() => {}); // Évite les erreurs de décodage
   }, []);
 };
