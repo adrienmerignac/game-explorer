@@ -3,11 +3,12 @@ import Slider from "react-slick";
 import { getPopularGames } from "../services/GameService";
 import { Game } from "../services/GameService.types";
 import { Link } from "react-router-dom";
-import fallbackImage from "../assets/images/fallback-image.webp"; // ✅ Placeholder
+import fallbackImage from "../assets/images/fallback-image.webp";
 
 const HeroBanner: React.FC = () => {
   const [games, setGames] = useState<Game[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [activeSlide, setActiveSlide] = useState(0);
 
   useEffect(() => {
     const fetchGames = async () => {
@@ -17,7 +18,6 @@ const HeroBanner: React.FC = () => {
         setGames(gameList);
         setIsLoading(false);
 
-        // ✅ Préchargement de la première image
         if (gameList.length > 0 && gameList[0].background_image) {
           const link = document.createElement("link");
           link.rel = "preload";
@@ -43,6 +43,7 @@ const HeroBanner: React.FC = () => {
     autoplay: true,
     autoplaySpeed: 4000,
     fade: true,
+    beforeChange: (_current: number, next: number) => setActiveSlide(next),
   };
 
   return (
@@ -62,17 +63,17 @@ const HeroBanner: React.FC = () => {
         ) : (
           <Slider {...settings}>
             {games.map((game, index) => {
-              const isHidden = index !== 0; // 🔥 Seul le premier est visible
+              const isHidden = index !== activeSlide;
 
               return (
                 <div
                   key={game.id}
                   className="hero-slide"
-                  aria-hidden={isHidden} // ✅ Désactive l'accessibilité des slides cachées
+                  aria-hidden={isHidden}
                 >
                   <Link
                     to={`/games/${game.id}`}
-                    tabIndex={isHidden ? -1 : 0} // ✅ Empêche le focus sur les slides cachées
+                    tabIndex={isHidden ? -1 : 0}
                     aria-hidden={isHidden}
                   >
                     <picture>
@@ -84,10 +85,10 @@ const HeroBanner: React.FC = () => {
                         src={game.background_image || fallbackImage}
                         alt={game.name}
                         className="hero-slide__image"
-                        loading={index === 0 ? "eager" : "lazy"}
-                        fetchPriority={index === 0 ? "high" : "low"}
-                        tabIndex={isHidden ? -1 : 0} // ✅ Désactive la sélection des images cachées
-                        role="presentation" // ✅ Évite d’être annoncé par les lecteurs d’écran
+                        loading={index === activeSlide ? "eager" : "lazy"}
+                        fetchPriority={index === activeSlide ? "high" : "low"}
+                        tabIndex={isHidden ? -1 : 0}
+                        role="presentation"
                       />
                     </picture>
 
