@@ -82,11 +82,12 @@ const HeroBanner: React.FC = () => {
           </div>
 
           {/* ✅ Dots de navigation */}
-          <div className="slider-dots">
+          <div className="slider-dots" aria-live="polite">
             {games.map((_, index) => (
               <button
                 key={index}
                 className={`dot ${index === currentIndex ? "active" : ""}`}
+                aria-label={`Slide ${index + 1}`}
                 onClick={() => setCurrentIndex(index)}
               ></button>
             ))}
