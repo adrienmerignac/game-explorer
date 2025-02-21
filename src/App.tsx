@@ -5,6 +5,7 @@ import { WishlistProvider } from "./context/WishlistContext";
 
 import Header from "./components/Header";
 import Home from "./pages/Home";
+import WishlistPage from "./pages/WishlistPage"; // ✅ Import de la nouvelle page
 import GameDetails from "./components/GameDetails/GameDetails";
 import { SpeedInsights } from "@vercel/speed-insights/react";
 import NotFound from "./pages/NotFound"; // ✅ Importe la page NotFound
@@ -22,7 +23,7 @@ const App: React.FC = () => {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/games/:id" element={<GameDetails />} />
-
+            <Route path="/wishlist" element={<WishlistPage />} />{" "}
             {/* ✅ Capture toutes les routes inconnues */}
             <Route path="*" element={<NotFound />} />
           </Routes>

@@ -92,7 +92,7 @@
 /* ✅ Version mobile */
 @media (max-width: 768px) {
   .hero-header {
-    padding: 24px 0;
+    padding-bottom: 24px;
     height: 80vh; /* 🔥 Moins grand sur mobile */
     flex-direction: column;
   }

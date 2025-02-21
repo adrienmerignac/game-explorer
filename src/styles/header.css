@@ -3,7 +3,7 @@
   background-color: #151515;
   color: white;
   font-family: Arial, sans-serif;
-  padding: 24px 40px;
+  padding: 16px 40px;
 }
 
 /* ✅ Header avec fond coloré (uniquement sur la page Home) */
@@ -208,10 +208,4 @@
 
 .search-suggestion:hover .suggestion-img {
   opacity: 0.7;
-}
-
-@media (max-width: 1024px) {
-  .header__wrapper {
-    padding-left: 50px;
-  }
 }
