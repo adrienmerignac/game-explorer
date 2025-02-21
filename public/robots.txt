@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+
+Sitemap: https://game-library-eight-puce.vercel.app/sitemap.xml
