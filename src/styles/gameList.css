@@ -62,39 +62,38 @@
 /* ✅ Metacritic */
 .game-metacritic {
   align-items: center;
-  padding: 0.2rem 0.6rem;
-  margin-left: 10px;
-  border-radius: 4px;
+  border-radius: 5px;
   border: 1px solid;
+  display: inline-flex;
   font-size: 1rem;
   font-weight: bold;
-  min-width: 20px;
-  text-align: center;
-  display: inline-flex;
   justify-content: center;
+  margin-left: 10px;
+  min-width: 20px;
+  padding: 5px 10px;
+  text-align: center;
 }
 
-/* ✅ Classes pour le score Metacritic */
+/* Score Metacritic avec contraste plus marqué */
 .metacritic-green {
-  color: #4caf50;
-  border-color: #4caf50;
+  background-color: #2e7d32; /* Vert foncé pour meilleur contraste */
+  color: #ffffff;
 }
 
 .metacritic-yellow {
-  color: #ffc107;
-  border-color: #ffc107;
+  background-color: #fbc02d; /* Jaune foncé pour meilleur contraste */
+  color: #000000;
 }
 
 .metacritic-red {
-  color: #f44336;
-  border-color: #f44336;
+  background-color: #d32f2f; /* Rouge foncé pour meilleur contraste */
+  color: #ffffff;
 }
 
 /* ✅ Date de sortie */
 .game-release {
-  font-size: 1rem;
-  color: #777;
-  margin: 0;
+  color: #ffffff; /* Blanc pur pour meilleur contraste */
+  font-weight: bold;
 }
 
 /* ✅ Note du jeu */

@@ -83,12 +83,13 @@ const HeroBanner: React.FC = () => {
                       />
                       <img
                         src={game.background_image || fallbackImage}
-                        alt={game.name}
+                        alt={
+                          game.name
+                        } /* ✅ Garder une description pour l'accessibilité */
                         className="hero-slide__image"
                         loading={index === activeSlide ? "eager" : "lazy"}
                         fetchPriority={index === activeSlide ? "high" : "low"}
                         tabIndex={isHidden ? -1 : 0}
-                        role="presentation"
                       />
                     </picture>
 
