@@ -1,7 +1,10 @@
-/* Autres règles CSS inchangées... */
-/* 🔥 Amélioration du contraste du bouton Load More */
+/* 🎨 Mode par défaut (Dark Mode) */
+.load-more-container {
+  align-self: center;
+  margin-top: 16px;
+}
 .load-more-btn {
-  background-color: #007bff; /* Bleu plus foncé pour meilleur contraste */
+  background-color: #007bff; /* Bleu accessible */
   color: #ffffff; /* Texte blanc pour bon contraste */
   font-weight: bold;
   padding: 10px 15px;
@@ -12,17 +15,20 @@
 }
 
 .load-more-btn:hover {
-  background-color: #0056b3; /* Bleu encore plus foncé au survol */
-  transform: scale(1.05); /* Petit effet au survol */
+  background-color: #0056b3; /* Bleu foncé au survol */
+  transform: scale(1.05);
 }
 
 .load-more-btn:focus {
-  outline: 3px solid #ffcc00; /* Ajout d'un focus bien visible pour l'accessibilité */
+  outline: 3px solid #ffcc00; /* Contour visible pour l'accessibilité */
 }
 
-.load-more-container {
-  display: flex;
-  justify-content: center;
-  width: 100%;
-  padding: 20px 0;
+/* 🎨 Mode Light */
+.light-mode .load-more-btn {
+  background-color: #333333; /* Fond foncé pour mode clair */
+  color: #ffffff; /* Texte blanc pour contraste suffisant */
+}
+
+.light-mode .load-more-btn:hover {
+  background-color: #111111;
 }
