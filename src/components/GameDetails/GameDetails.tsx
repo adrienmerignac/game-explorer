@@ -3,10 +3,13 @@ import { useParams, Link } from "react-router-dom";
 import { getGameDetails } from "../../services/GameService";
 import DOMPurify from "dompurify"; // ✅ Sécurisation du HTML
 import { initialState, reducer } from "./GameDetails.const";
+import { useTheme } from "../../context/ThemeContext"; // ✅ Import du hook pour récupérer le thème
 
 const GameDetails: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const [state, dispatch] = useReducer(reducer, initialState);
+  const { theme } = useTheme(); // ✅ Récupérer le thème (light ou dark)
+  console.log("theme", theme);
 
   const formatDate = (dateString: string) => {
     if (!dateString) return "N/A";
@@ -44,14 +47,7 @@ const GameDetails: React.FC = () => {
           {/* 🎨 Image principale */}
           <div className="page__art">
             <div className="art-wrapper">
-              <div
-                className="art art_colored"
-                style={{
-                  backgroundImage: `linear-gradient(rgba(15, 15, 15, 0), rgb(21, 21, 21)), 
-                  linear-gradient(rgba(21, 21, 21, 0.8), rgba(21, 21, 21, 0.5)), 
-                  url(${game.background_image})`,
-                }}
-              />
+              <div className="art art_colored" />
             </div>
           </div>
 
@@ -122,20 +118,25 @@ const GameDetails: React.FC = () => {
             {/* ⭐ Notes détaillées */}
             <div className="ratings">
               {game.ratings &&
-                Object.entries(game.ratings).map(([key, value]: any) => (
-                  <div key={key} className="rating">
-                    <span>
-                      {value.title.charAt(0).toUpperCase() +
-                        value.title.slice(1)}
-                    </span>
-                    <div className="rating-bar">
-                      <div
-                        className="rating-fill"
-                        style={{ width: `${value.percent}%` }}
-                      ></div>
+                Object.entries(game.ratings).map(
+                  ([key, value]: [
+                    string,
+                    { title: string; percent: number }
+                  ]) => (
+                    <div key={key} className="rating">
+                      <span>
+                        {value.title.charAt(0).toUpperCase() +
+                          value.title.slice(1)}
+                      </span>
+                      <div className="rating-bar">
+                        <div
+                          className="rating-fill"
+                          style={{ width: `${value.percent}%` }}
+                        ></div>
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  )
+                )}
             </div>
 
             {/* 🎥 Screenshots */}

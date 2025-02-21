@@ -173,7 +173,8 @@ button:focus-visible {
     .wishlist-btn,
     .load-more-btn,
     .slick-dots li button,
-    .slick-arrow
+    .slick-arrow,
+    .remove-btn
   ) {
   background-color: #f9f9f9;
 }
@@ -187,7 +188,8 @@ button:focus-visible {
 .light-mode .game-card-recommended,
 .light-mode .upcoming-card,
 .light-mode .game-card-trending,
-.light-mode .game-card {
+.light-mode .game-card,
+.light-mode .wishlist-card {
   background-color: #f8f9fa;
 }
 
