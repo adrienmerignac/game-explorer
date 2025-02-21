@@ -1,5 +1,6 @@
 import React from "react";
 import { useWishlist } from "../context/WishlistContext";
+import { Link } from "react-router-dom";
 import OptimizedImage from "../components/OptimizedImage/OptimizedImage";
 import "../styles/wishlistPage.css";
 
@@ -33,6 +34,9 @@ const WishlistPage: React.FC = () => {
           ))}
         </div>
       )}
+      <Link to="/" className="back-home-btn">
+        🏠 Back to Home
+      </Link>
     </div>
   );
 };

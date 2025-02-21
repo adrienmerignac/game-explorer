@@ -69,7 +69,34 @@
 
 .remove-btn:hover {
   background: darkgrey;
-  opacity: 0.5;
+  opacity: 0.6;
+  color: white;
+}
+
+.back-home-btn {
+  display: inline-block;
+  margin-top: 16px;
+  padding: 10px 15px;
+  background-color: #007bff;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background 0.3s, opacity 0.3s ease-in-out;
+}
+
+.back-home-btn:hover {
+  background-color: #0056b3;
+  color: white;
+}
+
+.light-mode .back-home-btn {
+  background-color: darkgrey;
+  color: white;
+}
+
+.light-mode .back-home-btn:hover {
+  background: darkgrey;
+  opacity: 0.6;
   color: white;
 }
 
