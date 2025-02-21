@@ -46,10 +46,8 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-}
-
-.game-title-link:hover {
-  color: white;
+  display: block; /* ou inline-block */
+  max-width: 300px;
 }
 
 /* ✅ Notations */
@@ -96,9 +94,26 @@
   font-weight: bold;
 }
 
+.light-mode .game-release {
+  color: #000000; /* Noir pur pour meilleur contraste */
+}
+
 /* ✅ Note du jeu */
 .game-rating {
   font-size: 1.1rem;
   font-weight: bold;
   color: #ff8c00;
+}
+
+/* Media queries pour tablettes et mobile */
+@media screen and (max-width: 1024px) {
+  .game-title-link {
+    max-width: 400px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .game-title-link {
+    max-width: 450px;
+  }
 }
