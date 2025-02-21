@@ -3,6 +3,7 @@ import { useSearch } from "../context/SearchContext";
 import SearchSuggestions from "./Search/SearchSuggestions";
 import { useLocation } from "react-router-dom";
 import Wishlist from "./Wishlist/Wishlist"; // ✅ Import du composant Wishlist
+import ThemeToggle from "./ThemeToggle";
 
 const Header: React.FC = () => {
   const { searchQuery, setSearchQuery } = useSearch();
@@ -62,7 +63,6 @@ const Header: React.FC = () => {
           <label htmlFor="sidebar-toggle" className="sidebar-toggle">
             ☰
           </label>
-
           <div className="sidebar">
             <label htmlFor="sidebar-toggle" className="sidebar-close">
               ✖
@@ -84,20 +84,18 @@ const Header: React.FC = () => {
               </ul>
             </nav>
           </div>
-
           <div className="header__item">
             <a className="header__item-link header-logo" href="/">
               <div className="logo">GameHub</div>
             </a>
           </div>
-
           {/* ✅ Affichage conditionnel de la barre de recherche en fonction de l'écran */}
           {!isMobile && searchBar}
-
           {/* ✅ Intégration du bouton Wishlist */}
           <div className="header__item header__wishlist">
             <Wishlist />
           </div>
+          <ThemeToggle />
         </div>
 
         {/* ✅ Affichage de la barre de recherche en dehors du header__row si on est sur mobile */}

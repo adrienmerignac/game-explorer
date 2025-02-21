@@ -16,13 +16,19 @@ a:hover {
 }
 
 body {
-  font-family: "Arial", sans-serif;
-  background-color: #1a1a1a;
-  margin: 0;
-  padding: 0;
+  background-color: #121212;
   box-sizing: border-box;
-  min-width: 320px;
+  color: white;
+  font-family: "Arial", sans-serif;
+  margin: 0;
   min-height: 100vh;
+  min-width: 320px;
+  padding: 0;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+header {
+  background-color: #1e1e1e !important;
 }
 
 h1 {
@@ -77,4 +83,118 @@ button:focus-visible {
 
 .subtitle {
   color: #ccc;
+}
+
+.theme-toggle-btn {
+  padding: 8px 12px;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2rem;
+  background-color: #1e1e1e;
+  color: white;
+  border-radius: 5px;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.theme-toggle-btn:focus {
+  outline: none;
+}
+
+/* 🌞 Mode clair activé */
+.light-mode body {
+  background-color: white;
+  color: black;
+}
+
+.light-mode header {
+  background-color: #f8f9fa !important;
+}
+
+.light-mode header .logo,
+.light-mode header .wishlist-toggle {
+  color: black;
+}
+
+.light-mode header .header__search__input {
+  background-color: #ccc;
+  color: black;
+}
+
+.light-mode .search-suggestions {
+  background: #ccc;
+  scrollbar-color: #666 #ccc;
+}
+
+.light-mode .search-suggestion {
+  border-bottom: 1px solid #aaa;
+}
+
+.light-mode .search-suggestion:hover {
+  background: #f9f9f9;
+}
+
+.light-mode .wishlist-toggle:hover {
+  background: #ccc;
+}
+
+.light-mode .theme-toggle-btn {
+  background-color: #ddd;
+  color: black;
+}
+
+.light-mode .sidebar {
+  background: #ccc;
+}
+
+.light-mode .sidebar-toggle,
+.light-mode .sidebar-close,
+.light-mode .sidebar a {
+  color: black;
+}
+
+.light-mode .sidebar a:hover {
+  background: #f9f9f9;
+}
+
+.light-mode .hero-subtitle {
+  color: #666;
+}
+
+.light-mode a {
+  color: #0056b3;
+}
+
+.light-mode a:hover {
+  color: #003366;
+}
+
+.light-mode
+  button:not(
+    .wishlist-btn,
+    .load-more-btn,
+    .slick-dots li button,
+    .slick-arrow
+  ) {
+  background-color: #f9f9f9;
+}
+
+.light-mode h1,
+.light-mode h2,
+.light-mode h3:not(.hero-slide__overlay h3) {
+  color: black !important;
+}
+
+.light-mode .game-card-recommended,
+.light-mode .upcoming-card,
+.light-mode .game-card-trending,
+.light-mode .game-card {
+  background-color: #f8f9fa;
+}
+
+.light-mode .subtitle {
+  color: #666;
+}
+
+.light-mode .game-card__content p {
+  color: #0708ff;
 }

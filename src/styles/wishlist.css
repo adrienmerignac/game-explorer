@@ -24,7 +24,6 @@
 /* Responsive Design */
 @media (max-width: 768px) {
   .wishlist-toggle {
-    font-size: 1rem;
-    padding: 6px 10px;
+    font-size: 16px;
   }
 }
