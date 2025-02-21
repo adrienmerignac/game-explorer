@@ -3,13 +3,10 @@ import { useParams, Link } from "react-router-dom";
 import { getGameDetails } from "../../services/GameService";
 import DOMPurify from "dompurify"; // ✅ Sécurisation du HTML
 import { initialState, reducer } from "./GameDetails.const";
-import { useTheme } from "../../context/ThemeContext"; // ✅ Import du hook pour récupérer le thème
 
 const GameDetails: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const [state, dispatch] = useReducer(reducer, initialState);
-  const { theme } = useTheme(); // ✅ Récupérer le thème (light ou dark)
-  console.log("theme", theme);
 
   const formatDate = (dateString: string) => {
     if (!dateString) return "N/A";

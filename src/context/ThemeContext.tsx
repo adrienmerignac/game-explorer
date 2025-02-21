@@ -12,7 +12,7 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({
 }) => {
   const storedTheme = localStorage.getItem("theme");
   const prefersLight = window.matchMedia(
-    "(prefers-color-scheme: light)"
+    "(prefers-color-scheme: dark)"
   ).matches;
 
   // ✅ Dark mode par défaut, sauf si l'utilisateur a déjà choisi Light Mode
@@ -21,7 +21,6 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({
   );
 
   useEffect(() => {
-    console.log("Theme Updated:", theme); // ✅ Vérifie si le thème change bien
     const root = window.document.documentElement;
     if (theme === "light") {
       root.classList.add("light-mode");
