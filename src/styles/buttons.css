@@ -3,30 +3,32 @@
   align-self: center;
   margin-top: 16px;
 }
+
+/* 🎨 Mode Dark (par défaut) */
 .load-more-btn {
-  background-color: #007bff; /* Bleu accessible */
-  color: #ffffff; /* Texte blanc pour bon contraste */
+  background-color: #1e90ff; /* Bleu plus clair pour contraste */
+  color: #ffffff; /* Texte blanc */
   font-weight: bold;
-  padding: 10px 15px;
+  padding: 12px 18px;
   border: none;
-  border-radius: 5px;
+  border-radius: 6px;
   cursor: pointer;
   transition: background 0.3s, transform 0.2s;
 }
 
 .load-more-btn:hover {
-  background-color: #0056b3; /* Bleu foncé au survol */
+  background-color: #00a2ff; /* Bleu plus lumineux au survol */
   transform: scale(1.05);
 }
 
 .load-more-btn:focus {
-  outline: 3px solid #ffcc00; /* Contour visible pour l'accessibilité */
+  outline: 3px solid #ffcc00; /* Bordure focus bien visible */
 }
 
 /* 🎨 Mode Light */
 .light-mode .load-more-btn {
-  background-color: #333333; /* Fond foncé pour mode clair */
-  color: #ffffff; /* Texte blanc pour contraste suffisant */
+  background-color: #222222; /* Gris très foncé pour bon contraste */
+  color: #ffffff; /* Texte blanc */
 }
 
 .light-mode .load-more-btn:hover {
