@@ -44,8 +44,10 @@ const HeroBanner: React.FC = () => {
 
   return (
     <section className="hero-banner">
+      <h2 className="hero-title-section">🎯 Popular Games</h2>
+
       {games.length === 0 ? (
-        <div className="loading-placeholder">Chargement...</div>
+        <div className="loading-placeholder">Loading...</div>
       ) : (
         <>
           {/* Slider */}
@@ -53,7 +55,7 @@ const HeroBanner: React.FC = () => {
             className="slider"
             style={{ transform: `translateX(-${currentIndex * 100}%)` }}
           >
-            {games.map((game, _index) => (
+            {games.map((game) => (
               <div key={game.id} className="slide">
                 <img
                   src={game.background_image}

@@ -8,6 +8,10 @@
   border-radius: 10px;
 }
 
+.hero-title-section {
+  text-transform: uppercase;
+}
+
 /* ✅ Slider : translation fluide */
 .slider {
   display: flex;
@@ -43,7 +47,7 @@
 /* ✅ Overlay */
 .slide-overlay {
   position: absolute;
-  bottom: 20px;
+  bottom: 64px;
   left: 50%;
   transform: translateX(-50%);
   background: rgba(0, 0, 0, 0.6);
@@ -98,7 +102,7 @@
   justify-content: center;
   gap: 6px; /* Moins d’espace entre les dots */
   position: absolute;
-  bottom: 30px;
+  bottom: 20px;
   left: 50%;
   transform: translateX(-50%);
 }
@@ -120,7 +124,7 @@
 /* ✅ Active dot */
 .dot.active {
   opacity: 1;
-  background: grey;
+  background: white;
 }
 
 /* ✅ Hover */
@@ -135,6 +139,7 @@
   }
   .slide-overlay {
     font-size: 16px;
+    padding: 24px;
   }
 }
 
@@ -143,17 +148,17 @@
     height: 280px;
   }
   .slide-overlay {
-    font-size: 14px;
-    padding: 20px;
+    font-size: 8px;
+    padding: 12px;
   }
 
   .slider-dots {
-    bottom: 23px;
+    bottom: 16px;
   }
 
   .dot {
-    font-size: 4px;
-    height: 8px;
-    width: 8px;
+    font-size: 2px;
+    height: 4px;
+    width: 4px;
   }
 }

@@ -73,7 +73,7 @@
 /* 🖥 Desktop (écrans larges) */
 @media (min-width: 1200px) {
   .hero-banner {
-    height: 500px;
+    height: 600px;
   }
 }
 
