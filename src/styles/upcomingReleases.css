@@ -1,8 +1,7 @@
 /* ✅ Conteneur principal */
 .upcoming-releases {
   padding: 50px 0;
-  width: -webkit-fill-available;
-  width: -moz-available;
+  width: 100%;
 }
 
 /* ✅ Titre de la section */
@@ -15,24 +14,28 @@
   text-transform: uppercase;
 }
 
-/* ✅ Conteneur des cartes avec CSS Grid */
+/* ✅ Conteneur des cartes */
 .upcoming-container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); /* Adaptatif */
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 20px;
-  justify-content: center;
+  padding: 0 20px; /* Ajoute un espace sur les bords */
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
 }
 
-/* ✅ Carte d'un jeu */
+/* ✅ Cartes de jeux */
 .upcoming-card {
   background-color: #222;
   border-radius: 10px;
   overflow: hidden;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   transition: transform 0.3s;
-  display: grid;
-  grid-template-rows: auto 1fr auto; /* ✅ Image / Infos / Bouton */
-  align-items: start;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  height: 100%; /* Assurer que toutes les cartes aient la même hauteur */
 }
 
 .upcoming-card:hover {
@@ -51,21 +54,20 @@
 .upcoming-info {
   padding: 15px;
   text-align: center;
-  display: grid;
-  grid-template-rows: auto 1fr auto;
-  align-items: start;
-  height: -webkit-fill-available;
-  height: -moz-available;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex-grow: 1; /* Permet d'étendre la section info pour pousser le bouton en bas */
 }
 
-/* ✅ Titre du jeu avec ellipsis */
+/* ✅ Titre du jeu */
 .upcoming-info h3 {
   font-size: 16px;
   color: #fff;
   margin-bottom: 10px;
   overflow: hidden;
   display: -webkit-box;
-  -webkit-line-clamp: 2; /* ✅ Limite à 2 lignes */
+  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   text-align: center;
   padding: 0 10px;
@@ -96,7 +98,7 @@
   padding: 10px 14px;
   transition: background 0.3s, transform 0.2s;
   width: 100%;
-  align-self: end; /* ✅ Fixe la position du bouton en bas */
+  margin-top: auto; /* Force le bouton à rester en bas */
 }
 
 .wishlist-btn:hover {
@@ -104,47 +106,40 @@
 }
 
 /* ✅ Icône du cœur */
-.wishlist-btn svg {
-  width: 18px;
-  height: 18px;
-  fill: white;
-}
-
 .wishlist-icon {
   width: 18px;
   height: 18px;
   fill: white;
 }
 
-/* ✅ RESPONSIVE DESIGN */
-@media (max-width: 1024px) {
+/* 📱 Activation du scroll horizontal seulement sur mobile/tablette */
+@media (max-width: 1023px) {
   .upcoming-container {
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    display: flex;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    scroll-snap-type: x mandatory;
+    white-space: nowrap;
+    cursor: grab;
   }
 
-  .upcoming-image {
-    height: 150px;
+  .upcoming-container::-webkit-scrollbar {
+    height: 0px;
   }
 
-  .upcoming-info h3 {
-    font-size: 14px;
+  .upcoming-container {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
   }
 
-  .upcoming-info p {
-    font-size: 12px;
+  .upcoming-container:active {
+    cursor: grabbing;
   }
 }
 
+/* 📱 Mobile */
 @media (max-width: 768px) {
-  .upcoming-container {
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  }
-
-  .upcoming-image {
-    height: 120px;
-  }
-
-  .wishlist-btn {
-    padding: 6px 10px;
+  .upcoming-card {
+    flex: 0 0 250px;
   }
 }
