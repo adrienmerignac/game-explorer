@@ -21,6 +21,11 @@ const UpcomingReleases: React.FC = () => {
     [key: number]: boolean;
   }>({});
 
+  const formatDate = (dateString: string) => {
+    if (!dateString) return "N/A";
+    return new Date(dateString).toLocaleDateString("fr-FR");
+  };
+
   const getOptimizedImage = (url?: string) => {
     if (!url) return fallbackImage;
     return url.replace("/media/", "/media/resize/640/-/");
@@ -56,7 +61,7 @@ const UpcomingReleases: React.FC = () => {
                 />
                 <div className="upcoming-info">
                   <h3>{game.name}</h3>
-                  <p>Release Date: {game.released}</p>
+                  <p>Release Date: {formatDate(game.released)}</p>
                   <button
                     className={`wishlist-btn ${isInWishlist ? "added" : ""}`}
                     onClick={() =>

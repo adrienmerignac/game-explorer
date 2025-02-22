@@ -1,6 +1,5 @@
 /* ✅ Conteneur principal */
 .upcoming-releases {
-  padding: 50px 0;
   width: 100%;
 }
 
@@ -63,18 +62,19 @@
 
 /* ✅ Titre du jeu */
 .upcoming-info h3 {
-  font-size: 16px;
+  align-content: center;
   color: #fff;
-  margin-bottom: 10px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  text-align: center;
-  padding: 0 10px;
-  white-space: normal;
-  max-height: 3.2em;
-  line-height: 1.6em;
   display: block;
+  font-size: 16px;
+  line-height: 1.6em;
+  margin: 0;
+  max-height: 3.2em;
   min-height: 3.2em; /* Assure une hauteur fixe pour l'alignement des cartes */
+  overflow: hidden;
+  padding: 0 10px;
+  text-align: center;
+  text-overflow: ellipsis;
+  white-space: normal;
 }
 
 .upcoming-info p {

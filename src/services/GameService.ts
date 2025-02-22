@@ -90,7 +90,7 @@ export const getRecommendedGames = async () => {
         genres: "action", // ✅ Filtre les RPG
         key: API_KEY,
         ordering: "-rating", // Trier par note
-        page_size: 5, // 6 recommandations
+        page_size: 10, // Récupère 10 jeux
       },
     });
 
@@ -107,7 +107,7 @@ export const getTrendingGames = async () => {
       params: {
         key: API_KEY,
         ordering: "-added", // 🔥 Trie par popularité (nombre d'ajouts)
-        page_size: 5,
+        page_size: 10, // Récupère 10 jeux
       },
     });
     return response.data.results;
@@ -122,8 +122,6 @@ export const getUpcomingGames = async () => {
     const today = new Date();
     const formattedToday = today.toISOString().split("T")[0]; // Formate en "YYYY-MM-DD"
     const endOfYear = `${today.getFullYear()}-12-31`;
-
-    dates: `${formattedToday},${endOfYear}`;
 
     const response = await axios.get(API_URL, {
       params: {

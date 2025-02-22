@@ -140,12 +140,14 @@
 
 @media (min-width: 481px) and (max-width: 1199px) {
   .home-container {
+    gap: 75px;
     padding: 0 24px;
   }
 }
 
 @media (min-width: 1200px) {
   .home-container {
+    gap: 100px;
     max-width: 1200px;
     margin: 0 auto;
   }
