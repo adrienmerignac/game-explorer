@@ -8,5 +8,6 @@
 @import "./header.css";
 @import "./home.css";
 @import "./heroBanner.css";
+@import "./light-mode.css";
 @import "./media-queries.css";
 @import "./sidebar.css";

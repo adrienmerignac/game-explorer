@@ -35,7 +35,7 @@ const Header: React.FC = () => {
               type="text"
               className="header__search__input"
               role="searchbox"
-              placeholder="Rechercher un jeu..."
+              placeholder="Search for a game..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />

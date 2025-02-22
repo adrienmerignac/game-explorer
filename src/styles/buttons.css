@@ -2,6 +2,7 @@
 .load-more-container {
   align-self: center;
   margin-top: 16px;
+  margin: 24px 0px;
 }
 
 /* 🎨 Mode Dark (par défaut) */
@@ -18,19 +19,8 @@
 
 .load-more-btn:hover {
   background-color: #00a2ff; /* Bleu plus lumineux au survol */
-  transform: scale(1.05);
 }
 
 .load-more-btn:focus {
   outline: 3px solid #ffcc00; /* Bordure focus bien visible */
-}
-
-/* 🎨 Mode Light */
-.light-mode .load-more-btn {
-  background-color: #222222; /* Gris très foncé pour bon contraste */
-  color: #ffffff; /* Texte blanc */
-}
-
-.light-mode .load-more-btn:hover {
-  background-color: #111111;
 }

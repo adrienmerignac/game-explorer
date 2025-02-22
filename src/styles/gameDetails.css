@@ -86,12 +86,6 @@
   width: fit-content;
 }
 
-.light-mode .game__meta-date,
-.light-mode .game__meta-playtime,
-.light-mode .game__meta-esrb {
-  background: rgba(0, 0, 0, 0.1);
-}
-
 .game__meta-esrb,
 .game__meta-playtime {
   justify-self: end;

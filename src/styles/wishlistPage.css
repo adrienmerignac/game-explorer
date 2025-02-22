@@ -89,17 +89,6 @@
   color: white;
 }
 
-.light-mode .back-home-btn {
-  background-color: darkgrey;
-  color: white;
-}
-
-.light-mode .back-home-btn:hover {
-  background: darkgrey;
-  opacity: 0.6;
-  color: white;
-}
-
 /* Responsive Design */
 @media (max-width: 768px) {
   .wishlist-card {

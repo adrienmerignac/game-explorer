@@ -1,0 +1,153 @@
+/* 🎨 Mode Light (Fichier séparé pour alléger base.css) */
+.light-mode body {
+  background-color: white;
+  color: black;
+}
+
+.light-mode header {
+  background-color: #f8f9fa !important;
+}
+
+.light-mode header .logo,
+.light-mode header .wishlist-toggle {
+  color: black;
+}
+
+.light-mode header .header__search__input {
+  background-color: #ccc;
+  color: black;
+}
+
+.light-mode .search-suggestions {
+  background: #ccc;
+  scrollbar-color: #666 #ccc;
+}
+
+.light-mode .search-suggestion {
+  border-bottom: 1px solid #aaa;
+}
+
+.light-mode .search-suggestion:hover {
+  background: #f9f9f9;
+}
+
+.light-mode .wishlist-toggle:hover {
+  background: #ccc;
+}
+
+.light-mode .theme-toggle-btn {
+  background-color: #ddd;
+  color: black;
+}
+
+.light-mode .sidebar {
+  background: #ccc;
+}
+
+.light-mode .sidebar-toggle,
+.light-mode .sidebar-close,
+.light-mode .sidebar a {
+  color: black;
+}
+
+.light-mode .sidebar a:hover {
+  background: #f9f9f9;
+}
+
+.light-mode .hero-subtitle {
+  color: #666;
+}
+
+.light-mode
+  a:not(
+    .slide-overlay a,
+    .back-home-btn,
+    .breadcrumb a,
+    .external-links a,
+    .not-found-button
+  ) {
+  color: #0056b3;
+}
+
+.light-mode
+  a:hover:not(
+    .slide-overlay a,
+    .back-home-btn,
+    .external-links a,
+    .not-found-button
+  ) {
+  color: #003366;
+}
+
+/* ✅ Exclusion de certains boutons du mode clair */
+.light-mode
+  button:not(
+    .wishlist-btn,
+    .load-more-btn,
+    .remove-btn,
+    .slider-controls button,
+    .scroll-to-top
+  ) {
+  background-color: #f9f9f9;
+}
+
+.light-mode h1,
+.light-mode h2,
+.light-mode h3:not(.slide-overlay h3) {
+  color: black;
+}
+
+.light-mode .game-card-recommended,
+.light-mode .upcoming-card,
+.light-mode .game-card-trending,
+.light-mode .game-card,
+.light-mode .wishlist-card {
+  background-color: #f8f9fa;
+}
+
+.light-mode .subtitle {
+  color: #666;
+}
+
+.light-mode .game-card__content p {
+  color: #0708ff;
+}
+
+/* ✅ Style des boutons en mode light */
+.light-mode .load-more-btn {
+  background-color: #222222;
+  color: #ffffff;
+}
+
+.light-mode .load-more-btn:hover {
+  background-color: #111111;
+}
+
+.light-mode .game__meta-date,
+.light-mode .game__meta-playtime,
+.light-mode .game__meta-esrb {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.light-mode .game-release {
+  color: #000000;
+}
+
+.light-mode .game-rating {
+  color: #a02b00;
+}
+
+.light-mode .upcoming-info p {
+  color: #414141;
+}
+
+.light-mode .back-home-btn {
+  background-color: darkgrey;
+  color: white;
+}
+
+.light-mode .back-home-btn:hover {
+  background: darkgrey;
+  opacity: 0.6;
+  color: white;
+}

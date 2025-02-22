@@ -94,19 +94,11 @@
   font-weight: bold;
 }
 
-.light-mode .game-release {
-  color: #000000; /* Noir pur pour meilleur contraste */
-}
-
 /* ✅ Note du jeu */
 .game-rating {
   font-size: 1.1rem;
   font-weight: bold;
   color: #ff8c00;
-}
-
-.light-mode .game-rating {
-  color: #a02b00;
 }
 
 /* Media queries pour tablettes et mobile */
