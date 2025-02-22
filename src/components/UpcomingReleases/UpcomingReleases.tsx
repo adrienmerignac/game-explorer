@@ -4,7 +4,10 @@ import { Game } from "../../services/GameService.types";
 import { useWishlist } from "../../context/WishlistContext";
 import OptimizedImage from "../OptimizedImage/OptimizedImage";
 import fallbackImage from "../../assets/images/fallback-image.webp";
-import heartIcon from "../../assets/images/icons/heart.svg";
+
+// ✅ Import des icônes cœur vide et rempli
+import heartOutlineIcon from "../../assets/images/icons/heart-outline.svg";
+import heartFilledIcon from "../../assets/images/icons/heart.svg";
 
 import "../../styles/upcomingReleases.css";
 
@@ -12,6 +15,11 @@ const UpcomingReleases: React.FC = () => {
   const [upcomingGames, setUpcomingGames] = useState<Game[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const { wishlist, addToWishlist, removeFromWishlist } = useWishlist();
+
+  // ✅ État pour suivre les survols par ID de jeu
+  const [hoveredStates, setHoveredStates] = useState<{
+    [key: number]: boolean;
+  }>({});
 
   const getOptimizedImage = (url?: string) => {
     if (!url) return fallbackImage;
@@ -37,6 +45,7 @@ const UpcomingReleases: React.FC = () => {
         <div className="upcoming-container">
           {upcomingGames.map((game) => {
             const isInWishlist = wishlist.some((g) => g.id === game.id);
+
             return (
               <div key={game.id} className="upcoming-card">
                 <OptimizedImage
@@ -55,9 +64,22 @@ const UpcomingReleases: React.FC = () => {
                         ? removeFromWishlist(game.id)
                         : addToWishlist(game)
                     }
+                    onMouseEnter={() =>
+                      setHoveredStates((prev) => ({ ...prev, [game.id]: true }))
+                    }
+                    onMouseLeave={() =>
+                      setHoveredStates((prev) => ({
+                        ...prev,
+                        [game.id]: false,
+                      }))
+                    }
                   >
                     <img
-                      src={heartIcon}
+                      src={
+                        isInWishlist || hoveredStates[game.id]
+                          ? heartFilledIcon
+                          : heartOutlineIcon
+                      }
                       alt="Wishlist"
                       className="wishlist-icon"
                       loading="lazy"

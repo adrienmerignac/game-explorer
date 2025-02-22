@@ -2,6 +2,7 @@
 .upcoming-releases {
   padding: 50px 0;
   width: -webkit-fill-available;
+  width: -moz-available;
 }
 
 /* ✅ Titre de la section */
@@ -29,8 +30,8 @@
   overflow: hidden;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   transition: transform 0.3s;
-  display: grid; /* 🔥 Utilisation de CSS Grid */
-  grid-template-rows: auto 1fr auto; /* ✅ Assure une structure fixe */
+  display: grid;
+  grid-template-rows: auto 1fr auto; /* ✅ Image / Infos / Bouton */
   align-items: start;
 }
 
@@ -50,21 +51,22 @@
 .upcoming-info {
   padding: 15px;
   text-align: center;
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1; /* 🔥 Permet aux titres longs de ne pas pousser le bouton */
-  justify-content: space-between;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  align-items: start;
+  height: -webkit-fill-available;
+  height: -moz-available;
 }
 
-/* ✅ Titre du jeu */
+/* ✅ Titre du jeu avec ellipsis */
 .upcoming-info h3 {
   font-size: 16px;
   color: #fff;
   margin-bottom: 10px;
-  min-height: 40px; /* 🔥 Fixe une hauteur pour éviter le décalage */
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* ✅ Limite à 2 lignes */
+  -webkit-box-orient: vertical;
   text-align: center;
   padding: 0 10px;
 }
@@ -74,10 +76,13 @@
   color: #aaa;
 }
 
+.light-mode .upcoming-info p {
+  color: #414141;
+}
+
 /* ✅ Bouton Wishlist */
 .wishlist-btn {
   align-items: center;
-  align-self: center; /* 🔥 Centre le bouton verticalement */
   background-color: #d62c2c;
   border-radius: 5px;
   border: none;
@@ -88,22 +93,21 @@
   font-weight: bold;
   gap: 8px;
   justify-content: center;
-  margin-top: auto; /* ✅ Place le bouton toujours en bas */
-  max-width: 180px;
   padding: 10px 14px;
   transition: background 0.3s, transform 0.2s;
   width: 100%;
+  align-self: end; /* ✅ Fixe la position du bouton en bas */
 }
 
 .wishlist-btn:hover {
-  background-color: #b52222; /* 🔥 Rouge encore plus foncé au hover */
+  background-color: #b52222;
 }
 
-/* ✅ Icône du cœur avec un meilleur contraste */
+/* ✅ Icône du cœur */
 .wishlist-btn svg {
   width: 18px;
   height: 18px;
-  fill: white; /* ✅ Passe en blanc pour un contraste maximal */
+  fill: white;
 }
 
 .wishlist-icon {
@@ -124,7 +128,6 @@
 
   .upcoming-info h3 {
     font-size: 14px;
-    min-height: 36px;
   }
 
   .upcoming-info p {
@@ -132,18 +135,9 @@
   }
 }
 
-@media (max-width: 1024px) {
-  .upcoming-releases {
-    padding: 32px 0px;
-  }
-
+@media (max-width: 768px) {
   .upcoming-container {
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  }
-
-  .upcoming-info h3 {
-    font-size: 12px;
-    min-height: 32px;
   }
 
   .upcoming-image {

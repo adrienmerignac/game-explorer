@@ -105,6 +105,10 @@
   color: #ff8c00;
 }
 
+.light-mode .game-rating {
+  color: #a02b00;
+}
+
 /* Media queries pour tablettes et mobile */
 @media screen and (max-width: 1024px) {
   .game-title-link {
