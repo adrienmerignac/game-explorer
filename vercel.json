@@ -1,9 +1,8 @@
 {
   "headers": [
     {
-      "source": "/assets/(.*).(js|css|html|svg|woff2|ttf)",
+      "source": "/assets/(.*)",
       "headers": [
-        { "key": "Content-Encoding", "value": "br" },
         { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
       ]
     }
