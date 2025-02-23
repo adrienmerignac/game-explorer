@@ -21,6 +21,8 @@ const GameSection = React.lazy(
   () => import("../components/GameSection/GameSection")
 );
 
+const Roulette = React.lazy(() => import("../components/Roulette/Roulette"));
+
 import "../styles/heroHeader.css";
 
 const Home: React.FC = () => {
@@ -51,6 +53,7 @@ const Home: React.FC = () => {
         <HeroBanner />
         <RecommendedGames />
         <TrendingGames />
+        <Roulette />
         <GameSection
           title="🔥 New and Trending"
           subtitle="Based on player counts and release date"

@@ -64,6 +64,31 @@ export const fetchGames = async (
   }
 };
 
+export const fetchRandomGame = async (): Promise<Game | null> => {
+  try {
+    // Générer un numéro de page aléatoire (RAWG.io a beaucoup de pages)
+    const randomPage = Math.floor(Math.random() * 100) + 1;
+
+    const response = await axios.get(API_URL, {
+      params: {
+        key: API_KEY,
+        page: randomPage, // 🔥 Récupère une page différente à chaque requête
+        page_size: 20, // Augmente le nombre de jeux récupérés
+        ordering: "-rating", // Tri par date pour varier les jeux récents
+      },
+    });
+
+    const games = response.data.results;
+    if (games.length === 0) return null;
+
+    // 🔥 Choisir un jeu au hasard dans cette page
+    return games[Math.floor(Math.random() * games.length)];
+  } catch (error) {
+    console.error("Erreur lors de la récupération du jeu aléatoire :", error);
+    return null;
+  }
+};
+
 // Récupérer les détails d'un jeu spécifique
 export const getGameDetails = async (id: string): Promise<Game> => {
   try {

@@ -168,7 +168,8 @@ SOMMAIRE :
     .load-more-btn,
     .remove-btn,
     .slider-controls button,
-    .scroll-to-top
+    .scroll-to-top,
+    .spin-button
   ) {
   background-color: #f9f9f9;
 }
@@ -191,6 +192,15 @@ SOMMAIRE :
   background: darkgrey;
   opacity: 0.6;
   color: white;
+}
+
+.light-mode .spin-button {
+  background-color: #222222;
+  color: #ffffff;
+}
+
+.light-mode .spin-button:hover {
+  background-color: #222222;
 }
 
 /* =========================== */
