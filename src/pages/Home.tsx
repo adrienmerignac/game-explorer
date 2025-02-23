@@ -1,3 +1,4 @@
+// Home.tsx
 import React, { useState, useEffect, Suspense } from "react";
 import { useSearch } from "../context/SearchContext";
 import { useGames } from "../hooks/useGames";
@@ -19,9 +20,6 @@ const UpcomingReleases = React.lazy(
 const GameSection = React.lazy(
   () => import("../components/GameSection/GameSection")
 );
-
-// 🚀 Importer directement sans `React.lazy`
-import Roulette from "../components/Roulette/Roulette";
 
 import "../styles/heroHeader.css";
 
@@ -53,12 +51,6 @@ const Home: React.FC = () => {
         <HeroBanner />
         <RecommendedGames />
         <TrendingGames />
-      </Suspense>
-
-      {/* 🚀 Roulette est chargée normalement */}
-      <Roulette />
-
-      <Suspense fallback={<div>Loading...</div>}>
         <GameSection
           title="🔥 New and Trending"
           subtitle="Based on player counts and release date"

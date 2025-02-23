@@ -13,7 +13,6 @@
     "@vercel/speed-insights": "^1.2.0",
     "axios": "^1.7.9",
     "dompurify": "^3.2.4",
-    "framer-motion": "^10.16.4",
     "lazysizes": "^5.3.2",
     "lodash.debounce": "^4.0.8",
     "lucide-react": "^0.475.0",
