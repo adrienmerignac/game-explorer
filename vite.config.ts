@@ -5,13 +5,22 @@ import viteCompression from "vite-plugin-compression";
 export default defineConfig({
   plugins: [
     react(),
-    viteCompression({ algorithm: "brotliCompress" }), // ✅ Active la compression Brotli pour réduire la taille des fichiers
+    viteCompression({
+      algorithm: "brotliCompress",
+      ext: ".br",
+      deleteOriginFile: false, // ✅ Ne supprime pas les fichiers originaux (important pour Vercel)
+    }),
+    viteCompression({
+      algorithm: "gzip",
+      ext: ".gz",
+      deleteOriginFile: false,
+    }),
   ],
   build: {
-    minify: "esbuild", // ✅ Minification rapide avec esbuild
-    sourcemap: false, // ✅ Désactive les sourcemaps en prod pour économiser de l'espace
-    target: "esnext", // ✅ Génère un JS plus moderne pour réduire la taille
-    cssCodeSplit: true, // ✅ Sépare le CSS inutilisé pour éviter le chargement global
+    minify: "esbuild",
+    sourcemap: false,
+    target: "esnext",
+    cssCodeSplit: true,
     rollupOptions: {
       treeshake: {
         moduleSideEffects: false,
@@ -28,16 +37,5 @@ export default defineConfig({
         },
       },
     },
-  },
-  server: {
-    open: true, // ✅ Ouvre automatiquement le navigateur en mode dev
-    port: 3000,
-  },
-  preview: {
-    port: 4173,
-    open: true,
-  },
-  css: {
-    postcss: "./postcss.config.cjs", // ✅ Vérifie que ce fichier est bien configuré
   },
 });
