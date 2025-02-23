@@ -10,7 +10,7 @@
 
 ## 🌍 Live Demo
 
-Check out the live version of the app here: **[Game Library Demo](https://game-library.vercel.app/)**
+Check out the live version of the app here: **[Game Library Demo](https://game-library-eight-puce.vercel.app/)**
 
 ## ✨ Features
 
