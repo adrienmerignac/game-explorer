@@ -98,9 +98,8 @@ SOMMAIRE :
 
 /* CSS pour mobile pour mes cards */
 .light-mode .recommended-games,
-.light-mode .upcoming-card,
-.light-mode .trending-games,
-.light-mode .game-card {
+.light-mode .upcoming-container,
+.light-mode .trending-games {
   padding-bottom: 10px;
 }
 
@@ -157,6 +156,10 @@ SOMMAIRE :
 .light-mode .theme-toggle-btn {
   background-color: #ddd;
   color: black;
+}
+
+.light-mode .theme-icon {
+  fill: black;
 }
 
 .light-mode

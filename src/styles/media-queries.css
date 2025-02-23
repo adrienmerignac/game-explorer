@@ -187,7 +187,7 @@
   }
 
   .logo {
-    font-size: 20px;
+    font-size: 16px;
   }
 
   .header__item_search {
@@ -268,6 +268,7 @@
 @media (max-width: 480px) {
   .sidebar-toggle {
     align-self: center;
+    font-size: 16px;
   }
 
   .sidebar-close {
