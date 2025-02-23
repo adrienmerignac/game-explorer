@@ -86,6 +86,7 @@ button:focus-visible {
 }
 
 .theme-toggle-btn {
+  background-color: #1e1e1e;
   display: flex;
   border: none;
   cursor: pointer;

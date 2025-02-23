@@ -1,50 +1,128 @@
-# React + TypeScript + Vite
+# 🎮 Game Library
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+![GitHub last commit](https://img.shields.io/github/last-commit/adrienmerignac/game-library)
+![GitHub issues](https://img.shields.io/github/issues/adrienmerignac/game-library)
+![GitHub pull requests](https://img.shields.io/github/issues-pr/adrienmerignac/game-library)
 
-Currently, two official plugins are available:
+## 📖 Description
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+**Game Library** is a web application built with **React**, **TypeScript**, and **Vite** that allows users to **browse, manage, and explore a collection of video games**. The app integrates with the **[RAWG.io](https://rawg.io/) API** to fetch game details, ratings, platforms, and more.
 
-## Expanding the ESLint configuration
+## 🌍 Live Demo
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+Check out the live version of the app here: **[Game Library Demo](https://game-library.vercel.app/)**
 
-- Configure the top-level `parserOptions` property like this:
+## ✨ Features
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+- 🔍 **Game Search & Filtering** – Find games by name, genre, or platform.
+- 📖 **Game Details** – View in-depth information about each game.
+- ⭐ **Favorites List** – Save and manage your favorite games.
+- 🌐 **RAWG.io API Integration** – Fetch real-time game data from RAWG.
+
+---
+
+## ⚙️ Prerequisites
+
+Before running the project, make sure you have the following installed:
+
+- [Node.js](https://nodejs.org/) (version **18+** recommended)
+- [pnpm](https://pnpm.io/) (or another package manager)
+
+---
+
+## 🚀 Installation & Setup
+
+1. **Clone the repository:**
+
+   ```sh
+   git clone https://github.com/adrienmerignac/game-library.git
+   cd game-library
+   ```
+
+2. **Install dependencies:**
+
+   ```sh
+   pnpm install
+   ```
+
+3. **Set up environment variables:**
+
+   - The app requires an **API key from RAWG.io**.
+   - Register at **[RAWG.io](https://rawg.io/apidocs)** and get your API key.
+   - Create a `.env` file at the root of the project and add:
+
+     ```env
+     VITE_RAWG_API_KEY=your_rawg_api_key_here
+     ```
+
+---
+
+## 💻 Running in Development
+
+To start the development server:
+
+```sh
+pnpm run dev
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+Then, open [http://localhost:3000](http://localhost:3000) in your browser.
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+---
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+## 🏗️ Building for Production
+
+To generate an optimized production build:
+
+```sh
+pnpm run build
 ```
+
+The static files will be available in the `dist/` folder.
+
+---
+
+## 🧪 Running Tests
+
+To run unit tests:
+
+```sh
+pnpm run test
+```
+
+Ensure that all tests pass before pushing new changes.
+
+---
+
+## 🌟 Contribution
+
+Contributions are welcome! To contribute:
+
+1. **Fork** the repository.
+2. **Create a new branch**:
+   ```sh
+   git checkout -b feature/your-feature-name
+   ```
+3. **Commit your changes**:
+   ```sh
+   git commit -m "Added new feature"
+   ```
+4. **Push the branch**:
+   ```sh
+   git push origin feature/your-feature-name
+   ```
+5. **Open a Pull Request** on GitHub.
+
+Before submitting, ensure your code follows the project style and all tests pass.
+
+---
+
+## 📜 License
+
+This project is **MIT licensed**. See the [LICENSE](https://github.com/adrienmerignac/game-library/blob/main/LICENSE) file for details.
+
+---
+
+## 🙌 Acknowledgments
+
+- **[RAWG.io](https://rawg.io/)** for providing a powerful gaming API.
+- The **open-source community** for amazing tools and libraries that made this project possible.

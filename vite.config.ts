@@ -38,4 +38,12 @@ export default defineConfig({
       },
     },
   },
+  server: {
+    open: true, // ✅ Ouvre automatiquement le navigateur en mode dev
+    port: 3000,
+  },
+  preview: {
+    port: 4173,
+    open: true,
+  },
 });
