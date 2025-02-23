@@ -1,9 +1,43 @@
-/* 🎨 Mode Light (Fichier séparé pour alléger base.css) */
+/*
+====================================
+🎨 Mode Light - Fichier CSS
+====================================
+
+SOMMAIRE :
+1. Général
+2. Header
+3. Barre latérale (Sidebar)
+4. Suggestions de recherche
+5. Cartes de jeux
+6. Liens et boutons
+7. Autres éléments
+*/
+
+/* =========================== */
+/* 1. Général */
+/* =========================== */
 .light-mode body {
   background-color: white;
   color: black;
 }
 
+.light-mode h1,
+.light-mode h2,
+.light-mode h3:not(.slide-overlay h3) {
+  color: black;
+}
+
+.light-mode .subtitle {
+  color: #666;
+}
+
+.light-mode .hero-subtitle {
+  color: #666;
+}
+
+/* =========================== */
+/* 2. Header */
+/* =========================== */
 .light-mode header {
   background-color: #f8f9fa !important;
 }
@@ -18,28 +52,9 @@
   color: black;
 }
 
-.light-mode .search-suggestions {
-  background: #ccc;
-  scrollbar-color: #666 #ccc;
-}
-
-.light-mode .search-suggestion {
-  border-bottom: 1px solid #aaa;
-}
-
-.light-mode .search-suggestion:hover {
-  background: #f9f9f9;
-}
-
-.light-mode .wishlist-toggle:hover {
-  background: #ccc;
-}
-
-.light-mode .theme-toggle-btn {
-  background-color: #ddd;
-  color: black;
-}
-
+/* =========================== */
+/* 3. Barre latérale (Sidebar) */
+/* =========================== */
 .light-mode .sidebar {
   background: #ccc;
 }
@@ -54,10 +69,66 @@
   background: #f9f9f9;
 }
 
-.light-mode .hero-subtitle {
-  color: #666;
+/* =========================== */
+/* 4. Suggestions de recherche */
+/* =========================== */
+.light-mode .search-suggestions {
+  background: #ccc;
+  scrollbar-color: #666 #ccc;
 }
 
+.light-mode .search-suggestion {
+  border-bottom: 1px solid #aaa;
+}
+
+.light-mode .search-suggestion:hover {
+  background: #f9f9f9;
+}
+
+/* =========================== */
+/* 5. Cartes de jeux */
+/* =========================== */
+.light-mode .game-card-recommended,
+.light-mode .upcoming-card,
+.light-mode .game-card-trending,
+.light-mode .game-card,
+.light-mode .wishlist-card {
+  background-color: #f8f9fa;
+}
+
+/* CSS pour mobile pour mes cards */
+.light-mode .recommended-games,
+.light-mode .upcoming-card,
+.light-mode .trending-games,
+.light-mode .game-card {
+  padding-bottom: 10px;
+}
+
+.light-mode .game-card__content p {
+  color: #0708ff;
+}
+
+.light-mode .game__meta-date,
+.light-mode .game__meta-playtime,
+.light-mode .game__meta-esrb {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.light-mode .game-release {
+  color: #000000;
+}
+
+.light-mode .game-rating {
+  color: #a02b00;
+}
+
+.light-mode .upcoming-info p {
+  color: #414141;
+}
+
+/* =========================== */
+/* 6. Liens et boutons */
+/* =========================== */
 .light-mode
   a:not(
     .slide-overlay a,
@@ -79,7 +150,15 @@
   color: #003366;
 }
 
-/* ✅ Exclusion de certains boutons du mode clair */
+.light-mode .wishlist-toggle:hover {
+  background: #ccc;
+}
+
+.light-mode .theme-toggle-btn {
+  background-color: #ddd;
+  color: black;
+}
+
 .light-mode
   button:not(
     .wishlist-btn,
@@ -91,29 +170,6 @@
   background-color: #f9f9f9;
 }
 
-.light-mode h1,
-.light-mode h2,
-.light-mode h3:not(.slide-overlay h3) {
-  color: black;
-}
-
-.light-mode .game-card-recommended,
-.light-mode .upcoming-card,
-.light-mode .game-card-trending,
-.light-mode .game-card,
-.light-mode .wishlist-card {
-  background-color: #f8f9fa;
-}
-
-.light-mode .subtitle {
-  color: #666;
-}
-
-.light-mode .game-card__content p {
-  color: #0708ff;
-}
-
-/* ✅ Style des boutons en mode light */
 .light-mode .load-more-btn {
   background-color: #222222;
   color: #ffffff;
@@ -121,24 +177,6 @@
 
 .light-mode .load-more-btn:hover {
   background-color: #111111;
-}
-
-.light-mode .game__meta-date,
-.light-mode .game__meta-playtime,
-.light-mode .game__meta-esrb {
-  background: rgba(0, 0, 0, 0.1);
-}
-
-.light-mode .game-release {
-  color: #000000;
-}
-
-.light-mode .game-rating {
-  color: #a02b00;
-}
-
-.light-mode .upcoming-info p {
-  color: #414141;
 }
 
 .light-mode .back-home-btn {
@@ -150,4 +188,11 @@
   background: darkgrey;
   opacity: 0.6;
   color: white;
+}
+
+/* =========================== */
+/* 7. Autres éléments */
+/* =========================== */
+.light-mode .wishlist-toggle:hover {
+  background: #ccc;
 }
