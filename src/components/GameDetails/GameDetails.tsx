@@ -3,6 +3,7 @@ import { useParams, Link } from "react-router-dom";
 import { getGameDetails } from "../../services/GameService";
 import DOMPurify from "dompurify"; // ✅ Sécurisation du HTML
 import { initialState, reducer } from "./GameDetails.const";
+import { useGameTracking } from "../../hooks/useGameTracking"; // ✅ Ajout du hook de suivi
 import "../../styles/gameDetails.css";
 
 import pcIcon from "../../assets/images/icons/pc.svg";
@@ -47,10 +48,13 @@ const GameDetails: React.FC = () => {
     }
   }, [fetchGameDetails, id]);
 
+  const { game } = state;
+
+  // 🔥 Suivi du genre du jeu visité
+  useGameTracking(game?.genres?.[0]?.slug || null);
+
   if (state.loading) return <div>Chargement des détails du jeu...</div>;
   if (state.error) return <div>{state.error}</div>;
-
-  const { game } = state;
 
   return (
     <>

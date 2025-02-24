@@ -144,7 +144,8 @@ SOMMAIRE :
     .slide-overlay a,
     .back-home-btn,
     .external-links a,
-    .not-found-button
+    .not-found-button,
+    .breadcrumb a
   ) {
   color: #003366;
 }
@@ -203,9 +204,21 @@ SOMMAIRE :
   background-color: #222222;
 }
 
+.light-mode .breadcrumb a {
+  color: #000000;
+}
+
+.light-mode .breadcrumb a:hover {
+  color: #000000;
+}
+
 /* =========================== */
 /* 7. Autres éléments */
 /* =========================== */
 .light-mode .wishlist-toggle:hover {
   background: #ccc;
+}
+
+.light-mode .rating-bar {
+  background: rgba(0, 0, 0, 0.2);
 }

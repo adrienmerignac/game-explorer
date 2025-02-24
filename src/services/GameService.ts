@@ -108,20 +108,28 @@ export const getGameDetails = async (id: string): Promise<Game> => {
   }
 };
 
-export const getRecommendedGames = async () => {
+export const getRecommendedGames = async ({
+  favoriteGenres = [],
+  signal,
+}: { favoriteGenres?: string[]; signal?: AbortSignal } = {}) => {
   try {
     const response = await axios.get(API_URL, {
       params: {
-        genres: "action", // ✅ Filtre les RPG
+        genres: favoriteGenres.length > 0 ? favoriteGenres.join(",") : "action",
         key: API_KEY,
-        ordering: "-rating", // Trier par note
-        page_size: 10, // Récupère 10 jeux
+        ordering: "-rating",
+        page_size: 10,
       },
+      signal, // ✅ Ajout du signal pour annuler la requête si nécessaire
     });
 
     return response.data.results;
   } catch (error) {
-    console.error("Erreur lors du chargement des recommandations :", error);
+    if (axios.isCancel(error)) {
+      console.warn("Requête annulée :", error.message);
+    } else {
+      console.error("Erreur lors du chargement des recommandations :", error);
+    }
     return [];
   }
 };
