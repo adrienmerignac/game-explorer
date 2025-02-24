@@ -64,6 +64,10 @@
   margin: 0;
 }
 
+.light-mode .slide-overlay a {
+  color: white;
+}
+
 /* ✅ Boutons Previous / Next */
 .slider-controls {
   position: absolute;

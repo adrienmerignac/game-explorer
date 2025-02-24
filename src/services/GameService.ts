@@ -2,29 +2,41 @@ import axios from "axios";
 import { API_KEY } from "./GameService.const";
 import { Game, GamesResponse } from "./GameService.types";
 
+// ============================
+// ⚡ Configuration de l'API
+// ============================
 const API_URL = `https://api.rawg.io/api/games?key=${API_KEY}`;
-const GAME_DETAILS_URL = `https://api.rawg.io/api/games`; // Pour récupérer un jeu spécifique
+const GAME_DETAILS_URL = `https://api.rawg.io/api/games`; // Endpoint pour récupérer un jeu spécifique
 
-// Récupérer les jeux populaires (triés par classement et note)
+// ============================
+// 🎮 Fonctions de récupération des jeux
+// ============================
+
+/**
+ * Récupérer les jeux populaires (triés par classement et note)
+ */
 export const getPopularGames = async (
-  page: number = 1,
-  pageSize: number = 10
+  page = 1,
+  pageSize = 15
 ): Promise<GamesResponse> => {
   try {
     const response = await axios.get(API_URL, {
       params: {
-        genres: "role-playing-games-rpg", // ✅ Filtre les RPG
+        // genres: "role-playing-games-rpg", // ✅ Filtre les RPG
         key: API_KEY,
-        ordering: "-rating", // Trier par note décroissante
-        page: page,
+        ordering: "-rating", // Trie par note décroissante
+        page,
         page_size: pageSize,
       },
     });
 
-    // 🔥 Exclure les jeux qui contiennent "indie" dans leurs genres
+    // 🔥 Exclure les jeux qui contiennent "simulation" dans leurs genres
     const filteredResults = response.data.results.filter(
       (game: Game) =>
-        game.genres && !game.genres.some((genre) => genre.slug === "simulation")
+        game.genres &&
+        !game.genres.some(
+          (genre) => genre.slug === "simulation" || genre.slug === "indie"
+        )
     );
 
     return {
@@ -32,23 +44,25 @@ export const getPopularGames = async (
       count: filteredResults.length,
     };
   } catch (error) {
-    console.error("Erreur lors de la récupération des jeux RPG : ", error);
+    console.error("Erreur lors de la récupération des jeux RPG :", error);
     return { results: [], count: 0 };
   }
 };
 
-// Fetch games with optional search query, page, and pageSize
+/**
+ * Récupérer une liste de jeux avec une option de recherche
+ */
 export const fetchGames = async (
-  page: number = 1,
-  pageSize: number = 10,
-  searchQuery: string = ""
+  page = 1,
+  pageSize = 10,
+  searchQuery = ""
 ): Promise<GamesResponse> => {
   try {
     const response = await axios.get(API_URL, {
       params: {
         key: API_KEY,
         ordering: "-metacritic", // Trier par note
-        page: page,
+        page,
         page_size: pageSize,
         search: searchQuery, // Ajout de la recherche
       },
@@ -59,20 +73,22 @@ export const fetchGames = async (
       count: response.data.count,
     };
   } catch (error) {
-    console.error("Erreur lors de la récupération des jeux : ", error);
+    console.error("Erreur lors de la récupération des jeux :", error);
     return { results: [], count: 0 };
   }
 };
 
+/**
+ * Récupérer un jeu aléatoire
+ */
 export const fetchRandomGame = async (): Promise<Game | null> => {
   try {
-    // Générer un numéro de page aléatoire (RAWG.io a beaucoup de pages)
     const randomPage = Math.floor(Math.random() * 100) + 1;
 
     const response = await axios.get(API_URL, {
       params: {
         key: API_KEY,
-        page: randomPage, // 🔥 Récupère une page différente à chaque requête
+        page: randomPage,
         page_size: 20, // Augmente le nombre de jeux récupérés
         ordering: "-rating", // Tri par date pour varier les jeux récents
       },
@@ -81,7 +97,6 @@ export const fetchRandomGame = async (): Promise<Game | null> => {
     const games = response.data.results;
     if (games.length === 0) return null;
 
-    // 🔥 Choisir un jeu au hasard dans cette page
     return games[Math.floor(Math.random() * games.length)];
   } catch (error) {
     console.error("Erreur lors de la récupération du jeu aléatoire :", error);
@@ -89,25 +104,28 @@ export const fetchRandomGame = async (): Promise<Game | null> => {
   }
 };
 
-// Récupérer les détails d'un jeu spécifique
+/**
+ * Récupérer les détails d'un jeu spécifique
+ */
 export const getGameDetails = async (id: string): Promise<Game> => {
   try {
     const response = await axios.get(`${GAME_DETAILS_URL}/${id}`, {
-      params: {
-        key: API_KEY, // Ajout de la clé API
-      },
+      params: { key: API_KEY },
     });
-
-    return response.data; // Retourne les détails du jeu
+    return response.data;
   } catch (error) {
-    console.error(
-      "Erreur lors de la récupération des détails du jeu : ",
-      error
-    );
+    console.error("Erreur lors de la récupération des détails du jeu :", error);
     throw new Error("Erreur lors du chargement des détails du jeu.");
   }
 };
 
+// ============================
+// 🔥 Fonctions de recommandation et tendances
+// ============================
+
+/**
+ * Récupérer des jeux recommandés selon les genres favoris
+ */
 export const getRecommendedGames = async ({
   favoriteGenres = [],
   signal,
@@ -120,10 +138,19 @@ export const getRecommendedGames = async ({
         ordering: "-rating",
         page_size: 10,
       },
-      signal, // ✅ Ajout du signal pour annuler la requête si nécessaire
+      signal,
     });
 
-    return response.data.results;
+    // 🔥 Exclure les jeux qui contiennent "simulation" dans leurs genres
+    const filteredResults = response.data.results.filter(
+      (game: Game) =>
+        game.genres &&
+        !game.genres.some(
+          (genre) => genre.slug === "simulation" || genre.slug === "indie"
+        )
+    );
+
+    return filteredResults;
   } catch (error) {
     if (axios.isCancel(error)) {
       console.warn("Requête annulée :", error.message);
@@ -134,13 +161,16 @@ export const getRecommendedGames = async ({
   }
 };
 
+/**
+ * Récupérer les jeux tendances
+ */
 export const getTrendingGames = async () => {
   try {
     const response = await axios.get(API_URL, {
       params: {
         key: API_KEY,
-        ordering: "-added", // 🔥 Trie par popularité (nombre d'ajouts)
-        page_size: 10, // Récupère 10 jeux
+        ordering: "-added", // Trie par popularité
+        page_size: 10,
       },
     });
     return response.data.results;
@@ -150,18 +180,20 @@ export const getTrendingGames = async () => {
   }
 };
 
+/**
+ * Récupérer les jeux à venir
+ */
 export const getUpcomingGames = async () => {
   try {
-    const today = new Date();
-    const formattedToday = today.toISOString().split("T")[0]; // Formate en "YYYY-MM-DD"
-    const endOfYear = `${today.getFullYear()}-12-31`;
+    const today = new Date().toISOString().split("T")[0];
+    const endOfYear = `${new Date().getFullYear()}-12-31`;
 
     const response = await axios.get(API_URL, {
       params: {
         key: API_KEY,
-        dates: `${formattedToday},${endOfYear}`,
+        dates: `${today},${endOfYear}`,
         ordering: "released",
-        page_size: 10, // Récupère 10 jeux
+        page_size: 10,
       },
     });
     return response.data.results;
@@ -202,12 +234,14 @@ export const getSimilarGames = async (
         key: API_KEY,
         genres: genres.join(","), // Filtrer par les mêmes genres
         ordering: "-rating", // Trier par popularité
-        page_size: 6, // Limiter à 6 jeux similaires
+        page_size: 10, // Limiter à 6 jeux similaires
       },
     });
 
     const similarGames = response.data.results.filter(
-      (game: Game) => game.id.toString() !== currentGameId // Exclure le jeu actuel
+      (game: Game) =>
+        game.id.toString() !== currentGameId &&
+        !game.genres.some((genre) => genre.slug === "indie")
     );
 
     return {

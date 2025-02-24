@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { getUpcomingGames } from "../../services/GameService";
 import { Game } from "../../services/GameService.types";
 import { useWishlist } from "../../context/WishlistContext";
@@ -60,7 +61,13 @@ const UpcomingReleases: React.FC = () => {
                   loading="lazy"
                 />
                 <div className="upcoming-info">
-                  <h3>{game.name}</h3>
+                  <Link
+                    key={game.id}
+                    to={`/games/${game.id}`}
+                    className="upcoming-link"
+                  >
+                    <h3>{game.name}</h3>
+                  </Link>
                   <p>Release Date: {formatDate(game.released)}</p>
                   <button
                     className={`wishlist-btn ${isInWishlist ? "added" : ""}`}

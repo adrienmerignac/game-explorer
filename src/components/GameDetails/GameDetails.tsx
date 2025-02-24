@@ -69,7 +69,7 @@ const GameDetails: React.FC = () => {
 
   useGameTracking(game?.genres?.[0]?.slug || null);
 
-  if (state.loading) return <div>Chargement des détails du jeu...</div>;
+  if (state.loading) return <div>Loading game details...</div>;
   if (state.error) return <div>{state.error}</div>;
 
   return (
@@ -96,29 +96,29 @@ const GameDetails: React.FC = () => {
                 className="wishlist-icon"
                 loading="lazy"
               />
-              {isInWishlist ? "Ajouté à la Wishlist" : "Ajouter à la Wishlist"}
+              {isInWishlist ? "Added to Wishlist" : "Add to Wishlist"}
             </button>
           </div>
 
           {/* 📝 Infos principales */}
           <div className="game-info">
             <p>
-              <strong>Date de sortie :</strong> {formatDate(game.released)}
+              <strong>Release date :</strong> {formatDate(game.released)}
             </p>
             <p>
-              <strong>Temps de jeu moyen :</strong> {game.playtime || "N/A"}{" "}
-              heures
+              <strong>Average playing time :</strong> {game.playtime || "N/A"}{" "}
+              hours
             </p>
             <p>
               <strong>Genres :</strong>{" "}
               {game.genres?.map((g) => g.name).join(", ") || "N/A"}
             </p>
             <p>
-              <strong>Développeur :</strong>{" "}
+              <strong>Developer :</strong>{" "}
               {game.developers?.map((d) => d.name).join(", ") || "N/A"}
             </p>
             <p>
-              <strong>Éditeur :</strong>{" "}
+              <strong>Editor :</strong>{" "}
               {game.publishers?.map((p) => p.name).join(", ") || "N/A"}
             </p>
           </div>
@@ -132,7 +132,7 @@ const GameDetails: React.FC = () => {
               target="_blank"
               rel="noopener noreferrer"
             >
-              🎥 Voir les trailers sur YouTube
+              🎥 Watch the trailers on YouTube
             </a>
           </div>
 
@@ -158,7 +158,7 @@ const GameDetails: React.FC = () => {
 
           {/* 🎮 Plateformes */}
           <div className="platform-list">
-            <h3>Plateformes compatibles :</h3>
+            <h3>Compatible platforms :</h3>
             <ul>
               {game.parent_platforms?.map((platform) => (
                 <li key={platform.platform.id}>{platform.platform.name}</li>
@@ -166,10 +166,10 @@ const GameDetails: React.FC = () => {
             </ul>
           </div>
 
-          {/* 🔄 Jeux similaires */}
+          {/* 🔄 Similar games */}
           {similarGames.length > 0 && (
             <div className="similar-games">
-              <h3>Jeux similaires</h3>
+              <h3>Similar games</h3>
               <div className="similar-game-list">
                 {similarGames.map((similarGame) => (
                   <Link

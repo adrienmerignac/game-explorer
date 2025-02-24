@@ -12,7 +12,7 @@ const HeroBanner: React.FC = () => {
     const fetchGames = async () => {
       try {
         const data = await getPopularGames();
-        const gameList = data.results.slice(0, 5); // 🎯 Prend les 5 premiers jeux
+        const gameList = data.results.slice(0, 10); // 🎯 Prend les 5 premiers jeux
         setGames(gameList);
       } catch (error) {
         console.error("Erreur lors du chargement des jeux populaires", error);
