@@ -42,7 +42,7 @@ Before running the project, make sure you have the following installed:
 2. **Install dependencies:**
 
    ```sh
-   pnpm install
+   npm install
    ```
 
 3. **Set up environment variables:**
@@ -62,7 +62,7 @@ Before running the project, make sure you have the following installed:
 To start the development server:
 
 ```sh
-pnpm run dev
+npm run dev
 ```
 
 Then, open [http://localhost:3000](http://localhost:3000) in your browser.
@@ -74,7 +74,7 @@ Then, open [http://localhost:3000](http://localhost:3000) in your browser.
 To generate an optimized production build:
 
 ```sh
-pnpm run build
+npm run build
 ```
 
 The static files will be available in the `dist/` folder.
@@ -86,7 +86,7 @@ The static files will be available in the `dist/` folder.
 To run unit tests:
 
 ```sh
-pnpm run test
+npm run test
 ```
 
 Ensure that all tests pass before pushing new changes.
