@@ -32,7 +32,7 @@ body {
 }
 
 /* ✅ Bouton Wishlist */
-.wishlist-btn {
+.game-details-container .wishlist-btn {
   align-items: center;
   background-color: #d62c2c;
   border-radius: 5px;
@@ -50,12 +50,12 @@ body {
   margin-top: auto; /* Force le bouton à rester en bas */
 }
 
-.wishlist-btn:hover {
+.game-details-container .wishlist-btn:hover {
   background-color: #b52222;
 }
 
 /* ✅ Icône du cœur */
-.wishlist-icon {
+.game-details-container .wishlist-icon {
   width: 18px;
   height: 18px;
   fill: white;
@@ -203,7 +203,7 @@ body {
     justify-content: space-between;
   }
 
-  .wishlist-btn {
+  .game-details-container .wishlist-btn {
     width: auto;
   }
 
@@ -215,6 +215,7 @@ body {
   .screenshots-gallery {
     grid-template-columns: repeat(3, minmax(250px, 1fr));
     gap: 15px;
+    padding-top: 10px;
   }
 
   .screenshot-image {

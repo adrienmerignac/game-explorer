@@ -83,7 +83,7 @@
 }
 
 /* ✅ Bouton Wishlist */
-.wishlist-btn {
+.upcoming-releases .wishlist-btn {
   align-items: center;
   background-color: #d62c2c;
   border-radius: 5px;
@@ -101,12 +101,12 @@
   margin-top: auto; /* Force le bouton à rester en bas */
 }
 
-.wishlist-btn:hover {
+.upcoming-releases .wishlist-btn:hover {
   background-color: #b52222;
 }
 
 /* ✅ Icône du cœur */
-.wishlist-icon {
+.upcoming-releases .wishlist-icon {
   width: 18px;
   height: 18px;
   fill: white;
