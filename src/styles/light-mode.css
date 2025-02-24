@@ -128,26 +128,12 @@ SOMMAIRE :
 /* =========================== */
 /* 6. Liens et boutons */
 /* =========================== */
-.light-mode
-  a:not(
-    .slide-overlay a,
-    .back-home-btn,
-    .breadcrumb a,
-    .external-links a,
-    .not-found-button
-  ) {
-  color: #0056b3;
+.light-mode a {
+  color: black;
 }
 
-.light-mode
-  a:hover:not(
-    .slide-overlay a,
-    .back-home-btn,
-    .external-links a,
-    .not-found-button,
-    .breadcrumb a
-  ) {
-  color: #003366;
+.light-mode {
+  color: #000000;
 }
 
 .light-mode .wishlist-toggle:hover {

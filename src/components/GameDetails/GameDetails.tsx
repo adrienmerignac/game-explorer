@@ -1,28 +1,34 @@
-import React, { useEffect, useReducer, useCallback } from "react";
+import React, { useEffect, useReducer, useCallback, useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import { getGameDetails } from "../../services/GameService";
-import DOMPurify from "dompurify"; // ✅ Sécurisation du HTML
+import {
+  getGameDetails,
+  getGameScreenshots,
+  getSimilarGames,
+} from "../../services/GameService";
+import DOMPurify from "dompurify";
 import { initialState, reducer } from "./GameDetails.const";
-import { useGameTracking } from "../../hooks/useGameTracking"; // ✅ Ajout du hook de suivi
+import { useGameTracking } from "../../hooks/useGameTracking";
+import { useWishlist } from "../../context/WishlistContext";
 import "../../styles/gameDetails.css";
 
-import pcIcon from "../../assets/images/icons/pc.svg";
-import xboxIcon from "../../assets/images/icons/xbox.svg";
-import nintendoIcon from "../../assets/images/icons/switch.svg";
-import playstationIcon from "../../assets/images/icons/playstation.svg";
-import macIcon from "../../assets/images/icons/mac.svg";
+import OptimizedImage from "../OptimizedImage/OptimizedImage";
+import fallbackImage from "../../assets/images/fallback-image.webp";
 
-const platformIcons: Record<string, string> = {
-  pc: pcIcon,
-  xbox: xboxIcon,
-  nintendo: nintendoIcon,
-  playstation: playstationIcon,
-  mac: macIcon,
-};
+// ✅ Import des icônes Wishlist
+import heartOutlineIcon from "../../assets/images/icons/heart-outline.svg";
+import heartFilledIcon from "../../assets/images/icons/heart.svg";
 
 const GameDetails: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const [state, dispatch] = useReducer(reducer, initialState);
+  const [screenshots, setScreenshots] = useState<string[]>([]);
+  const [similarGames, setSimilarGames] = useState<
+    { id: number; name: string; background_image: string | null }[]
+  >([]);
+
+  const { wishlist, addToWishlist, removeFromWishlist } = useWishlist();
+  const isInWishlist = wishlist.some((g) => g.id === Number(id));
+  const [hovered, setHovered] = useState(false);
 
   const formatDate = (dateString: string) => {
     if (!dateString) return "N/A";
@@ -34,6 +40,17 @@ const GameDetails: React.FC = () => {
     try {
       const data = await getGameDetails(id!);
       dispatch({ type: "SUCCESS", payload: data });
+
+      const screenshotsData = await getGameScreenshots(id!);
+      setScreenshots(screenshotsData || []);
+
+      if (data.genres.length) {
+        const similarGamesData = await getSimilarGames(
+          data.genres.map((g) => g.slug), // Récupère les genres sous forme de slug
+          id!
+        );
+        setSimilarGames(similarGamesData.results || []);
+      }
     } catch (err) {
       dispatch({
         type: "ERROR",
@@ -50,7 +67,6 @@ const GameDetails: React.FC = () => {
 
   const { game } = state;
 
-  // 🔥 Suivi du genre du jeu visité
   useGameTracking(game?.genres?.[0]?.slug || null);
 
   if (state.loading) return <div>Chargement des détails du jeu...</div>;
@@ -59,189 +75,119 @@ const GameDetails: React.FC = () => {
   return (
     <>
       {game && (
-        <>
-          {/* 🎨 Image principale */}
-          <div className="page__art">
-            <div className="art-wrapper">
-              <div className="art art_colored" />
-            </div>
+        <div className="game-details-container">
+          <div className="game-header">
+            <h1 className="game-title">{game.name}</h1>
+
+            {/* ❤️ Bouton Wishlist */}
+            <button
+              className={`wishlist-btn ${isInWishlist ? "added" : ""}`}
+              onClick={() =>
+                isInWishlist ? removeFromWishlist(game.id) : addToWishlist(game)
+              }
+              onMouseEnter={() => setHovered(true)}
+              onMouseLeave={() => setHovered(false)}
+            >
+              <img
+                src={
+                  isInWishlist || hovered ? heartFilledIcon : heartOutlineIcon
+                }
+                alt="Wishlist"
+                className="wishlist-icon"
+                loading="lazy"
+              />
+              {isInWishlist ? "Ajouté à la Wishlist" : "Ajouter à la Wishlist"}
+            </button>
           </div>
 
-          <div className="game-details">
-            {/* 🧭 Breadcrumb */}
-            <nav className="breadcrumb">
-              <Link to="/">Accueil</Link> / <span>{game.name}</span>
-            </nav>
-
-            {/* 🎮 Infos rapides */}
-            <div className="game__head-meta">
-              <div className="game__meta-date">
-                Date de sortie : {formatDate(game.released)}
-              </div>
-
-              {/* ⏳ Temps de jeu moyen */}
-              <div className="game__meta-playtime">
-                Temps de jeu moyen : {game.playtime || "N/A"} heures
-              </div>
-
-              {/* 🕹️ Plateformes */}
-              <div className="platforms platforms_big">
-                {Array.from(
-                  new Map(
-                    game.parent_platforms?.map((parent_platforms) => {
-                      const slug = parent_platforms.platform.slug;
-                      const family = slug.includes("playstation")
-                        ? "playstation"
-                        : slug.includes("xbox")
-                        ? "xbox"
-                        : slug.includes("nintendo")
-                        ? "nintendo"
-                        : slug.includes("pc")
-                        ? "pc"
-                        : slug.includes("linux")
-                        ? "linux"
-                        : slug.includes("mac")
-                        ? "mac"
-                        : slug;
-                      return [family, slug];
-                    })
-                  ).values()
-                ).map(
-                  (slug) =>
-                    slug && (
-                      <div key={slug} className="platforms__platform">
-                        <img
-                          src={platformIcons[slug]}
-                          alt={slug}
-                          height="40"
-                          width="40"
-                        />
-                      </div>
-                    )
-                )}
-              </div>
-
-              {game.esrb_rating && (
-                <div className="game__meta-esrb">
-                  Classification : {game.esrb_rating.name}
-                </div>
-              )}
-            </div>
-
-            <h2 className="game__detail-title">{game.name}</h2>
-
-            {/* 📝 Description */}
-            <div
-              className="game-description"
-              dangerouslySetInnerHTML={{
-                __html: DOMPurify.sanitize(game.description),
-              }}
-            />
-
-            {/* ⭐ Notes détaillées */}
-            <div className="ratings">
-              {game.ratings &&
-                Object.entries(game.ratings).map(
-                  ([key, value]: [
-                    string,
-                    { title: string; percent: number }
-                  ]) => (
-                    <div key={key} className="rating">
-                      <span>
-                        {value.title.charAt(0).toUpperCase() +
-                          value.title.slice(1)}
-                      </span>
-                      <div className="rating-bar">
-                        <div
-                          className="rating-fill"
-                          style={{ width: `${value.percent}%` }}
-                        ></div>
-                      </div>
-                    </div>
-                  )
-                )}
-            </div>
-
-            {/* 🎥 Screenshots */}
-            {game.background_image_additional && (
-              <div className="screenshots">
-                <img src={game.background_image_additional} alt="Screenshot" />
-              </div>
-            )}
-
-            {/* 🔗 Liens externes */}
-            <div className="external-links">
-              {game.website && (
-                <a
-                  href={game.website}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Site officiel
-                </a>
-              )}
-              {game.metacritic_url && (
-                <a
-                  href={game.metacritic_url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Metacritic
-                </a>
-              )}
-              {game.reddit_url && (
-                <a
-                  href={game.reddit_url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Reddit
-                </a>
-              )}
-              {game.twitch_count > 0 && (
-                <a
-                  href={`https://www.twitch.tv/directory/game/${game.name}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Twitch
-                </a>
-              )}
-
-              {game.youtube_count > 0 && (
-                <a
-                  href={`https://www.youtube.com/results?search_query=${game.name}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  YouTube
-                </a>
-              )}
-            </div>
-
-            {/* 📊 Metacritic par plateforme */}
-            {game.metacritic_platforms &&
-              game.metacritic_platforms.length > 0 && (
-                <div className="metacritic-scores">
-                  {game.metacritic_platforms.map((meta) => (
-                    <a
-                      key={meta.platform.name} // ✅ Ajout de la clé unique
-                      href={meta.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <div className="metacritic-score">
-                        <span className="platform-name">
-                          {meta.platform.name}
-                        </span>
-                        <span className="score">{meta.metascore}</span>
-                      </div>
-                    </a>
-                  ))}
-                </div>
-              )}
+          {/* 📝 Infos principales */}
+          <div className="game-info">
+            <p>
+              <strong>Date de sortie :</strong> {formatDate(game.released)}
+            </p>
+            <p>
+              <strong>Temps de jeu moyen :</strong> {game.playtime || "N/A"}{" "}
+              heures
+            </p>
+            <p>
+              <strong>Genres :</strong>{" "}
+              {game.genres?.map((g) => g.name).join(", ") || "N/A"}
+            </p>
+            <p>
+              <strong>Développeur :</strong>{" "}
+              {game.developers?.map((d) => d.name).join(", ") || "N/A"}
+            </p>
+            <p>
+              <strong>Éditeur :</strong>{" "}
+              {game.publishers?.map((p) => p.name).join(", ") || "N/A"}
+            </p>
           </div>
-        </>
+
+          {/* 🔗 Recherche de trailer sur YouTube */}
+          <div className="youtube-link">
+            <a
+              href={`https://www.youtube.com/results?search_query=${encodeURIComponent(
+                game.name + " trailer"
+              )}`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              🎥 Voir les trailers sur YouTube
+            </a>
+          </div>
+
+          {/* 📸 Galerie d'images */}
+          <div className="screenshots-gallery">
+            {screenshots.map((src, index) => (
+              <img
+                key={index}
+                src={src}
+                alt={`Screenshot ${index + 1}`}
+                className="screenshot-image"
+              />
+            ))}
+          </div>
+
+          {/* 📝 Description */}
+          <div
+            className="game-description"
+            dangerouslySetInnerHTML={{
+              __html: DOMPurify.sanitize(game.description),
+            }}
+          />
+
+          {/* 🎮 Plateformes */}
+          <div className="platform-list">
+            <h3>Plateformes compatibles :</h3>
+            <ul>
+              {game.parent_platforms?.map((platform) => (
+                <li key={platform.platform.id}>{platform.platform.name}</li>
+              ))}
+            </ul>
+          </div>
+
+          {/* 🔄 Jeux similaires */}
+          {similarGames.length > 0 && (
+            <div className="similar-games">
+              <h3>Jeux similaires</h3>
+              <div className="similar-game-list">
+                {similarGames.map((similarGame) => (
+                  <Link
+                    key={similarGame.id}
+                    to={`/games/${similarGame.id}`}
+                    className="similar-game-card"
+                  >
+                    <OptimizedImage
+                      src={similarGame.background_image || fallbackImage}
+                      alt={similarGame.name}
+                    />
+                    <p>{similarGame.name}</p>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
       )}
     </>
   );

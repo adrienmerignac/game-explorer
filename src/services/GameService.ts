@@ -170,3 +170,81 @@ export const getUpcomingGames = async () => {
     return [];
   }
 };
+
+// ✅ Récupérer les captures d'écran d'un jeu
+export const getGameScreenshots = async (id: string): Promise<string[]> => {
+  try {
+    const response = await axios.get(`${GAME_DETAILS_URL}/${id}/screenshots`, {
+      params: { key: API_KEY },
+    });
+    return response.data.results.map(
+      (screenshot: { image: string }) => screenshot.image
+    );
+  } catch (error) {
+    console.error(
+      "Erreur lors de la récupération des captures d'écran :",
+      error
+    );
+    return [];
+  }
+};
+
+// ✅ Récupérer des jeux similaires
+export const getSimilarGames = async (
+  genres: string[],
+  currentGameId: string
+): Promise<GamesResponse> => {
+  if (!genres.length) return { results: [], count: 0 };
+
+  try {
+    const response = await axios.get(API_URL, {
+      params: {
+        key: API_KEY,
+        genres: genres.join(","), // Filtrer par les mêmes genres
+        ordering: "-rating", // Trier par popularité
+        page_size: 6, // Limiter à 6 jeux similaires
+      },
+    });
+
+    const similarGames = response.data.results.filter(
+      (game: Game) => game.id.toString() !== currentGameId // Exclure le jeu actuel
+    );
+
+    return {
+      results: similarGames,
+      count: similarGames.length,
+    };
+  } catch (error) {
+    console.error(
+      "Erreur lors de la récupération des jeux similaires :",
+      error
+    );
+    return { results: [], count: 0 };
+  }
+};
+
+// ✅ Récupérer les développeurs et éditeurs d'un jeu
+export const getGameDevelopers = async (
+  id: string
+): Promise<{ developers: string[]; publishers: string[] }> => {
+  try {
+    const response = await axios.get(`${GAME_DETAILS_URL}/${id}`, {
+      params: { key: API_KEY },
+    });
+
+    return {
+      developers:
+        response.data.developers?.map((dev: { name: string }) => dev.name) ||
+        [],
+      publishers:
+        response.data.publishers?.map((pub: { name: string }) => pub.name) ||
+        [],
+    };
+  } catch (error) {
+    console.error(
+      "Erreur lors de la récupération des développeurs et éditeurs :",
+      error
+    );
+    return { developers: [], publishers: [] };
+  }
+};

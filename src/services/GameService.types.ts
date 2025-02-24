@@ -3,6 +3,13 @@ export interface Game {
   background_image: string;
   background_image_additional: string;
   description: string;
+  developers: [
+    {
+      id: number;
+      name: string;
+      slug: string;
+    }
+  ];
   esrb_rating: {
     id: number;
     name: string;
@@ -49,6 +56,13 @@ export interface Game {
       percent: number;
     };
   };
+  publishers: [
+    {
+      id: number;
+      name: string;
+      slug: string;
+    }
+  ];
   rating: number;
   reddit_url: string;
   released: string;
