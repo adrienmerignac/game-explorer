@@ -86,7 +86,7 @@ const Header: React.FC = () => {
           </div>
           <div className="header__item">
             <a className="header__item-link header-logo" href="/">
-              <div className="logo">GameHub</div>
+              <div className="logo">Game Explorer</div>
             </a>
           </div>
           {/* ✅ Affichage conditionnel de la barre de recherche en fonction de l'écran */}

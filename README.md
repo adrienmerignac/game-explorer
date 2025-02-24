@@ -1,22 +1,22 @@
-# 🎮 Game Library
+# 🎮 Game Explorer
 
-![GitHub last commit](https://img.shields.io/github/last-commit/adrienmerignac/game-library)
-![GitHub issues](https://img.shields.io/github/issues/adrienmerignac/game-library)
-![GitHub pull requests](https://img.shields.io/github/issues-pr/adrienmerignac/game-library)
+![GitHub last commit](https://img.shields.io/github/last-commit/adrienmerignac/game-explorer)
+![GitHub issues](https://img.shields.io/github/issues/adrienmerignac/game-explorer)
+![GitHub pull requests](https://img.shields.io/github/issues-pr/adrienmerignac/game-explorer)
 
 ## 📖 Description
 
-**Game Library** is a web application built with **React**, **TypeScript**, and **Vite** that allows users to **browse, manage, and explore a collection of video games**. The app integrates with the **[RAWG.io](https://rawg.io/) API** to fetch game details, ratings, platforms, and more.
+**Game Explorer** is a web application built with **React**, **TypeScript**, and **Vite** that allows users to **browse, discover, and explore a vast collection of video games**. The app integrates with the **[RAWG.io](https://rawg.io/) API** to fetch game details, ratings, platforms, and more.
 
 ## 🌍 Live Demo
 
-Check out the live version of the app here: **[Game Library Demo](https://game-library-eight-puce.vercel.app/)**
+Check out the live version of the app here: **[Game Explorer Demo](https://game-explorer.vercel.app/)**
 
 ## ✨ Features
 
 - 🔍 **Game Search & Filtering** – Find games by name, genre, or platform.
 - 📖 **Game Details** – View in-depth information about each game.
-- ⭐ **Favorites List** – Save and manage your favorite games.
+- ⭐ **Personalized Recommendations** – Get suggestions based on games you've viewed.
 - 🌐 **RAWG.io API Integration** – Fetch real-time game data from RAWG.
 
 ---
@@ -26,7 +26,7 @@ Check out the live version of the app here: **[Game Library Demo](https://game-l
 Before running the project, make sure you have the following installed:
 
 - [Node.js](https://nodejs.org/) (version **18+** recommended)
-- [pnpm](https://pnpm.io/) (or another package manager)
+- [npm](https://www.npmjs.com/) (or another package manager)
 
 ---
 
@@ -35,8 +35,8 @@ Before running the project, make sure you have the following installed:
 1. **Clone the repository:**
 
    ```sh
-   git clone https://github.com/adrienmerignac/game-library.git
-   cd game-library
+   git clone https://github.com/adrienmerignac/game-explorer.git
+   cd game-explorer
    ```
 
 2. **Install dependencies:**

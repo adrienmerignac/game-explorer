@@ -1,0 +1,25 @@
+{
+  "name": "Game Explorer",
+  "short_name": "GameExplorer",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#121212",
+  "theme_color": "#121212",
+  "icons": [
+    {
+      "src": "favicon.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    },
+    {
+      "src": "social-preview.png",
+      "sizes": "1200x630",
+      "type": "image/png"
+    }
+  ]
+}
