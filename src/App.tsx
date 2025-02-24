@@ -4,11 +4,12 @@ import { SearchProvider } from "./context/SearchContext";
 import { WishlistProvider } from "./context/WishlistContext";
 import { ThemeProvider } from "./context/ThemeContext";
 
-import Header from "./components/Header";
+import Header from "./components/Header/Header";
 import Home from "./pages/Home";
 import WishlistPage from "./pages/WishlistPage";
 import GameDetails from "./components/GameDetails/GameDetails";
-import ScrollToTop from "./components/ScrollToTop/ScrollToTop"; // ✅ Import du composant
+import Footer from "./components/Footer/Footer";
+import ScrollToTop from "./components/ScrollToTop/ScrollToTop";
 import { SpeedInsights } from "@vercel/speed-insights/react";
 import NotFound from "./pages/NotFound";
 
@@ -27,7 +28,8 @@ const App: React.FC = () => {
               <Route path="/wishlist" element={<WishlistPage />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
-            <ScrollToTop /> {/* ✅ Placement du bouton ici */}
+            <ScrollToTop />
+            <Footer />
           </Router>
           <SpeedInsights />
         </SearchProvider>

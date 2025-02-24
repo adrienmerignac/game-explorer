@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { getPopularGames } from "../services/GameService"; // 🔥 API des jeux
-import { Game } from "../services/GameService.types";
+import { getPopularGames } from "../../services/GameService"; // 🔥 API des jeux
+import { Game } from "../../services/GameService.types";
 import { Link } from "react-router-dom";
-import "../styles/heroBanner.css"; // ✅ Assurez-vous que le fichier CSS est bien importé
+import "../../styles/heroBanner.css"; // ✅ Assurez-vous que le fichier CSS est bien importé
 
 const HeroBanner: React.FC = () => {
   const [games, setGames] = useState<Game[]>([]);

@@ -5,7 +5,7 @@ import { useGames } from "../hooks/useGames";
 import { usePreloadLCP } from "../hooks/usePreloadLCP";
 
 import HeroImage from "../components/HeroImage/HeroImage";
-import HeroBanner from "../components/HeroBanner";
+import HeroBanner from "../components/HeroBanner/HeroBanner";
 import GameList from "../components/GameList/GameList";
 
 const RecommendedGames = React.lazy(

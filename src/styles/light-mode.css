@@ -10,7 +10,8 @@ SOMMAIRE :
 4. Suggestions de recherche
 5. Cartes de jeux
 6. Liens et boutons
-7. Autres éléments
+7. Footer
+8. Autres éléments
 */
 
 /* =========================== */
@@ -39,7 +40,7 @@ SOMMAIRE :
 /* 2. Header */
 /* =========================== */
 .light-mode header {
-  background-color: #f8f9fa !important;
+  background-color: #f8f9fa;
 }
 
 .light-mode header .logo,
@@ -196,6 +197,17 @@ SOMMAIRE :
 
 .light-mode .breadcrumb a:hover {
   color: #000000;
+}
+
+/* =========================== */
+/* 8. Footer */
+/* =========================== */
+.light-mode footer {
+  background-color: #f8f9fa;
+}
+
+.light-mode .footer-logo h2 {
+  color: black;
 }
 
 /* =========================== */
