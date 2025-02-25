@@ -1,0 +1,132 @@
+/* S'assure que la page prend toute la hauteur */
+html,
+body div[id="root"] {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Le conteneur principal prend toute la hauteur disponible */
+.main-container {
+  flex: 1; /* Permet au contenu de s'étendre et de pousser le footer en bas */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Conteneur principal (centré et responsive) */
+.login-container {
+  width: 90%;
+  max-width: 400px;
+  margin: 10% auto;
+  padding: 20px;
+  background: #222; /* Fond sombre */
+  border-radius: 8px;
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+}
+
+/* Mode clair : couleur de fond ajustée */
+.light-mode .login-container {
+  background: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Titre */
+.login-container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 24px;
+}
+
+/* Champs de saisie */
+.login-input {
+  width: 100%;
+  max-width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border: 1px solid #555; /* Bordures visibles en mode sombre */
+  border-radius: 5px;
+  font-size: 16px;
+  background-color: #333; /* Fond sombre */
+  color: #fff;
+  box-sizing: border-box; /* Évite que le padding augmente la taille */
+}
+
+/* Mode clair */
+.light-mode .login-input {
+  background-color: #fff;
+  color: #333;
+  border: 1px solid #ccc;
+}
+
+/* Texte informatif */
+.login-text {
+  margin-top: 15px;
+  font-size: 14px;
+  text-align: center;
+  color: #aaa;
+}
+
+/* Mode clair : Texte plus foncé */
+.light-mode .login-text {
+  color: #666;
+}
+
+/* Lien d'inscription */
+.login-link {
+  display: block;
+  text-align: center;
+  margin-top: 10px;
+  color: #4da6ff;
+  text-decoration: none;
+}
+
+.login-link:hover {
+  color: #0056b3;
+  text-decoration: underline;
+}
+
+/* Mode clair : Ajustement de la couleur du lien */
+.light-mode .login-link {
+  color: #014fa4;
+}
+
+/* Bouton principal */
+.btn-primary {
+  width: 100%;
+  padding: 12px;
+  background-color: #014fa4;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s ease-in-out;
+}
+
+/* Mode sombre : Bouton légèrement plus lumineux */
+.btn-primary:hover {
+  background-color: #0056b3;
+}
+
+/* Mode clair : Ajustement du bouton */
+.light-mode .btn-primary {
+  background-color: #014fa4 !important;
+}
+
+.light-mode .btn-primary:hover {
+  background-color: #0056b3;
+}
+
+/* Désactivation du bouton */
+.btn-primary:disabled {
+  background-color: #555;
+  cursor: not-allowed;
+}
+
+/* Mode clair : Désactivation du bouton */
+.light-mode .btn-primary:disabled {
+  background-color: #ccc;
+}

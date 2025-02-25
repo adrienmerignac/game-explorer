@@ -1,0 +1,56 @@
+/* Le conteneur principal prend toute la hauteur disponible */
+.main-container {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Conteneur du Dashboard */
+.dashboard-container {
+  width: 90%;
+  max-width: 500px;
+  padding: 20px;
+  background: #222;
+  border-radius: 8px;
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+  text-align: center;
+}
+
+/* Mode clair */
+.light-mode .dashboard-container {
+  background: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Titre */
+.dashboard-container h1 {
+  font-size: 26px;
+  margin-bottom: 20px;
+}
+
+/* Texte */
+.dashboard-container p {
+  font-size: 16px;
+  color: #ddd;
+  margin-bottom: 10px;
+}
+
+/* Mode clair */
+.light-mode .dashboard-container p {
+  color: #333;
+}
+
+/* Texte de chargement */
+.loading-text {
+  color: #4da6ff;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+/* Texte d'erreur */
+.error-text {
+  color: #ff4d4d;
+  font-size: 18px;
+  font-weight: bold;
+}
