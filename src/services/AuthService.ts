@@ -6,8 +6,8 @@ import {
   GoogleAuthProvider,
   signInWithPopup,
 } from "firebase/auth";
-import { auth, db } from "../firebaseConfig";
-import { setDoc, doc, getDoc } from "firebase/firestore";
+import { loadAuth, loadFirestore } from "../firebaseConfig";
+import { doc, getDoc } from "firebase/firestore";
 import { UserData } from "../context/AuthContext";
 
 // Interface pour le retour utilisateur
@@ -37,10 +37,21 @@ const handleFirebaseError = (error: unknown, message: string): never => {
 // 🔥 Ajoute un utilisateur dans Firestore s'il n'existe pas
 const addUserToFirestore = async (user: User) => {
   try {
+    const db = await loadFirestore();
+    const { doc, getDoc, setDoc } = await import("firebase/firestore");
+
+    if (!user.uid) {
+      console.warn("⚠️ L'utilisateur n'a pas d'UID valide.");
+      return;
+    }
+
+    console.log("🔍 Vérification de l'utilisateur dans Firestore...");
+
     const userRef = doc(db, "users", user.uid);
     const userDoc = await getDoc(userRef);
 
     if (!userDoc.exists()) {
+      console.log("➕ Ajout de l'utilisateur à Firestore...");
       await setDoc(userRef, {
         uid: user.uid,
         email: user.email,
@@ -48,6 +59,9 @@ const addUserToFirestore = async (user: User) => {
         createdAt: new Date(),
         wishlist: [],
       });
+      console.log("✅ Utilisateur ajouté à Firestore !");
+    } else {
+      console.log("ℹ️ L'utilisateur existe déjà dans Firestore.");
     }
   } catch (error) {
     console.error(
@@ -63,6 +77,7 @@ export const registerUser = async (
   password: string
 ): Promise<AuthResponse> => {
   try {
+    const auth = await loadAuth(); // Call the loadAuth function to get the Auth object
     const { user } = await createUserWithEmailAndPassword(
       auth,
       email,
@@ -84,6 +99,7 @@ export const loginUser = async (
   password: string
 ): Promise<AuthResponse> => {
   try {
+    const auth = await loadAuth(); // Call the loadAuth function to get the Auth object
     const { user } = await signInWithEmailAndPassword(auth, email, password);
     return { user };
   } catch (error: unknown) {
@@ -94,7 +110,8 @@ export const loginUser = async (
 // 🔥 Déconnexion
 export const logoutUser = async (): Promise<void> => {
   try {
-    await signOut(auth);
+    const auth = await loadAuth(); // Call the loadAuth function to get the Auth object
+    await signOut(auth); // Pass the Auth object to the signOut function
   } catch (error) {
     console.error("❌ Erreur lors de la déconnexion :", error);
   }
@@ -103,7 +120,8 @@ export const logoutUser = async (): Promise<void> => {
 // 🔥 Récupération du profil utilisateur Firestore
 export const getUserProfile = async (uid: string): Promise<UserData | null> => {
   try {
-    const userRef = doc(db, "users", uid);
+    const firestore = await loadFirestore();
+    const userRef = doc(firestore, "users", uid);
     const userDoc = await getDoc(userRef);
 
     if (userDoc.exists()) {
@@ -129,8 +147,9 @@ export const getUserProfile = async (uid: string): Promise<UserData | null> => {
 // 🔥 Connexion avec Google
 export const loginWithGoogle = async (): Promise<AuthResponse> => {
   try {
+    const auth = await loadAuth(); // Call the loadAuth function to get the Auth object
     const provider = new GoogleAuthProvider();
-    const { user } = await signInWithPopup(auth, provider);
+    const { user } = await signInWithPopup(auth, provider); // Pass the Auth object to the signInWithPopup function
     await addUserToFirestore(user);
     return { user };
   } catch (error: unknown) {

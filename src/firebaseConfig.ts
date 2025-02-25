@@ -1,12 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getAuth } from "firebase/auth";
-import {
-  initializeFirestore,
-  persistentLocalCache,
-  persistentSingleTabManager,
-} from "firebase/firestore";
 
-// ✅ Configuration Firebase avec variables d'environnement
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
   authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
@@ -17,15 +10,39 @@ const firebaseConfig = {
   measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID,
 };
 
-// ✅ Initialisation de Firebase
+// ✅ Initialisation de Firebase uniquement si nécessaire
 const app = initializeApp(firebaseConfig);
 
-// ✅ Initialisation de Firestore avec persistance locale
-export const db = initializeFirestore(app, {
-  localCache: persistentLocalCache({
-    tabManager: persistentSingleTabManager({}),
-  }), // ✅ Correction ici
-});
+/** 🔥 Lazy loading des services Firebase **/
 
-// ✅ Initialisation de l'authentification
-export const auth = getAuth(app);
+// Authentification
+export const loadAuth = async () => {
+  const { getAuth } = await import("firebase/auth");
+  return getAuth(app);
+};
+
+// Firestore (Base de données)
+export const loadFirestore = async () => {
+  const {
+    getFirestore,
+    initializeFirestore,
+    persistentLocalCache,
+    persistentSingleTabManager,
+  } = await import("firebase/firestore");
+
+  try {
+    // ✅ Vérifier si Firestore est déjà initialisé
+    return getFirestore(app);
+  } catch (error) {
+    console.warn(
+      "⚠️ Firestore n'était pas encore initialisé. Initialisation en cours..."
+    );
+    return initializeFirestore(app, {
+      localCache: persistentLocalCache({
+        tabManager: persistentSingleTabManager({}),
+      }),
+    });
+  }
+};
+
+export { app };

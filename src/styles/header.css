@@ -2,7 +2,7 @@
 .page__header {
   color: white;
   font-family: Arial, sans-serif;
-  padding: 16px 40px;
+  padding: 0px 40px;
 }
 
 /* ✅ Ajout d'un espace pour éviter la superposition */
@@ -226,6 +226,11 @@
 }
 
 /* ✅ Icône de connexion */
+.login-icon {
+  height: 24px;
+  width: 24px;
+}
+
 .login-svg {
   width: 24px;
   height: 24px;

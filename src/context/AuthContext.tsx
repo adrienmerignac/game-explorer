@@ -6,11 +6,12 @@ import {
   ReactNode,
 } from "react";
 import { onAuthStateChanged, User } from "firebase/auth";
-import { auth } from "../firebaseConfig";
+import { loadAuth } from "../firebaseConfig";
 import { getUserProfile } from "../services/AuthService";
 
 // ✅ Interface pour structurer les données utilisateur Firestore
 export interface UserData {
+  avatar?: string;
   uid: string;
   email: string;
   displayName: string;
@@ -32,38 +33,49 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
   const [userData, setUserData] = useState<UserData | null>(null);
   const [loading, setLoading] = useState(true);
-  const [initialized, setInitialized] = useState(false); // ✅ Ajout de l'état pour suivre Firebase
+  const [initialized, setInitialized] = useState(false); // ✅ Indique si Firebase est prêt
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
-      if (firebaseUser) {
-        setUser(firebaseUser);
-        const profileData = await getUserProfile(firebaseUser.uid);
+    // ✅ Déplacer l'`async` dans une fonction interne
+    const initAuth = async () => {
+      const auth = await loadAuth(); // Charge Firebase Auth
 
-        if (profileData) {
-          setUserData({
-            uid: firebaseUser.uid,
-            email: profileData.email,
-            displayName: profileData.displayName || "Utilisateur",
-            createdAt:
-              profileData.createdAt && "seconds" in profileData.createdAt
-                ? new Date((profileData.createdAt.seconds as number) * 1000)
-                : new Date(),
-            wishlist: Array.isArray(profileData.wishlist)
-              ? profileData.wishlist
-              : [],
-          });
+      const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
+        if (firebaseUser) {
+          setUser(firebaseUser);
+          const profileData = await getUserProfile(firebaseUser.uid);
+
+          if (profileData) {
+            setUserData({
+              uid: firebaseUser.uid,
+              email: profileData.email,
+              displayName: profileData.displayName || "Utilisateur",
+              createdAt:
+                profileData.createdAt && "seconds" in profileData.createdAt
+                  ? new Date((profileData.createdAt.seconds as number) * 1000)
+                  : new Date(),
+              wishlist: Array.isArray(profileData.wishlist)
+                ? profileData.wishlist
+                : [],
+            });
+          }
+        } else {
+          setUser(null);
+          setUserData(null);
         }
-      } else {
-        setUser(null);
-        setUserData(null);
-      }
 
-      setLoading(false);
-      setInitialized(true); // ✅ Indique que Firebase a bien chargé l'utilisateur
-    });
+        setLoading(false);
+        setInitialized(true);
+      });
 
-    return () => unsubscribe();
+      return unsubscribe;
+    };
+
+    const unsubscribePromise = initAuth();
+
+    return () => {
+      unsubscribePromise.then((unsubscribe) => unsubscribe()).catch(() => {});
+    };
   }, []);
 
   return (

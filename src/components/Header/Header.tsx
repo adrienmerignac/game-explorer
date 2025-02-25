@@ -6,6 +6,7 @@ import Wishlist from "../Wishlist/Wishlist";
 import ThemeToggle from "../ThemeToggle/ThemeToggle";
 import { useAuth } from "../../context/AuthContext";
 import { logoutUser } from "../../services/AuthService";
+import logo from "../../assets/images/game-explorer-logo-150x150.webp"; // ✅ Import du logo
 
 const Header: React.FC = () => {
   const { searchQuery, setSearchQuery } = useSearch();
@@ -84,13 +85,41 @@ const Header: React.FC = () => {
             </nav>
           </div>
           <div className="header__item">
-            <a className="header__item-link header-logo" href="/">
-              <div className="logo">Game Explorer</div>
+            <a className="header__item-link" href="/">
+              <img
+                src={logo}
+                alt="Game Explorer Logo"
+                className="header-logo"
+                width="75"
+                height="75"
+              />
             </a>
           </div>
-          {/* ✅ Affichage conditionnel de la barre de recherche en fonction de l'écran */}
-          {!isMobile && searchBar}
-          {/* ✅ Intégration du bouton Wishlist */}
+
+          {!isMobile && (
+            <div className="header__item header__item_search" ref={searchRef}>
+              <div className="header__item header__item_center header__search">
+                <form
+                  className="header__search__form"
+                  role="search"
+                  onSubmit={(e) => e.preventDefault()}
+                >
+                  <div className="header__search__input__area">
+                    <input
+                      type="text"
+                      className="header__search__input"
+                      role="searchbox"
+                      placeholder="Search for a game..."
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                    />
+                    <SearchSuggestions searchRef={searchRef} />
+                  </div>
+                </form>
+              </div>
+            </div>
+          )}
+
           <div className="header__item header__wishlist">
             <Wishlist />
           </div>
@@ -120,14 +149,16 @@ const Header: React.FC = () => {
                 )}
               </div>
             ) : (
-              <Link to="/login" className="login-icon">
-                {/* ✅ Icône de connexion en SVG */}
+              <Link to="/login" className="login-icon" aria-label="Login">
                 <svg
                   className="login-svg"
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 24 24"
+                  fill="currentColor"
+                  width="24"
+                  height="24"
                 >
-                  <path d="M10 12a2 2 0 100-4 2 2 0 000 4zm0-6a6 6 0 110 12 6 6 0 010-12zm7 8h-2v2h2v-2zm-2-4h2V8h-2v2zm2 6h-2v2h2v-2zm-2-4h2v-2h-2v2z" />
+                  <path d="M10 2H20a2 2 0 012 2v16a2 2 0 01-2 2H10a2 2 0 01-2-2v-4h2v4h10V4H10v4H8V4a2 2 0 012-2zm-1 10l4 4 1.41-1.41L11.83 12H20v-2h-8.17l2.58-2.59L13 6l-4 4z" />
                 </svg>
               </Link>
             )}

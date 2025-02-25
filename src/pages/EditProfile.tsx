@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
 import { getUserProfile } from "../services/AuthService";
 import { updateDoc, doc } from "firebase/firestore";
-import { db } from "../firebaseConfig";
+import { loadFirestore } from "../firebaseConfig";
 
 const EditProfile = () => {
   const { user } = useAuth();
@@ -20,7 +20,9 @@ const EditProfile = () => {
 
   const handleUpdate = async () => {
     if (user) {
-      const userRef = doc(db, "users", user.uid);
+      const firestore = await loadFirestore();
+
+      const userRef = doc(firestore, "users", user.uid);
       await updateDoc(userRef, { displayName });
       alert("Profil mis à jour !");
     }

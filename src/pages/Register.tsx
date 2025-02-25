@@ -18,7 +18,6 @@ const Register = () => {
 
     try {
       await registerUser(email, password);
-      alert("Compte créé avec succès !");
       navigate("/dashboard");
     } catch (error) {
       setErrorMessage("Erreur d'inscription. Vérifiez vos informations.");

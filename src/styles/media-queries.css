@@ -186,8 +186,9 @@
     width: 100%;
   }
 
-  .logo {
-    font-size: 14px;
+  .header-logo {
+    height: 45px;
+    width: 45px;
   }
 
   .header__item_search {
@@ -254,6 +255,10 @@
     width: 100%;
     display: flex;
     justify-content: center;
+  }
+
+  .header__item-link {
+    height: 75px;
   }
 }
 
