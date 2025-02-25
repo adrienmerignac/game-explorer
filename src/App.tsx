@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   BrowserRouter as Router,
   Routes,
   Route,
   Navigate,
+  useLocation,
 } from "react-router-dom";
 import { SearchProvider } from "./context/SearchContext";
 import { WishlistProvider } from "./context/WishlistContext";
@@ -27,6 +28,18 @@ import EditProfile from "./pages/EditProfile"; // Page protégée
 
 import "./styles/App.css";
 
+// ✅ Gestion dynamique des classes <body> selon la page active
+const BodyClassHandler = () => {
+  const location = useLocation();
+
+  useEffect(() => {
+    const page = location.pathname.replace("/", "") || "home"; // Ex: "/login" -> "login"
+    document.body.className = page;
+  }, [location]);
+
+  return null; // Ce composant ne rend rien, il gère juste la classe du <body>
+};
+
 // ✅ Composant pour protéger les routes privées
 const PrivateRoute = ({ children }: { children: JSX.Element }) => {
   const { user, initialized } = useAuth();
@@ -38,12 +51,12 @@ const PrivateRoute = ({ children }: { children: JSX.Element }) => {
 const App: React.FC = () => {
   return (
     <AuthProvider>
-      {" "}
-      {/* 🔥 Contexte Auth ajouté ici */}
       <ThemeProvider>
         <WishlistProvider>
           <SearchProvider>
             <Router>
+              <BodyClassHandler />{" "}
+              {/* ✅ Ajout du gestionnaire de classe pour le <body> */}
               <Header />
               <Routes>
                 {/* Pages publiques */}

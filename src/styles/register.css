@@ -1,7 +1,6 @@
 /* S'assure que la page prend toute la hauteur */
-html,
-body div[id="root"] {
-  height: 100%;
+body.register div[id="root"] {
+  height: 100vh;
   margin: 0;
   padding: 0;
   display: flex;
