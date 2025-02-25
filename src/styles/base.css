@@ -101,7 +101,7 @@ button:focus-visible {
 }
 
 .theme-icon {
-  width: 20px;
+  width: 24px;
   height: 24px;
   transition: fill 0.3s ease;
   color: white;

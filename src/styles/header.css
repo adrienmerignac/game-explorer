@@ -195,3 +195,97 @@
 .search-suggestion:hover .suggestion-img {
   opacity: 0.7;
 }
+
+/* ✅ Icône utilisateur (connecté) */
+.user-icon {
+  background-color: #1e1e1e;
+  padding: 0;
+}
+
+.user-icon:focus {
+  outline: none;
+}
+
+.user-icon:hover {
+  border-color: unset;
+}
+
+.light-mode .user-icon:hover {
+  border-color: white;
+}
+
+.user-avatar-svg {
+  width: 24px;
+  height: 24px;
+  fill: white;
+  transition: fill 0.3s ease;
+}
+
+.light-mode .user-avatar-svg {
+  fill: black; /* ✅ S'adapte au mode clair */
+}
+
+/* ✅ Icône de connexion */
+.login-svg {
+  width: 24px;
+  height: 24px;
+  fill: white;
+  transition: fill 0.3s ease;
+}
+
+.light-mode .login-svg {
+  fill: black;
+}
+
+/* ✅ Menu déroulant de l'utilisateur */
+.user-menu {
+  position: relative;
+  height: 24px;
+  width: 24px;
+}
+
+.user-dropdown {
+  position: absolute;
+  right: 0;
+  top: 40px;
+  background: #222;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 150px;
+  z-index: 1;
+}
+
+.light-mode .user-dropdown {
+  background: #f9f9f9;
+}
+
+.user-dropdown a,
+.user-dropdown button {
+  background: none;
+  border: none;
+  color: white;
+  text-decoration: none;
+  padding: 8px;
+  text-align: left;
+  width: 100%;
+  cursor: pointer;
+}
+
+.light-mode .user-dropdown a,
+.light-mode .user-dropdown button {
+  color: black;
+}
+
+.user-dropdown a:hover,
+.user-dropdown button:hover {
+  background: unset;
+}
+
+.light-mode .user-dropdown a:hover,
+.light-mode .user-dropdown button:hover {
+  background: unset;
+}

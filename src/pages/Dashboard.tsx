@@ -4,7 +4,7 @@ import { getUserProfile } from "../services/AuthService";
 import { logoutUser } from "../services/AuthService";
 import { useNavigate } from "react-router-dom";
 import "../styles/dashboard.css";
-import "../styles/buttons.css"; // Boutons réutilisables
+import "../styles/buttons.css";
 
 const Dashboard = () => {
   const { user } = useAuth();
@@ -39,27 +39,27 @@ const Dashboard = () => {
       <div className="dashboard-container">
         <h1>Dashboard</h1>
         {loading ? (
-          <p className="loading-text">Chargement...</p>
+          <p className="loading-text">Loading...</p>
         ) : userData ? (
           <div>
             <p>
               <strong>Email :</strong> {userData.email}
             </p>
             <p>
-              <strong>Nom :</strong> {userData.displayName}
+              <strong>Name :</strong> {userData.displayName}
             </p>
             <p>
-              <strong>Inscription :</strong>{" "}
+              <strong>Registration :</strong>{" "}
               {new Date(userData.createdAt.seconds * 1000).toLocaleDateString()}
             </p>
             <h2>Wishlist ({userData.wishlist.length} jeux)</h2>
 
             <button className="btn-primary" onClick={handleLogout}>
-              Se déconnecter
+              Log out
             </button>
           </div>
         ) : (
-          <p className="error-text">Utilisateur introuvable.</p>
+          <p className="error-text">User not found.</p>
         )}
       </div>
     </div>
