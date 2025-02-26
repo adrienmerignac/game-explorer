@@ -1,57 +1,52 @@
-import {
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  signOut,
-  User,
-  GoogleAuthProvider,
-  signInWithPopup,
-} from "firebase/auth";
-import { loadAuth, loadFirestore } from "../firebaseConfig";
-import { doc, getDoc } from "firebase/firestore";
+import { User, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { UserData } from "../context/AuthContext";
 
-// Interface pour le retour utilisateur
+// ✅ Interface pour le retour utilisateur
 interface AuthResponse {
   user: User;
 }
 
-// 🔥 Fonction générique pour gérer les erreurs Firebase
+// ✅ Fonction pour gérer les erreurs Firebase
 const handleFirebaseError = (error: unknown, message: string): never => {
-  if (
-    typeof error === "object" &&
-    error !== null &&
-    "code" in error &&
-    "message" in error
-  ) {
-    console.error(
-      `❌ ${message} :`,
-      (error as any).code,
-      (error as any).message
-    );
-  } else {
-    console.error(`❌ ${message} : Erreur inconnue`, error);
-  }
+  console.error(`❌ ${message} :`, error);
   throw new Error(message);
 };
 
-// 🔥 Ajoute un utilisateur dans Firestore s'il n'existe pas
+// ✅ Chargement dynamique de Firebase uniquement quand nécessaire
+const getFirebaseAuth = async () => {
+  try {
+    const { loadFirebase } = await import("../firebaseConfig");
+    const { auth } = await loadFirebase();
+    return auth;
+  } catch (error) {
+    return handleFirebaseError(
+      error,
+      "Erreur lors du chargement de Firebase Auth"
+    );
+  }
+};
+
+const getFirestoreInstance = async () => {
+  try {
+    const { getFirestore, doc, getDoc, setDoc } = await import(
+      "firebase/firestore"
+    );
+    const { loadFirebase } = await import("../firebaseConfig");
+    const { db } = await loadFirebase();
+    return { getFirestore, db, doc, getDoc, setDoc };
+  } catch (error) {
+    return handleFirebaseError(error, "Erreur lors du chargement de Firestore");
+  }
+};
+
+// ✅ Ajoute un utilisateur dans Firestore s'il n'existe pas
 const addUserToFirestore = async (user: User) => {
   try {
-    const db = await loadFirestore();
-    const { doc, getDoc, setDoc } = await import("firebase/firestore");
-
-    if (!user.uid) {
-      console.warn("⚠️ L'utilisateur n'a pas d'UID valide.");
-      return;
-    }
-
-    console.log("🔍 Vérification de l'utilisateur dans Firestore...");
-
+    const { db, doc, getDoc, setDoc } = await getFirestoreInstance();
     const userRef = doc(db, "users", user.uid);
     const userDoc = await getDoc(userRef);
 
     if (!userDoc.exists()) {
-      console.log("➕ Ajout de l'utilisateur à Firestore...");
       await setDoc(userRef, {
         uid: user.uid,
         email: user.email,
@@ -59,25 +54,24 @@ const addUserToFirestore = async (user: User) => {
         createdAt: new Date(),
         wishlist: [],
       });
-      console.log("✅ Utilisateur ajouté à Firestore !");
-    } else {
-      console.log("ℹ️ L'utilisateur existe déjà dans Firestore.");
     }
   } catch (error) {
-    console.error(
-      "❌ Erreur lors de l'ajout de l'utilisateur à Firestore :",
-      error
+    return handleFirebaseError(
+      error,
+      "Erreur lors de l'ajout de l'utilisateur à Firestore"
     );
   }
 };
 
-// 🔥 Inscription avec Email/Password
+// ✅ Inscription avec Email/Password
 export const registerUser = async (
   email: string,
   password: string
 ): Promise<AuthResponse> => {
   try {
-    const auth = await loadAuth(); // Call the loadAuth function to get the Auth object
+    const auth = await getFirebaseAuth();
+    const { createUserWithEmailAndPassword } = await import("firebase/auth");
+
     const { user } = await createUserWithEmailAndPassword(
       auth,
       email,
@@ -85,7 +79,7 @@ export const registerUser = async (
     );
     await addUserToFirestore(user);
     return { user };
-  } catch (error: unknown) {
+  } catch (error) {
     return handleFirebaseError(
       error,
       "Impossible de créer un compte. Vérifiez vos informations."
@@ -93,35 +87,40 @@ export const registerUser = async (
   }
 };
 
-// 🔥 Connexion avec Email/Password
+// ✅ Connexion avec Email/Password
 export const loginUser = async (
   email: string,
   password: string
 ): Promise<AuthResponse> => {
   try {
-    const auth = await loadAuth(); // Call the loadAuth function to get the Auth object
+    const auth = await getFirebaseAuth();
+    const { signInWithEmailAndPassword } = await import("firebase/auth");
+
     const { user } = await signInWithEmailAndPassword(auth, email, password);
     return { user };
-  } catch (error: unknown) {
+  } catch (error) {
     return handleFirebaseError(error, "Email ou mot de passe incorrect.");
   }
 };
 
-// 🔥 Déconnexion
+// ✅ Déconnexion
 export const logoutUser = async (): Promise<void> => {
   try {
-    const auth = await loadAuth(); // Call the loadAuth function to get the Auth object
-    await signOut(auth); // Pass the Auth object to the signOut function
+    const auth = await getFirebaseAuth();
+    const { signOut } = await import("firebase/auth");
+
+    await signOut(auth);
+    localStorage.removeItem("user_session"); // ✅ Supprime la session utilisateur
   } catch (error) {
-    console.error("❌ Erreur lors de la déconnexion :", error);
+    return handleFirebaseError(error, "Erreur lors de la déconnexion.");
   }
 };
 
-// 🔥 Récupération du profil utilisateur Firestore
+// ✅ Récupération du profil utilisateur Firestore
 export const getUserProfile = async (uid: string): Promise<UserData | null> => {
   try {
-    const firestore = await loadFirestore();
-    const userRef = doc(firestore, "users", uid);
+    const { db, doc, getDoc } = await getFirestoreInstance();
+    const userRef = doc(db, "users", uid);
     const userDoc = await getDoc(userRef);
 
     if (userDoc.exists()) {
@@ -133,26 +132,29 @@ export const getUserProfile = async (uid: string): Promise<UserData | null> => {
         createdAt:
           data.createdAt && "seconds" in data.createdAt
             ? new Date(data.createdAt.seconds * 1000)
-            : new Date(), // ✅ Gestion sécurisée du timestamp
+            : new Date(),
         wishlist: Array.isArray(data.wishlist) ? data.wishlist : [],
       };
     }
     return null;
   } catch (error) {
-    console.error("❌ Erreur Firestore :", error);
-    return null;
+    return handleFirebaseError(
+      error,
+      "Erreur lors de la récupération du profil utilisateur."
+    );
   }
 };
 
-// 🔥 Connexion avec Google
+// ✅ Connexion avec Google
 export const loginWithGoogle = async (): Promise<AuthResponse> => {
   try {
-    const auth = await loadAuth(); // Call the loadAuth function to get the Auth object
+    const auth = await getFirebaseAuth();
     const provider = new GoogleAuthProvider();
-    const { user } = await signInWithPopup(auth, provider); // Pass the Auth object to the signInWithPopup function
+    const { user } = await signInWithPopup(auth, provider);
+
     await addUserToFirestore(user);
     return { user };
-  } catch (error: unknown) {
+  } catch (error) {
     return handleFirebaseError(
       error,
       "Impossible de se connecter avec Google."

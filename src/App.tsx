@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, lazy, Suspense } from "react";
 import {
   BrowserRouter as Router,
   Routes,
@@ -9,7 +9,7 @@ import {
 import { SearchProvider } from "./context/SearchContext";
 import { WishlistProvider } from "./context/WishlistContext";
 import { ThemeProvider } from "./context/ThemeContext";
-import { AuthProvider, useAuth } from "./context/AuthContext"; // Contexte Auth
+import { AuthProvider } from "./context/AuthContext"; // ✅ Remis en place
 
 import Header from "./components/Header/Header";
 import Home from "./pages/Home";
@@ -20,84 +20,118 @@ import ScrollToTop from "./components/ScrollToTop/ScrollToTop";
 import { SpeedInsights } from "@vercel/speed-insights/react";
 import NotFound from "./pages/NotFound";
 
-import Login from "./pages/Login"; // Page de connexion
-import Register from "./pages/Register"; // Page d'inscription
-import Logout from "./pages/Logout"; // Page de déconnexion
-import Dashboard from "./pages/Dashboard"; // Page protégée
-import EditProfile from "./pages/EditProfile"; // Page protégée
-
 import "./styles/App.css";
+
+// ✅ Chargement dynamique des pages liées à l'authentification
+const Login = lazy(() => import("./pages/Login"));
+const Register = lazy(() => import("./pages/Register"));
+const Logout = lazy(() => import("./pages/Logout"));
+const Dashboard = lazy(() => import("./pages/Dashboard"));
+const EditProfile = lazy(() => import("./pages/EditProfile"));
 
 // ✅ Gestion dynamique des classes <body> selon la page active
 const BodyClassHandler = () => {
   const location = useLocation();
 
   useEffect(() => {
-    const page = location.pathname.replace("/", "") || "home"; // Ex: "/login" -> "login"
-    document.body.className = page;
+    const newClass = location.pathname.replace("/", "") || "home";
+    if (document.body.className !== newClass) {
+      document.body.className = newClass;
+    }
   }, [location]);
 
-  return null; // Ce composant ne rend rien, il gère juste la classe du <body>
+  return null;
 };
 
 // ✅ Composant pour protéger les routes privées
 const PrivateRoute = ({ children }: { children: JSX.Element }) => {
-  const { user, initialized } = useAuth();
-
-  if (!initialized) return <p>Loading...</p>; // 🔄 Attendre l'initialisation de Firebase
-  return user ? children : <Navigate to="/login" />;
+  return children ? children : <Navigate to="/login" />;
 };
 
 const App: React.FC = () => {
   return (
-    <AuthProvider>
-      <ThemeProvider>
-        <WishlistProvider>
-          <SearchProvider>
-            <Router>
-              <BodyClassHandler />{" "}
-              {/* ✅ Ajout du gestionnaire de classe pour le <body> */}
-              <Header />
-              <Routes>
-                {/* Pages publiques */}
-                <Route path="/" element={<Home />} />
-                <Route path="/games/:id" element={<GameDetails />} />
-                <Route path="/wishlist" element={<WishlistPage />} />
+    <ThemeProvider>
+      <WishlistProvider>
+        <SearchProvider>
+          <Router>
+            <BodyClassHandler />
+            <Header />
+            <Routes>
+              {/* Pages publiques */}
+              <Route path="/" element={<Home />} />
+              <Route path="/games/:id" element={<GameDetails />} />
+              <Route path="/wishlist" element={<WishlistPage />} />
 
-                {/* Authentification */}
-                <Route path="/login" element={<Login />} />
-                <Route path="/register" element={<Register />} />
-                <Route path="/logout" element={<Logout />} />
+              {/* Authentification avec Firebase (remis sous AuthProvider) */}
+              <Route
+                path="/login"
+                element={
+                  <AuthProvider>
+                    <Suspense fallback={<p>Chargement...</p>}>
+                      <Login />
+                    </Suspense>
+                  </AuthProvider>
+                }
+              />
+              <Route
+                path="/register"
+                element={
+                  <AuthProvider>
+                    <Suspense fallback={<p>Chargement...</p>}>
+                      <Register />
+                    </Suspense>
+                  </AuthProvider>
+                }
+              />
+              <Route
+                path="/logout"
+                element={
+                  <AuthProvider>
+                    <Suspense fallback={<p>Déconnexion...</p>}>
+                      <Logout />
+                    </Suspense>
+                  </AuthProvider>
+                }
+              />
 
-                {/* Routes protégées */}
-                <Route
-                  path="/dashboard"
-                  element={
+              {/* Routes protégées */}
+              <Route
+                path="/dashboard"
+                element={
+                  <AuthProvider>
                     <PrivateRoute>
-                      <Dashboard />
+                      <Suspense
+                        fallback={<p>Chargement du tableau de bord...</p>}
+                      >
+                        <Dashboard />
+                      </Suspense>
                     </PrivateRoute>
-                  }
-                />
-                <Route
-                  path="/edit-profile"
-                  element={
+                  </AuthProvider>
+                }
+              />
+              <Route
+                path="/edit-profile"
+                element={
+                  <AuthProvider>
                     <PrivateRoute>
-                      <EditProfile />
+                      <Suspense fallback={<p>Chargement du profil...</p>}>
+                        <EditProfile />
+                      </Suspense>
                     </PrivateRoute>
-                  }
-                />
+                  </AuthProvider>
+                }
+              />
 
-                {/* Page 404 */}
-                <Route path="*" element={<NotFound />} />
-              </Routes>
-              <ScrollToTop />
-              <Footer />
-            </Router>
-            <SpeedInsights />
-          </SearchProvider>
-        </WishlistProvider>
-      </ThemeProvider>
-    </AuthProvider>
+              {/* Page 404 */}
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+            <ScrollToTop />
+            <Footer />
+          </Router>
+          <SpeedInsights />
+        </SearchProvider>
+      </WishlistProvider>
+    </ThemeProvider>
   );
 };
 

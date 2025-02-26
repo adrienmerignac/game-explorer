@@ -1,19 +1,17 @@
-import { useState, useEffect } from "react";
-import { useAuth, UserData } from "../context/AuthContext";
+import { useEffect } from "react";
+import { useAuth } from "../context/AuthContext";
 import { getUserProfile, logoutUser } from "../services/AuthService";
 import { useNavigate } from "react-router-dom";
 import "../styles/dashboard.css";
 import "../styles/buttons.css";
 
 const Dashboard = () => {
-  const { user } = useAuth();
-  const [userData, setUserData] = useState<UserData | null>(null);
-  const [loading, setLoading] = useState(true);
+  const { user, userData, setUserData, loading } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
-      if (user) {
+      if (user && !userData) {
         try {
           const data = await getUserProfile(user.uid);
           if (data) setUserData(data);
@@ -21,11 +19,10 @@ const Dashboard = () => {
           console.error("❌ Erreur lors de la récupération du profil :", error);
         }
       }
-      setLoading(false);
     };
 
     fetchData();
-  }, [user]);
+  }, [user, userData, setUserData]);
 
   const handleLogout = async () => {
     await logoutUser();
@@ -38,7 +35,7 @@ const Dashboard = () => {
         <h1>Dashboard</h1>
 
         {loading ? (
-          <p className="loading-text">Loading...</p>
+          <p className="loading-text">Chargement...</p>
         ) : userData ? (
           <div className="user-info">
             <p>
@@ -48,7 +45,7 @@ const Dashboard = () => {
               <strong>Name :</strong> {userData.displayName}
             </p>
             <p>
-              <strong>Registration :</strong>
+              <strong>Registration :</strong>{" "}
               {userData.createdAt.toLocaleDateString()}
             </p>
             <h2>Wishlist ({userData.wishlist.length} jeux)</h2>
@@ -58,7 +55,7 @@ const Dashboard = () => {
             </button>
           </div>
         ) : (
-          <p className="error-text">User not found.</p>
+          <p className="error-text">Utilisateur introuvable.</p>
         )}
       </div>
     </div>

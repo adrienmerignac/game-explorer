@@ -5,7 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <!-- 🖼 Icônes -->
-    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="icon" type="image/webp" href="/favicon-150x150.webp" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
 
@@ -46,10 +48,7 @@
     />
     <meta name="twitter:image" content="/assets/social-preview.png" />
 
-    <!-- ⚡ Préchargement -->
-    <link rel="preload" href="/logo.png" as="image" />
-
-    <!-- ✅ Script pour détecter et précharger dynamiquement le fichier CSS chunké -->
+    <!-- ✅ Préchargement du fichier CSS dynamiquement -->
     <script>
       document.addEventListener("DOMContentLoaded", () => {
         const cssFile = document.querySelector('link[rel="stylesheet"]');

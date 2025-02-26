@@ -10,39 +10,14 @@ const firebaseConfig = {
   measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID,
 };
 
-// ✅ Initialisation de Firebase uniquement si nécessaire
-const app = initializeApp(firebaseConfig);
-
-/** 🔥 Lazy loading des services Firebase **/
-
-// Authentification
-export const loadAuth = async () => {
+// ✅ Fonction pour charger Firebase dynamiquement uniquement quand nécessaire
+export const loadFirebase = async () => {
   const { getAuth } = await import("firebase/auth");
-  return getAuth(app);
+  const { getFirestore } = await import("firebase/firestore");
+
+  const app = initializeApp(firebaseConfig);
+  return {
+    auth: getAuth(app),
+    db: getFirestore(app),
+  };
 };
-
-// Firestore (Base de données)
-export const loadFirestore = async () => {
-  const {
-    getFirestore,
-    initializeFirestore,
-    persistentLocalCache,
-    persistentSingleTabManager,
-  } = await import("firebase/firestore");
-
-  try {
-    // ✅ Vérifier si Firestore est déjà initialisé
-    return getFirestore(app);
-  } catch (error) {
-    console.warn(
-      "⚠️ Firestore n'était pas encore initialisé. Initialisation en cours..."
-    );
-    return initializeFirestore(app, {
-      localCache: persistentLocalCache({
-        tabManager: persistentSingleTabManager({}),
-      }),
-    });
-  }
-};
-
-export { app };

@@ -1,17 +1,13 @@
 import {
   createContext,
   useContext,
-  useEffect,
   useState,
   ReactNode,
+  useEffect,
 } from "react";
-import { onAuthStateChanged, User } from "firebase/auth";
-import { loadAuth } from "../firebaseConfig";
-import { getUserProfile } from "../services/AuthService";
+import { User } from "firebase/auth";
 
-// ✅ Interface pour structurer les données utilisateur Firestore
 export interface UserData {
-  avatar?: string;
   uid: string;
   email: string;
   displayName: string;
@@ -19,12 +15,13 @@ export interface UserData {
   wishlist: string[];
 }
 
-// ✅ Interface du contexte utilisateur
-export interface AuthContextType {
+interface AuthContextType {
   user: User | null;
+  setUser: (user: User | null) => void;
   userData: UserData | null;
+  setUserData: (data: UserData | null) => void;
   loading: boolean;
-  initialized: boolean;
+  initializeAuth: () => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -33,53 +30,36 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
   const [userData, setUserData] = useState<UserData | null>(null);
   const [loading, setLoading] = useState(true);
-  const [initialized, setInitialized] = useState(false); // ✅ Indique si Firebase est prêt
 
   useEffect(() => {
-    // ✅ Déplacer l'`async` dans une fonction interne
-    const initAuth = async () => {
-      const auth = await loadAuth(); // Charge Firebase Auth
-
-      const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
-        if (firebaseUser) {
-          setUser(firebaseUser);
-          const profileData = await getUserProfile(firebaseUser.uid);
-
-          if (profileData) {
-            setUserData({
-              uid: firebaseUser.uid,
-              email: profileData.email,
-              displayName: profileData.displayName || "Utilisateur",
-              createdAt:
-                profileData.createdAt && "seconds" in profileData.createdAt
-                  ? new Date((profileData.createdAt.seconds as number) * 1000)
-                  : new Date(),
-              wishlist: Array.isArray(profileData.wishlist)
-                ? profileData.wishlist
-                : [],
-            });
-          }
-        } else {
-          setUser(null);
-          setUserData(null);
-        }
-
-        setLoading(false);
-        setInitialized(true);
-      });
-
-      return unsubscribe;
-    };
-
-    const unsubscribePromise = initAuth();
-
-    return () => {
-      unsubscribePromise.then((unsubscribe) => unsubscribe()).catch(() => {});
-    };
+    initializeAuth(); // Lancement automatique dès le montage
   }, []);
 
+  const initializeAuth = async () => {
+    try {
+      const { loadFirebase } = await import("../firebaseConfig");
+      const { auth } = await loadFirebase();
+      const { onAuthStateChanged } = await import("firebase/auth");
+
+      onAuthStateChanged(auth, async (firebaseUser) => {
+        setUser(firebaseUser);
+        if (firebaseUser) {
+          const { getUserProfile } = await import("../services/AuthService");
+          const profileData = await getUserProfile(firebaseUser.uid);
+          setUserData(profileData);
+        }
+        setLoading(false);
+      });
+    } catch (error) {
+      console.error("🔥 Erreur lors de l'initialisation Firebase :", error);
+      setLoading(false);
+    }
+  };
+
   return (
-    <AuthContext.Provider value={{ user, userData, loading, initialized }}>
+    <AuthContext.Provider
+      value={{ user, setUser, userData, setUserData, loading, initializeAuth }}
+    >
       {children}
     </AuthContext.Provider>
   );

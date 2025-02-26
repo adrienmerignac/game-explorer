@@ -1,10 +1,12 @@
 import { useState } from "react";
+import { useAuth } from "../context/AuthContext";
 import { registerUser } from "../services/AuthService";
 import { useNavigate } from "react-router-dom";
 import "../styles/register.css";
-import "../styles/buttons.css"; // Import du style des boutons
+import "../styles/buttons.css";
 
 const Register = () => {
+  const { setUser } = useAuth(); // ✅ Récupération de setUser
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -14,10 +16,11 @@ const Register = () => {
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    setErrorMessage(""); // Réinitialise le message d'erreur
+    setErrorMessage("");
 
     try {
-      await registerUser(email, password);
+      const { user } = await registerUser(email, password);
+      setUser(user); // ✅ Met à jour l'état utilisateur
       navigate("/dashboard");
     } catch (error) {
       setErrorMessage("Erreur d'inscription. Vérifiez vos informations.");

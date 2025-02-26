@@ -1,14 +1,25 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useAuth } from "../context/AuthContext";
 import { loginUser } from "../services/AuthService";
 import { useNavigate } from "react-router-dom";
 import "../styles/login.css";
 import "../styles/buttons.css";
 
 const Login = () => {
+  const { user, initializeAuth } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    // ✅ Si l'utilisateur est déjà connecté, on le redirige
+    if (user) {
+      navigate("/dashboard");
+    } else {
+      initializeAuth(); // ✅ Charge Firebase UNIQUEMENT ici
+    }
+  }, [user, navigate, initializeAuth]);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -49,7 +60,7 @@ const Login = () => {
           </button>
         </form>
         <p className="login-text">
-          No account yet ?{" "}
+          No account yet?{" "}
           <a href="/register" className="login-link">
             Register
           </a>
