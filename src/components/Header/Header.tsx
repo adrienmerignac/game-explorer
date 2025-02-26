@@ -67,11 +67,10 @@ const LoginButton: React.FC = () => (
         className="login-svg"
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"
-        fill="currentColor"
-        width="24"
-        height="24"
+        width="28"
+        height="28"
       >
-        <path d="M10 2H20a2 2 0 012 2v16a2 2 0 01-2 2H10a2 2 0 01-2-2v-4h2v4h10V4H10v4H8V4a2 2 0 012-2zm-1 10l4 4 1.41-1.41L11.83 12H20v-2h-8.17l2.58-2.59L13 6l-4 4z" />
+        <path d="M12 2a10 10 0 1 1-10 10A10.012 10.012 0 0 1 12 2zm0 2a8 8 0 1 0 8 8 8.01 8.01 0 0 0-8-8zm0 2a3 3 0 1 1-3 3 3.003 3.003 0 0 1 3-3zm0 6c-2.209 0-6 1.072-6 3.2V18h12v-2.8c0-2.128-3.791-3.2-6-3.2z" />
       </svg>
     </Link>
   </div>

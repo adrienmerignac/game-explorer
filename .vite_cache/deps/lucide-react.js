@@ -1,9 +1,9 @@
 import {
-  require_react
-} from "./chunk-TWJRYSII.js";
+  D,
+  _
+} from "./chunk-JFIB2TQE.js";
 import {
-  __export,
-  __toESM
+  __export
 } from "./chunk-DC5AMYBS.js";
 
 // node_modules/lucide-react/dist/esm/icons/index.js
@@ -1566,17 +1566,11 @@ __export(icons_exports, {
   ZoomOut: () => ZoomOut
 });
 
-// node_modules/lucide-react/dist/esm/createLucideIcon.js
-var import_react2 = __toESM(require_react(), 1);
-
 // node_modules/lucide-react/dist/esm/shared/src/utils.js
 var toKebabCase = (string) => string.replace(/([a-z0-9])([A-Z])/g, "$1-$2").toLowerCase();
 var mergeClasses = (...classes) => classes.filter((className, index, array) => {
   return Boolean(className) && className.trim() !== "" && array.indexOf(className) === index;
 }).join(" ").trim();
-
-// node_modules/lucide-react/dist/esm/Icon.js
-var import_react = __toESM(require_react(), 1);
 
 // node_modules/lucide-react/dist/esm/defaultAttributes.js
 var defaultAttributes = {
@@ -1592,7 +1586,7 @@ var defaultAttributes = {
 };
 
 // node_modules/lucide-react/dist/esm/Icon.js
-var Icon = (0, import_react.forwardRef)(
+var Icon = D(
   ({
     color = "currentColor",
     size = 24,
@@ -1603,7 +1597,7 @@ var Icon = (0, import_react.forwardRef)(
     iconNode,
     ...rest
   }, ref) => {
-    return (0, import_react.createElement)(
+    return _(
       "svg",
       {
         ref,
@@ -1616,7 +1610,7 @@ var Icon = (0, import_react.forwardRef)(
         ...rest
       },
       [
-        ...iconNode.map(([tag, attrs]) => (0, import_react.createElement)(tag, attrs)),
+        ...iconNode.map(([tag, attrs]) => _(tag, attrs)),
         ...Array.isArray(children) ? children : [children]
       ]
     );
@@ -1625,8 +1619,8 @@ var Icon = (0, import_react.forwardRef)(
 
 // node_modules/lucide-react/dist/esm/createLucideIcon.js
 var createLucideIcon = (iconName, iconNode) => {
-  const Component2 = (0, import_react2.forwardRef)(
-    ({ className, ...props }, ref) => (0, import_react2.createElement)(Icon, {
+  const Component2 = D(
+    ({ className, ...props }, ref) => _(Icon, {
       ref,
       iconNode,
       className: mergeClasses(`lucide-${toKebabCase(iconName)}`, className),

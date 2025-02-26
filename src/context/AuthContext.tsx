@@ -1,11 +1,7 @@
-import {
-  createContext,
-  useContext,
-  useState,
-  ReactNode,
-  useEffect,
-} from "react";
+// AuthContext.tsx
+import { createContext, useContext, useState, useEffect } from "react";
 import { User } from "firebase/auth";
+import { logoutUser, getUserProfile } from "../services/AuthService";
 
 export interface UserData {
   uid: string;
@@ -22,17 +18,18 @@ interface AuthContextType {
   setUserData: (data: UserData | null) => void;
   loading: boolean;
   initializeAuth: () => Promise<void>;
+  logout: () => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-export const AuthProvider = ({ children }: { children: ReactNode }) => {
+export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
   const [userData, setUserData] = useState<UserData | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    initializeAuth(); // Lancement automatique dès le montage
+    initializeAuth();
   }, []);
 
   const initializeAuth = async () => {
@@ -44,9 +41,11 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       onAuthStateChanged(auth, async (firebaseUser) => {
         setUser(firebaseUser);
         if (firebaseUser) {
-          const { getUserProfile } = await import("../services/AuthService");
           const profileData = await getUserProfile(firebaseUser.uid);
           setUserData(profileData);
+          localStorage.setItem("userToken", JSON.stringify(firebaseUser));
+        } else {
+          localStorage.removeItem("userToken");
         }
         setLoading(false);
       });
@@ -56,16 +55,31 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
+  const logout = async () => {
+    await logoutUser();
+    setUser(null);
+    setUserData(null);
+    localStorage.removeItem("userToken");
+  };
+
   return (
     <AuthContext.Provider
-      value={{ user, setUser, userData, setUserData, loading, initializeAuth }}
+      value={{
+        user,
+        setUser,
+        userData,
+        setUserData,
+        loading,
+        initializeAuth,
+        logout,
+      }}
     >
       {children}
     </AuthContext.Provider>
   );
 };
 
-export const useAuth = (): AuthContextType => {
+export const useAuth = () => {
   const context = useContext(AuthContext);
   if (!context) throw new Error("useAuth must be used within an AuthProvider");
   return context;

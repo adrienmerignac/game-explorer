@@ -1,39 +1,34 @@
 import {
-  require_react_dom
-} from "./chunk-UP6LQVYV.js";
-import "./chunk-TWJRYSII.js";
-import {
-  __commonJS
-} from "./chunk-DC5AMYBS.js";
+  bn,
+  nn,
+  tn
+} from "./chunk-JFIB2TQE.js";
+import "./chunk-DC5AMYBS.js";
 
-// node_modules/react-dom/client.js
-var require_client = __commonJS({
-  "node_modules/react-dom/client.js"(exports) {
-    var m = require_react_dom();
-    if (false) {
-      exports.createRoot = m.createRoot;
-      exports.hydrateRoot = m.hydrateRoot;
-    } else {
-      i = m.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
-      exports.createRoot = function(c, o) {
-        i.usingClientEntryPoint = true;
-        try {
-          return m.createRoot(c, o);
-        } finally {
-          i.usingClientEntryPoint = false;
-        }
-      };
-      exports.hydrateRoot = function(c, h, o) {
-        i.usingClientEntryPoint = true;
-        try {
-          return m.hydrateRoot(c, h, o);
-        } finally {
-          i.usingClientEntryPoint = false;
-        }
-      };
+// node_modules/preact/compat/client.mjs
+function createRoot(container) {
+  return {
+    // eslint-disable-next-line
+    render: function(children) {
+      nn(children, container);
+    },
+    // eslint-disable-next-line
+    unmount: function() {
+      bn(container);
     }
-    var i;
-  }
-});
-export default require_client();
+  };
+}
+function hydrateRoot(container, children) {
+  tn(children, container);
+  return createRoot(container);
+}
+var client_default = {
+  createRoot,
+  hydrateRoot
+};
+export {
+  createRoot,
+  client_default as default,
+  hydrateRoot
+};
 //# sourceMappingURL=react-dom_client.js.map

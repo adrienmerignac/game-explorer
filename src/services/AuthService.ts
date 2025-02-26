@@ -39,7 +39,7 @@ const getFirestoreInstance = async () => {
   }
 };
 
-// ✅ Ajoute un utilisateur dans Firestore s'il n'existe pas
+// ✅ Ajoute un utilisateur dans Firestore et `localStorage`
 const addUserToFirestore = async (user: User) => {
   try {
     const { db, doc, getDoc, setDoc } = await getFirestoreInstance();
@@ -47,13 +47,17 @@ const addUserToFirestore = async (user: User) => {
     const userDoc = await getDoc(userRef);
 
     if (!userDoc.exists()) {
-      await setDoc(userRef, {
+      const userData = {
         uid: user.uid,
         email: user.email,
         displayName: user.displayName || "Utilisateur",
         createdAt: new Date(),
         wishlist: [],
-      });
+      };
+      await setDoc(userRef, userData);
+
+      // ✅ Stocker dans `localStorage`
+      localStorage.setItem("userToken", JSON.stringify(userData));
     }
   } catch (error) {
     return handleFirebaseError(
@@ -78,6 +82,10 @@ export const registerUser = async (
       password
     );
     await addUserToFirestore(user);
+
+    // ✅ Stockage local de l'utilisateur
+    localStorage.setItem("userToken", JSON.stringify(user));
+
     return { user };
   } catch (error) {
     return handleFirebaseError(
@@ -97,6 +105,10 @@ export const loginUser = async (
     const { signInWithEmailAndPassword } = await import("firebase/auth");
 
     const { user } = await signInWithEmailAndPassword(auth, email, password);
+
+    // ✅ Stocker l'utilisateur connecté
+    localStorage.setItem("userToken", JSON.stringify(user));
+
     return { user };
   } catch (error) {
     return handleFirebaseError(error, "Email ou mot de passe incorrect.");
@@ -110,7 +122,7 @@ export const logoutUser = async (): Promise<void> => {
     const { signOut } = await import("firebase/auth");
 
     await signOut(auth);
-    localStorage.removeItem("user_session"); // ✅ Supprime la session utilisateur
+    localStorage.removeItem("userToken"); // ✅ Supprime la session utilisateur
   } catch (error) {
     return handleFirebaseError(error, "Erreur lors de la déconnexion.");
   }
@@ -125,7 +137,7 @@ export const getUserProfile = async (uid: string): Promise<UserData | null> => {
 
     if (userDoc.exists()) {
       const data = userDoc.data();
-      return {
+      const userData: UserData = {
         uid: data.uid,
         email: data.email,
         displayName: data.displayName || "Utilisateur",
@@ -135,6 +147,11 @@ export const getUserProfile = async (uid: string): Promise<UserData | null> => {
             : new Date(),
         wishlist: Array.isArray(data.wishlist) ? data.wishlist : [],
       };
+
+      // ✅ Stocker dans `localStorage` pour éviter de recharger Firestore inutilement
+      localStorage.setItem("userToken", JSON.stringify(userData));
+
+      return userData;
     }
     return null;
   } catch (error) {
@@ -153,6 +170,10 @@ export const loginWithGoogle = async (): Promise<AuthResponse> => {
     const { user } = await signInWithPopup(auth, provider);
 
     await addUserToFirestore(user);
+
+    // ✅ Stockage local pour éviter un nouveau chargement de Firebase après connexion
+    localStorage.setItem("userToken", JSON.stringify(user));
+
     return { user };
   } catch (error) {
     return handleFirebaseError(

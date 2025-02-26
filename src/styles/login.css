@@ -13,6 +13,7 @@ body.login div[id="root"] {
   display: flex;
   align-items: center;
   justify-content: center;
+  min-height: calc(100vh - 165px);
 }
 
 /* Conteneur principal (centré et responsive) */
@@ -128,4 +129,12 @@ body.login div[id="root"] {
 /* Mode clair : Désactivation du bouton */
 .light-mode .btn-primary:disabled {
   background-color: #ccc;
+}
+
+/* Mobile only */
+@media (max-width: 600px) {
+  .main-container {
+    min-height: calc(100vh - 200px);
+    padding: 0 16px;
+  }
 }
