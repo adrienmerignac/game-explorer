@@ -17,7 +17,6 @@ import WishlistPage from "./pages/WishlistPage";
 import GameDetails from "./components/GameDetails/GameDetails";
 import Footer from "./components/Footer/Footer";
 import ScrollToTop from "./components/ScrollToTop/ScrollToTop";
-import { SpeedInsights } from "@vercel/speed-insights/react";
 import NotFound from "./pages/NotFound";
 
 import "./styles/App.css";
@@ -128,7 +127,6 @@ const App: React.FC = () => {
             <ScrollToTop />
             <Footer />
           </Router>
-          <SpeedInsights />
         </SearchProvider>
       </WishlistProvider>
     </ThemeProvider>
