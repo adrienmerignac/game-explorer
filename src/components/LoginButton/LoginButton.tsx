@@ -1,0 +1,20 @@
+import React from "react";
+import { Link } from "react-router-dom";
+
+const LoginButton: React.FC = () => (
+  <div className="header__item header__user">
+    <Link to="/login" className="login-icon" aria-label="Login">
+      <svg
+        className="login-svg"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        width="28"
+        height="28"
+      >
+        <path d="M12 2a10 10 0 1 1-10 10A10.012 10.012 0 0 1 12 2zm0 2a8 8 0 1 0 8 8 8.01 8.01 0 0 0-8-8zm0 2a3 3 0 1 1-3 3 3.003 3.003 0 0 1 3-3zm0 6c-2.209 0-6 1.072-6 3.2V18h12v-2.8c0-2.128-3.791-3.2-6-3.2z" />
+      </svg>
+    </Link>
+  </div>
+);
+
+export default LoginButton;
