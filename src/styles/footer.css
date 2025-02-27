@@ -1,10 +1,10 @@
-/* Footer en Mobile First */
+/* Footer Mobile First (Optimisé) */
 .footer {
   background-color: #1e1e1e; /* Même couleur que le header */
   color: #ffffff;
-  padding: 20px 0;
+  padding: 10px 0; /* ✅ Réduction du padding */
   text-align: center;
-  font-size: 14px;
+  font-size: 12px; /* ✅ Texte plus petit */
 }
 
 .footer-container {
@@ -14,69 +14,71 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 20px;
+  gap: 10px; /* ✅ Moins d'espace entre les sections */
 }
 
+/* ✅ Taille du texte et des marges réduites */
 .footer-logo h2 {
-  font-size: 18px;
+  font-size: 16px;
   font-weight: bold;
-  color: #ffffff;
 }
 
 .footer-logo p {
-  color: #cccccc;
-  font-size: 12px;
+  font-size: 11px;
   margin: 0;
 }
 
+/* ✅ Liste des liens plus compacte */
 .footer-nav ul {
   list-style: none;
   padding: 0;
   display: flex;
-  flex-direction: column;
-  gap: 10px;
+  flex-wrap: wrap; /* ✅ Permet une meilleure adaptation sur mobile */
+  justify-content: center;
+  gap: 8px; /* ✅ Moins d'espace entre les liens */
+  font-size: 12px; /* ✅ Texte plus petit */
 }
 
-.footer-nav ul li a {
-  text-decoration: none;
-  color: #ffffff;
-  transition: color 0.3s;
-}
-
-.footer-nav ul li a:hover {
-  color: #ffffff;
-  opacity: 0.7;
-}
-
-.footer-socials p {
-  font-size: 14px;
-  color: #cccccc;
-  margin-top: 0;
-  font-weight: bold;
-}
-
-.social-links {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
+/* ✅ Réduction de la taille des liens et icônes */
+.footer-nav ul li a,
 .social-links a {
   text-decoration: none;
   color: #ffffff;
-  transition: color 0.3s;
+  transition: opacity 0.3s;
+  font-size: 12px; /* ✅ Réduction de la taille des liens */
 }
 
+.footer-nav ul li a:hover,
 .social-links a:hover {
-  color: #ffffff;
   opacity: 0.7;
 }
 
-/* Desktop : Adaptation pour les écrans plus larges */
+/* ✅ Regroupement des icônes sociales pour gagner de l'espace */
+.footer-socials p {
+  font-size: 12px;
+  margin: 0;
+  font-weight: bold;
+}
+
+/* ✅ Alignement horizontal des réseaux sociaux sur mobile */
+.social-links {
+  display: flex;
+  flex-wrap: wrap; /* ✅ Permet un meilleur ajustement sur mobile */
+  justify-content: center;
+  gap: 8px; /* ✅ Moins d'espace entre les icônes */
+  font-size: 12px;
+}
+
+/* ✅ Desktop : meilleure disposition */
 @media (min-width: 768px) {
+  .footer {
+    padding: 15px 0; /* ✅ Un peu plus de padding sur grand écran */
+  }
+
   .footer-container {
     flex-direction: row;
     justify-content: space-between;
+    align-items: center;
   }
 
   .footer-nav ul {
@@ -88,19 +90,14 @@
   }
 }
 
-/* Light mode */
-.light-mode .footer-logo p {
-  color: #333333;
-}
-
-.light-mode .footer-nav ul li a {
-  color: #333333;
-}
-
-.light-mode .footer-socials p {
-  color: #333333;
-}
-
+/* ✅ Light mode optimisé */
+.light-mode .footer-logo p,
+.light-mode .footer-nav ul li a,
+.light-mode .footer-socials p,
 .light-mode .social-links a {
   color: #333333;
+}
+
+.light-mode footer {
+  background-color: #f8f9fa;
 }

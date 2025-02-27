@@ -30,33 +30,36 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="main-container">
-      <div className="dashboard-container">
-        <h1>Dashboard</h1>
+    <div className="page__wrapper">
+      {/* ✅ Ajout du wrapper principal qui pousse le footer en bas */}
+      <div className="main-container">
+        <div className="dashboard-container">
+          <h1>Dashboard</h1>
 
-        {loading ? (
-          <p className="loading-text">Chargement...</p>
-        ) : userData ? (
-          <div className="user-info">
-            <p>
-              <strong>Email :</strong> {userData.email}
-            </p>
-            <p>
-              <strong>Name :</strong> {userData.displayName}
-            </p>
-            <p>
-              <strong>Registration :</strong>{" "}
-              {userData.createdAt.toLocaleDateString()}
-            </p>
-            <h2>Wishlist ({userData.wishlist.length} jeux)</h2>
+          {loading ? (
+            <p className="loading-text">Chargement...</p>
+          ) : userData ? (
+            <div className="user-info">
+              <p>
+                <strong>Email :</strong> {userData.email}
+              </p>
+              <p>
+                <strong>Name :</strong> {userData.displayName}
+              </p>
+              <p>
+                <strong>Registration :</strong>{" "}
+                {userData.createdAt.toLocaleDateString()}
+              </p>
+              <h2>Wishlist ({userData.wishlist.length} jeux)</h2>
 
-            <button className="btn-primary" onClick={handleLogout}>
-              Log out
-            </button>
-          </div>
-        ) : (
-          <p className="error-text">Utilisateur introuvable.</p>
-        )}
+              <button className="btn-primary" onClick={handleLogout}>
+                Log out
+              </button>
+            </div>
+          ) : (
+            <p className="error-text">Utilisateur introuvable.</p>
+          )}
+        </div>
       </div>
     </div>
   );

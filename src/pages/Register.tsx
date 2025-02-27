@@ -31,39 +31,42 @@ const Register = () => {
   };
 
   return (
-    <div className="main-container">
-      <div className="register-container">
-        <h2>Create an account</h2>
-        {errorMessage && <p className="error-message">{errorMessage}</p>}
+    <div className="page__wrapper">
+      {/* ✅ Ajout du wrapper principal qui pousse le footer en bas */}
+      <div className="main-container">
+        <div className="register-container">
+          <h2>Create an account</h2>
+          {errorMessage && <p className="error-message">{errorMessage}</p>}
 
-        <form onSubmit={handleRegister}>
-          <input
-            type="email"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-            className="register-input"
-          />
-          <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-            className="register-input"
-          />
-          <button type="submit" className="btn-primary" disabled={loading}>
-            {loading ? "Registration in progress..." : "Register"}
-          </button>
-        </form>
+          <form onSubmit={handleRegister}>
+            <input
+              type="email"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+              className="register-input"
+            />
+            <input
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+              className="register-input"
+            />
+            <button type="submit" className="btn-primary" disabled={loading}>
+              {loading ? "Registration in progress..." : "Register"}
+            </button>
+          </form>
 
-        <p className="register-text">
-          Already have an account?{" "}
-          <a href="/login" className="register-link">
-            Log in
-          </a>
-        </p>
+          <p className="register-text">
+            Already have an account?{" "}
+            <a href="/login" className="register-link">
+              Log in
+            </a>
+          </p>
+        </div>
       </div>
     </div>
   );

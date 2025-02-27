@@ -37,6 +37,13 @@ const BodyClassHandler = () => {
     if (document.body.className !== newClass) {
       document.body.className = newClass;
     }
+
+    const getUserTokenFromLocalStorage = localStorage.getItem("userToken");
+    if (getUserTokenFromLocalStorage) {
+      document.body.classList.add("user-logged-in");
+    } else {
+      document.body.classList.remove("user-logged-in");
+    }
   }, [location]);
 
   return null;
