@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { getGameGenres } from "../../services/GameService"; // 🔥 Import du service
+import { getGameGenres } from "../../services/GameService";
 
-const MAX_VISIBLE_GENRES = 6; // Nombre max de genres affichés avant "See more"
+const MAX_VISIBLE_GENRES = 6; // Nombre max de genres visibles
 
 const NavItems: React.FC = () => {
   const [genres, setGenres] = useState<
@@ -11,9 +11,14 @@ const NavItems: React.FC = () => {
 
   useEffect(() => {
     const fetchGenres = async () => {
-      const fetchedGenres = await getGameGenres();
-      setGenres(fetchedGenres);
+      try {
+        const fetchedGenres = await getGameGenres();
+        setGenres(fetchedGenres);
+      } catch (error) {
+        console.error("❌ Erreur lors de la récupération des genres :", error);
+      }
     };
+
     fetchGenres();
   }, []);
 
@@ -22,16 +27,18 @@ const NavItems: React.FC = () => {
       <li>
         <Link to="/">🏠 Accueil</Link>
       </li>
-      {/* ✅ Section des genres */}
-      {genres.slice(0, MAX_VISIBLE_GENRES).map((genre) => (
-        <Link
-          key={genre.id}
-          to={`/genre/${genre.slug}`}
-          className="sub-header__link"
-        >
-          {genre.name}
-        </Link>
-      ))}
+      <li>
+        {/* ✅ Section des genres */}
+        {genres.slice(0, MAX_VISIBLE_GENRES).map((genre) => (
+          <Link
+            key={genre.id}
+            to={`/genre/${genre.slug}`}
+            className="sub-header__link"
+          >
+            {genre.name}
+          </Link>
+        ))}
+      </li>
     </ul>
   );
 };

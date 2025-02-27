@@ -309,10 +309,10 @@ export const getGamesByGenre = async (
   pageSize = 10
 ) => {
   try {
-    const response = await axios.get("https://api.rawg.io/api/games", {
+    const response = await axios.get(`https://api.rawg.io/api/games`, {
       params: {
         key: API_KEY,
-        genres: genreSlug, // Filtre par genre
+        genres: genreSlug, // ✅ Ce paramètre permet de filtrer les jeux par genre
         ordering: "-rating",
         page,
         page_size: pageSize,
@@ -320,12 +320,12 @@ export const getGamesByGenre = async (
     });
 
     return {
-      results: response.data.results,
-      count: response.data.count,
+      results: response.data.results || [],
+      count: response.data.count || 0,
     };
   } catch (error) {
     console.error(
-      `Erreur lors de la récupération des jeux du genre "${genreSlug}" :`,
+      `❌ Erreur API lors du chargement des jeux du genre ${genreSlug}:`,
       error
     );
     return { results: [], count: 0 };
