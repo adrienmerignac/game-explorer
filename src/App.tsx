@@ -13,6 +13,7 @@ import { AuthProvider } from "./context/AuthContext"; // ✅ Remis en place
 
 import Header from "./components/Header/Header";
 import Home from "./pages/Home";
+import GenrePage from "./pages/GenrePage"; // Import de la page genre
 import WishlistPage from "./pages/WishlistPage";
 import GameDetails from "./components/GameDetails/GameDetails";
 import Footer from "./components/Footer/Footer";
@@ -67,6 +68,7 @@ const App: React.FC = () => {
               <Route path="/" element={<Home />} />
               <Route path="/games/:id" element={<GameDetails />} />
               <Route path="/wishlist" element={<WishlistPage />} />
+              <Route path="/genre/:slug" element={<GenrePage />} />
 
               {/* Authentification avec Firebase (remis sous AuthProvider) */}
               <Route

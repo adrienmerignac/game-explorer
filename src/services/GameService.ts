@@ -282,3 +282,52 @@ export const getGameDevelopers = async (
     return { developers: [], publishers: [] };
   }
 };
+
+/**
+ * ✅ Récupérer la liste des genres de jeux depuis RAWG.IO
+ */
+export const getGameGenres = async (): Promise<
+  { id: number; name: string; slug: string }[]
+> => {
+  try {
+    const response = await axios.get("https://api.rawg.io/api/genres", {
+      params: { key: API_KEY },
+    });
+    return response.data.results;
+  } catch (error) {
+    console.error("Erreur lors de la récupération des genres :", error);
+    return [];
+  }
+};
+
+/**
+ * ✅ Récupérer les jeux selon un genre spécifique
+ */
+export const getGamesByGenre = async (
+  genreSlug: string,
+  page = 1,
+  pageSize = 10
+) => {
+  try {
+    const response = await axios.get("https://api.rawg.io/api/games", {
+      params: {
+        key: API_KEY,
+        genres: genreSlug, // Filtre par genre
+        ordering: "-rating",
+        page,
+        page_size: pageSize,
+      },
+    });
+
+    return {
+      results: response.data.results,
+      count: response.data.count,
+    };
+  } catch (error) {
+    console.error(
+      `Erreur lors de la récupération des jeux du genre "${genreSlug}" :`,
+      error
+    );
+    return { results: [], count: 0 };
+  }
+};
