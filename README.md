@@ -6,7 +6,7 @@
 
 ## 📖 Description
 
-**Game Explorer** is a web application built with **React**, **TypeScript**, and **Vite** that allows users to **browse, discover, and explore a vast collection of video games**. The app integrates with the **[RAWG.io](https://rawg.io/) API** to fetch game details, ratings, platforms, and more.
+Game Explorer is a web application built with **React**, **TypeScript**, and **Vite** that allows users to **browse, discover, and explore a vast collection of video games**. The app integrates with the **[RAWG.io](https://rawg.io/) API** to fetch game details, ratings, platforms, and more.
 
 ## 🌍 Live Demo
 
@@ -14,115 +14,106 @@ Check out the live version of the app here: **[Game Explorer Demo](https://game-
 
 ## ✨ Features
 
-- 🔍 **Game Search & Filtering** – Find games by name, genre, or platform.
-- 📖 **Game Details** – View in-depth information about each game.
-- ⭐ **Personalized Recommendations** – Get suggestions based on games you've viewed.
-- 🌐 **RAWG.io API Integration** – Fetch real-time game data from RAWG.
+- 🔍 **Game Search & Filtering**
+- 📖 **Game Details Page**
+- ⭐ **Wishlist System**
+- 🎮 **Trending & Upcoming Games**
+- 👤 **User Authentication via Firebase**
+- 🌍 **RAWG.io API Integration**
+- 💬 **User Reviews & Community Features (Planned)**
 
 ---
 
-## ⚙️ Prerequisites
+## 📂 Project Structure
 
-Before running the project, make sure you have the following installed:
-
-- [Node.js](https://nodejs.org/) (version **18+** recommended)
-- [npm](https://www.npmjs.com/) (or another package manager)
+```
+📂 src
+ ├── 📁 assets          # Static assets (images, icons)
+ ├── 📁 components      # Reusable UI components
+ ├── 📁 context         # Global state management (Auth, Theme, Wishlist)
+ ├── 📁 hooks           # Custom hooks for API calls and utilities
+ ├── 📁 pages           # Main application pages
+ ├── 📁 routes          # Centralized route definitions
+ ├── 📁 services        # API and Firebase interactions
+ ├── 📁 styles          # Global styles and CSS modules
+ ├── 📄 App.tsx         # Root component
+ ├── 📄 main.tsx        # Application entry point
+```
 
 ---
 
-## 🚀 Installation & Setup
+## 🚀 Documentation
+
+Game Explorer includes a set of documentation files in the `docs/` folder:
+
+- 📘 **[API Documentation](docs/API_DOCUMENTATION.md)**
+- 🏗 **[Architecture Guide](docs/ARCHITECTURE.md)**
+- 🤝 **[Contribution Guide](docs/CONTRIBUTING.md)**
+- 🧪 **[Testing Guide](docs/TESTING_GUIDE.md)**
+- 🔍 **[FAQ & Troubleshooting](docs/FAQ_TROUBLESHOOTING.md)**
+- ⚡ **[Performance Optimization](docs/PERFORMANCE_GUIDE.md)**
+- 🎨 **[UI/UX Guidelines](docs/UI_UX_GUIDE.md)**
+- 🔒 **[Security Guide](docs/SECURITY_GUIDE.md)**
+- 🔄 **[Versioning & Git Workflow](docs/VERSIONING_GUIDE.md)**
+- 🚀 **[Deployment Guide](docs/DEPLOYMENT_GUIDE.md)**
+- 🛣 **[Project Roadmap](docs/ROADMAP.md)**
+- 🔗 **[Integration Guide](docs/INTEGRATION_GUIDE.md)**
+
+---
+
+## 🏗 Installation & Setup
 
 1. **Clone the repository:**
-
    ```sh
    git clone https://github.com/adrienmerignac/game-explorer.git
    cd game-explorer
    ```
-
 2. **Install dependencies:**
-
    ```sh
    npm install
    ```
-
 3. **Set up environment variables:**
-
-   - The app requires an **API key from RAWG.io**.
-   - Register at **[RAWG.io](https://rawg.io/apidocs)** and get your API key.
-   - Create a `.env` file at the root of the project and add:
-
-     ```env
-     VITE_RAWG_API_KEY=your_rawg_api_key_here
-     ```
-
----
-
-## 💻 Running in Development
-
-To start the development server:
-
-```sh
-npm run dev
-```
-
-Then, open [http://localhost:3000](http://localhost:3000) in your browser.
-
----
-
-## 🏗️ Building for Production
-
-To generate an optimized production build:
-
-```sh
-npm run build
-```
-
-The static files will be available in the `dist/` folder.
-
----
-
-## 🧪 Running Tests
-
-To run unit tests:
-
-```sh
-npm run test
-```
-
-Ensure that all tests pass before pushing new changes.
-
----
-
-## 🌟 Contribution
-
-Contributions are welcome! To contribute:
-
-1. **Fork** the repository.
-2. **Create a new branch**:
-   ```sh
-   git checkout -b feature/your-feature-name
+   ```env
+   VITE_RAWG_API_KEY=your_rawg_api_key_here
+   VITE_FIREBASE_API_KEY=your_firebase_api_key
    ```
-3. **Commit your changes**:
+4. **Run the development server:**
    ```sh
-   git commit -m "Added new feature"
+   npm run dev
    ```
-4. **Push the branch**:
-   ```sh
-   git push origin feature/your-feature-name
-   ```
-5. **Open a Pull Request** on GitHub.
+   The app will be available at `http://localhost:5173`.
 
-Before submitting, ensure your code follows the project style and all tests pass.
+---
+
+## 🏗 Deployment
+
+Game Explorer can be deployed on **Vercel, Netlify, or Firebase Hosting**.
+
+1. **Build the project:**
+   ```sh
+   npm run build
+   ```
+2. **Deploy using Vercel:**
+   ```sh
+   vercel
+   ```
+
+For more details, check the **[Deployment Guide](docs/DEPLOYMENT_GUIDE.md)**.
 
 ---
 
 ## 📜 License
 
-This project is **MIT licensed**. See the [LICENSE](https://github.com/adrienmerignac/game-library/blob/main/LICENSE) file for details.
+This project is **MIT licensed**. See the [LICENSE](LICENSE) file for details.
 
 ---
 
 ## 🙌 Acknowledgments
 
 - **[RAWG.io](https://rawg.io/)** for providing a powerful gaming API.
+- **Firebase** for authentication and database services.
 - The **open-source community** for amazing tools and libraries that made this project possible.
+
+---
+
+This README serves as an entry point to all documentation and project information. 🚀
