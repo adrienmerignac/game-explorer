@@ -1,5 +1,5 @@
 import React, { useEffect, useReducer, useCallback, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import {
   getGameDetails,
   getGameScreenshots,
@@ -11,12 +11,12 @@ import { useGameTracking } from "../../hooks/useGameTracking";
 import { useWishlist } from "../../context/WishlistContext";
 import "../../styles/gameDetails.css";
 
-import OptimizedImage from "../OptimizedImage/OptimizedImage";
 import fallbackImage from "../../assets/images/fallback-image.webp";
 
 // ✅ Import des icônes Wishlist
 import heartOutlineIcon from "../../assets/images/icons/heart-outline.svg";
 import heartFilledIcon from "../../assets/images/icons/heart.svg";
+import GameCard from "../GameCard/GameCard";
 
 const GameDetails: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -166,23 +166,22 @@ const GameDetails: React.FC = () => {
             </ul>
           </div>
 
-          {/* 🔄 Similar games */}
+          {/* 🔄 Jeux similaires avec GameCard */}
           {similarGames.length > 0 && (
             <div className="similar-games">
               <h3>Similar games</h3>
               <div className="similar-game-list">
-                {similarGames.map((similarGame) => (
-                  <Link
-                    key={similarGame.id}
-                    to={`/games/${similarGame.id}`}
-                    className="similar-game-card"
-                  >
-                    <OptimizedImage
-                      src={similarGame.background_image || fallbackImage}
-                      alt={similarGame.name}
-                    />
-                    <p>{similarGame.name}</p>
-                  </Link>
+                {similarGames.map((game) => (
+                  <GameCard
+                    key={game.id}
+                    game={{
+                      id: game.id,
+                      name: game.name,
+                      background_image: game.background_image || fallbackImage,
+                      released: "",
+                      rating: undefined,
+                    }}
+                  />
                 ))}
               </div>
             </div>

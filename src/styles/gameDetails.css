@@ -8,7 +8,6 @@ body {
 
 .game-details-container {
   max-width: 100%;
-  margin: 0 auto;
   padding: 20px;
   display: flex;
   flex-direction: column;
@@ -103,6 +102,7 @@ body {
   overflow: hidden;
 }
 
+/* 📸 Galerie de Screenshots */
 .screenshots-gallery {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -112,15 +112,16 @@ body {
 
 .screenshot-image {
   width: 100%;
-  max-width: 100%;
+  height: 180px; /* ✅ Hauteur uniforme */
+  object-fit: cover; /* ✅ Coupe les images trop grandes pour garder un format homogène */
   border-radius: 10px;
   transition: filter 0.3s ease-in-out, transform 0.2s ease-in-out;
 }
 
 /* 🌟 Effet subtil au hover */
 .screenshot-image:hover {
-  filter: brightness(1.2); /* Augmente légèrement la luminosité */
-  transform: translateY(-3px); /* Légère élévation */
+  filter: brightness(1.2);
+  transform: translateY(-3px);
 }
 
 .screenshot-image,
@@ -144,11 +145,10 @@ body {
 }
 
 .platform-list ul {
-  display: flex;
-  gap: 16px;
-  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 10px;
   padding: 0;
-  text-align: center;
 }
 
 .platform-list li {
@@ -157,45 +157,84 @@ body {
   border-radius: 5px;
   display: inline-block;
   font-size: 0.9rem;
+  text-align: center;
 }
 
-/* 🎮 Jeux Similaires */
+/* 📌 Section des jeux similaires */
+.similar-games {
+  margin-top: 30px;
+}
+
+/* ✅ Grille des jeux similaires */
 .similar-game-list {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-  gap: 15px;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  column-gap: 15px; /* ✅ Espacement horizontal */
+  row-gap: 20px; /* ✅ Ajoute un espace vertical entre les lignes */
   justify-content: center;
+  align-items: stretch;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
-.similar-game-card {
+/* ✅ Appliquer les styles de `.game-card` dans `.similar-game-list` */
+.similar-game-list .game-card {
   background: rgba(255, 255, 255, 0.05);
-  padding: 10px;
   border-radius: 10px;
-  transition: transform 0.3s ease-in-out;
+  transition: transform 0.3s ease-in-out, box-shadow 0.2s ease-in-out;
   text-align: center;
   text-decoration: none;
-  color: white;
+  color: black;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* ✅ Force la description en bas */
+  height: 100%; /* ✅ Garde une hauteur égale */
+  min-height: 200px; /* ✅ Force une hauteur minimale */
 }
 
-.similar-game-card:hover {
-  color: white;
-}
-
-.similar-game-card img {
+/* ✅ Images des jeux similaires */
+.similar-game-list .game-card-image {
   width: 100%;
-  height: auto;
+  height: 120px; /* ✅ Fixe une hauteur uniforme */
+  object-fit: cover; /* ✅ Recadre proprement */
   border-radius: 5px;
+  aspect-ratio: 16 / 9; /* ✅ Fixe un format standard */
 }
 
-.similar-games h3 {
-  margin-top: 0;
+/* ✅ Nom du jeu */
+.similar-game-list .game-card-content {
+  font-size: 0.9rem;
+  font-weight: bold;
+  margin-top: auto; /* ✅ Positionne le texte en bas */
+  padding: 10px;
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+  .similar-game-list {
+    grid-template-columns: repeat(
+      3,
+      minmax(180px, 1fr)
+    ); /* ✅ Forcer 3 colonnes */
+    row-gap: 25px; /* ✅ Augmenter l’espace entre les lignes */
+    column-gap: 20px; /* ✅ Équilibrer l'espacement horizontal */
+  }
+
+  .screenshots-gallery {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 15px;
+  }
+
+  .screenshot-image {
+    height: 200px; /* ✅ Hauteur adaptée aux grands écrans */
+  }
 }
 
 /* 📌 Responsive Desktop */
-@media (min-width: 768px) {
+@media (min-width: 1024px) {
   .game-details-container {
     max-width: 900px;
     padding: 30px;
+    margin: 0 auto;
   }
 
   .game-header {
@@ -213,18 +252,27 @@ body {
   }
 
   .screenshots-gallery {
-    grid-template-columns: repeat(3, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 15px;
-    padding-top: 10px;
   }
 
   .screenshot-image {
-    max-width: 100%;
-    height: auto;
+    height: 200px; /* ✅ Hauteur adaptée aux grands écrans */
   }
 
   .similar-game-list {
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    grid-template-columns: repeat(
+      auto-fit,
+      minmax(200px, 1fr)
+    ); /* ✅ Ajustement */
+  }
+
+  .similar-game-list .game-card {
+    min-height: 200px; /* ✅ Augmente la hauteur sur grand écran */
+  }
+
+  .similar-game-list .game-card-image {
+    height: 160px; /* ✅ Meilleure adaptation sur desktop */
   }
 
   .platform-list ul {

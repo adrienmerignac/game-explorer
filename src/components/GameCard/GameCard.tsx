@@ -1,10 +1,17 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Game } from "../../services/GameService.types";
 import "./GameCard.css";
+import fallbackImage from "../../assets/images/fallback-image.webp";
 
+// ✅ Permet d'accepter un Game OU un SimilarGame
 interface GameCardProps {
-  game: Game;
+  game: {
+    id: number;
+    name: string;
+    background_image: string | null;
+    released?: string;
+    rating?: number;
+  };
 }
 
 const formatDate = (dateString: string) => {
@@ -17,14 +24,18 @@ const GameCard: React.FC<GameCardProps> = ({ game }) => {
     <div className="game-card">
       <Link to={`/games/${game.id}`} className="game-card-link">
         <img
-          src={game.background_image || "/fallback-image.jpg"}
+          src={game.background_image || fallbackImage}
           alt={game.name}
           className="game-card-image"
         />
         <div className="game-card-content">
           <h3>{game.name}</h3>
-          <p className="release-date">📅 {formatDate(game.released)}</p>
-          <p className="rating">⭐ {game.rating.toFixed(1)}</p>
+          {game.released && (
+            <p className="release-date">📅 {formatDate(game.released)}</p>
+          )}
+          {game.rating !== undefined && (
+            <p className="rating">⭐ {game.rating.toFixed(1)}</p>
+          )}
         </div>
       </Link>
     </div>
