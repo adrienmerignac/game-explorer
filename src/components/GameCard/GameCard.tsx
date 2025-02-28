@@ -12,6 +12,9 @@ interface GameCardProps {
     released?: string;
     rating?: number;
   };
+  width?: number;
+  height?: number;
+  loading?: "lazy" | "eager";
 }
 
 const formatDate = (dateString: string) => {
@@ -19,14 +22,22 @@ const formatDate = (dateString: string) => {
   return new Date(dateString).toLocaleDateString("fr-FR");
 };
 
-const GameCard: React.FC<GameCardProps> = ({ game }) => {
+const GameCard: React.FC<GameCardProps> = ({
+  game,
+  width,
+  height,
+  loading,
+}) => {
   return (
     <div className="game-card">
       <Link to={`/games/${game.id}`} className="game-card-link">
         <img
           src={game.background_image || fallbackImage}
-          alt={game.name}
+          alt={`Cover of ${game.name}`}
           className="game-card-image"
+          width={width}
+          height={height}
+          loading={loading}
         />
         <div className="game-card-content">
           <h3>{game.name}</h3>

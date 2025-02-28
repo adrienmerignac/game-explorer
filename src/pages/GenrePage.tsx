@@ -54,7 +54,7 @@ const GenrePage: React.FC = () => {
             <h1>🎮 Game {genreName}</h1>
             <div className="genre-list">
               {games.map((game) => (
-                <GameCard key={game.id} game={game} />
+                <GameCard key={game.id} game={game} width={640} height={360} />
               ))}
             </div>
           </>

@@ -146,6 +146,8 @@ const GameDetails: React.FC = () => {
                 src={src}
                 alt={`Screenshot ${index + 1}`}
                 className="screenshot-image"
+                width={640} // Valeur à adapter selon la taille moyenne des images récupérées
+                height={360} // Pour conserver le ratio
               />
             ))}
           </div>
@@ -160,7 +162,7 @@ const GameDetails: React.FC = () => {
 
           {/* 🎮 Plateformes */}
           <div className="platform-list">
-            <h3>Compatible platforms :</h3>
+            <h2>Compatible platforms :</h2>
             <ul>
               {game.parent_platforms?.map((platform) => (
                 <li key={platform.platform.id}>{platform.platform.name}</li>
@@ -171,7 +173,7 @@ const GameDetails: React.FC = () => {
           {/* 🔄 Jeux similaires avec GameCard */}
           {similarGames.length > 0 && (
             <div className="similar-games">
-              <h3>Similar games</h3>
+              <h2>Similar games :</h2>
               <div className="similar-game-list">
                 {similarGames.map((game) => (
                   <GameCard
@@ -183,6 +185,9 @@ const GameDetails: React.FC = () => {
                       released: "",
                       rating: undefined,
                     }}
+                    width={300} // Largeur fixe pour uniformiser
+                    height={170} // Ajuster selon le ratio
+                    loading="lazy"
                   />
                 ))}
               </div>
