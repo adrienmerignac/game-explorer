@@ -4,17 +4,61 @@
   padding: 20px;
 }
 
-/* 🎮 Style du titre */
-.genre-page h1 {
-  font-size: 2rem;
-  text-align: center;
-  margin-bottom: 1.5rem;
+/* Couverture de la page */
+.genre-header {
+  position: relative;
+  width: 100%;
+  height: 300px;
+}
+
+.genre-header picture {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.genre-cover-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.genre-image-container img {
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.genre-image-container.loaded img {
+  opacity: 1;
+}
+
+.genre-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6); /* Renforce la lisibilité */
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 12px;
+  text-align: center;
+}
+
+/* 🎮 Style du titre */
+.genre-title {
+  font-size: 2.5rem;
   font-weight: bold;
-  color: #fff;
+  color: white;
+  text-shadow: 3px 3px 12px rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.4);
+  padding: 12px 24px;
+  border-radius: 10px;
+}
+
+.light-mode .genre-title {
+  color: white;
 }
 
 /* 📱 Grille optimisée */
@@ -26,6 +70,14 @@
   list-style: none;
   max-width: 1200px;
   margin: 0 auto;
+}
+
+/* 📱 Responsive */
+@media (max-width: 768px) {
+  .genre-title {
+    font-size: 1.8rem;
+    padding: 8px 16px;
+  }
 }
 
 /* 🖥️ Responsive Desktop */

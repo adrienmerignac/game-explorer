@@ -13,6 +13,10 @@
   font-family: "Press Start 2P", sans-serif;
 }
 
+.light-mode .loader-container {
+  background: white;
+}
+
 /* 🎮 Texte animé "LEVELING UP..." */
 .loader-text {
   font-size: 1.5rem;
