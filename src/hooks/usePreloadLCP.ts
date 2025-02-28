@@ -1,4 +1,3 @@
-// usePreloadLCP.ts
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
@@ -11,6 +10,9 @@ import homePageImageMobileWebP from "../assets/images/home-page-image-mobile.web
 // 🎮 Images de la Page Genre
 import genreImageAVIF from "../assets/images/genre-cover.avif";
 import genreImageWebP from "../assets/images/genre-cover.webp";
+
+import gameDetailsCoverAVIF from "../assets/images/game-details-cover.avif";
+import gameDetailsCoverWebP from "../assets/images/game-details-cover.webp";
 
 export const usePreloadLCP = () => {
   const location = useLocation();
@@ -39,6 +41,10 @@ export const usePreloadLCP = () => {
     } else if (location.pathname.startsWith("/genre/")) {
       avifImage = genreImageAVIF;
       webpImage = genreImageWebP;
+    } else if (location.pathname.startsWith("/games/")) {
+      // 🎮 Précharge l’image du jeu si dispo, sinon fallback
+      avifImage = gameDetailsCoverAVIF;
+      webpImage = gameDetailsCoverWebP;
     } else {
       return;
     }

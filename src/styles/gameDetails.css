@@ -1,5 +1,4 @@
 /* 📌 Général */
-/* 📌 Empêcher le scroll horizontal */
 html,
 body {
   overflow-x: hidden;
@@ -15,52 +14,80 @@ body {
   overflow-x: hidden;
 }
 
-/* 📌 En-tête du jeu */
+/* 🎮 Header du jeu */
 .game-header {
-  display: flex;
-  justify-content: space-between;
-  gap: 6px;
-  align-items: center;
-  flex-wrap: wrap;
+  position: relative;
   width: 100%;
+  height: 220px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.game-header picture {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+.game-header img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.7);
+}
+
+/* Overlay pour meilleure lisibilité */
+.game-header::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 0;
 }
 
 .game-title {
   font-size: 2rem;
-  text-align: center;
+  font-weight: bold;
+  color: #fff;
+  z-index: 1;
 }
 
-/* ✅ Bouton Wishlist */
-.game-details-container .wishlist-btn {
-  align-items: center;
-  background-color: #d62c2c;
-  border-radius: 5px;
-  border: none;
-  color: white;
-  cursor: pointer;
+/* ❤️ Wishlist */
+.wishlist-btn {
   display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #d62c2c;
+  color: white;
   font-size: 14px;
   font-weight: bold;
-  gap: 8px;
-  justify-content: center;
+  border: none;
+  border-radius: 5px;
   padding: 10px 14px;
-  transition: background 0.3s, transform 0.2s;
+  cursor: pointer;
+  transition: 0.3s ease;
   width: 100%;
-  margin-top: auto; /* Force le bouton à rester en bas */
 }
 
-.game-details-container .wishlist-btn:hover {
-  background-color: #b52222;
+.wishlist-btn:hover {
+  background: #b52222;
 }
 
-/* ✅ Icône du cœur */
-.game-details-container .wishlist-icon {
+.wishlist-icon {
   width: 18px;
   height: 18px;
-  fill: white;
 }
 
-/* 📌 Infos principales */
+/* 📜 Infos principales */
 .game-info {
   background: rgba(255, 255, 255, 0.05);
   padding: 15px;
@@ -72,7 +99,7 @@ body {
   margin: 5px 0;
 }
 
-/* 🎥 🔗 Lien YouTube */
+/* 🎥 Lien YouTube */
 .youtube-link {
   text-align: center;
   margin: 20px 0;
@@ -93,16 +120,7 @@ body {
   background: #0077cc;
 }
 
-/* 📸 Galerie de Screenshots */
-/* 📌 Empêcher la grille de dépasser */
-.screenshots-gallery,
-.game-list,
-.platform-list ul {
-  max-width: 100%;
-  overflow: hidden;
-}
-
-/* 📸 Galerie de Screenshots */
+/* 📸 Screenshots */
 .screenshots-gallery {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -112,8 +130,8 @@ body {
 
 .screenshot-image {
   width: 100%;
-  height: 180px; /* ✅ Hauteur uniforme */
-  object-fit: cover; /* ✅ Coupe les images trop grandes pour garder un format homogène */
+  height: 180px;
+  object-fit: cover;
   border-radius: 10px;
   transition: filter 0.3s ease-in-out, transform 0.2s ease-in-out;
 }
@@ -139,16 +157,13 @@ body {
   border-radius: 10px;
 }
 
-/* 🎮 Liste des plateformes */
-.platform-list h3 {
-  margin-bottom: 10px;
-}
-
+/* 🎮 Plateformes */
 .platform-list ul {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   gap: 10px;
   padding: 0;
+  list-style: none;
 }
 
 .platform-list li {
@@ -169,8 +184,8 @@ body {
 .similar-game-list {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  column-gap: 15px; /* ✅ Espacement horizontal */
-  row-gap: 20px; /* ✅ Ajoute un espace vertical entre les lignes */
+  column-gap: 15px;
+  row-gap: 20px;
   justify-content: center;
   align-items: stretch;
   max-width: 1200px;
@@ -231,19 +246,13 @@ body {
 
 /* 📌 Responsive Desktop */
 @media (min-width: 1024px) {
+  .game-header {
+    height: 350px;
+  }
   .game-details-container {
     max-width: 900px;
     padding: 30px;
     margin: 0 auto;
-  }
-
-  .game-header {
-    flex-direction: row;
-    justify-content: space-between;
-  }
-
-  .game-details-container .wishlist-btn {
-    width: auto;
   }
 
   .game-title {
@@ -257,7 +266,7 @@ body {
   }
 
   .screenshot-image {
-    height: 200px; /* ✅ Hauteur adaptée aux grands écrans */
+    height: 200px;
   }
 
   .similar-game-list {

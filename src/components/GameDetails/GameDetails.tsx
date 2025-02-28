@@ -8,6 +8,7 @@ import {
 import DOMPurify from "dompurify";
 import { initialState, reducer } from "./GameDetails.const";
 import { useGameTracking } from "../../hooks/useGameTracking";
+import { usePreloadLCP } from "../../hooks/usePreloadLCP";
 import { useWishlist } from "../../context/WishlistContext";
 import "../../styles/gameDetails.css";
 
@@ -15,12 +16,15 @@ import GameCard from "../GameCard/GameCard";
 import Loader from "../Loader/Loader"; // 🔥 Import du Loader
 
 import fallbackImage from "../../assets/images/fallback-image.webp";
+import gameDetailsCoverAVIF from "../../assets/images/game-details-cover.avif";
+import gameDetailsCoverWebP from "../../assets/images/game-details-cover.webp";
 
 // ✅ Import des icônes Wishlist
 import heartOutlineIcon from "../../assets/images/icons/heart-outline.svg";
 import heartFilledIcon from "../../assets/images/icons/heart.svg";
 
 const GameDetails: React.FC = () => {
+  usePreloadLCP(); // 🔥 Optimisation LCP automatique
   const { id } = useParams<{ id: string }>();
   const [state, dispatch] = useReducer(reducer, initialState);
   const [screenshots, setScreenshots] = useState<string[]>([]);
@@ -76,31 +80,36 @@ const GameDetails: React.FC = () => {
 
   return (
     <>
+      <div className="game-header">
+        <picture>
+          <source srcSet={gameDetailsCoverAVIF} type="image/avif" />
+          <source srcSet={gameDetailsCoverWebP} type="image/webp" />
+          <img
+            src={gameDetailsCoverWebP}
+            alt="Game Details Cover"
+            className="game-cover-img"
+          />
+        </picture>
+        <h1 className="game-title">🎮 {game?.name || "Game Details"}</h1>
+      </div>
       {game && (
         <div className="game-details-container">
-          <div className="game-header">
-            <h1 className="game-title">{game.name}</h1>
-
-            {/* ❤️ Bouton Wishlist */}
-            <button
-              className={`wishlist-btn ${isInWishlist ? "added" : ""}`}
-              onClick={() =>
-                isInWishlist ? removeFromWishlist(game.id) : addToWishlist(game)
-              }
-              onMouseEnter={() => setHovered(true)}
-              onMouseLeave={() => setHovered(false)}
-            >
-              <img
-                src={
-                  isInWishlist || hovered ? heartFilledIcon : heartOutlineIcon
-                }
-                alt="Wishlist"
-                className="wishlist-icon"
-                loading="lazy"
-              />
-              {isInWishlist ? "Added to Wishlist" : "Add to Wishlist"}
-            </button>
-          </div>
+          {/* ❤️ Bouton Wishlist */}
+          <button
+            className={`wishlist-btn ${isInWishlist ? "added" : ""}`}
+            onClick={() =>
+              isInWishlist ? removeFromWishlist(game.id) : addToWishlist(game)
+            }
+            onMouseEnter={() => setHovered(true)}
+            onMouseLeave={() => setHovered(false)}
+          >
+            <img
+              src={isInWishlist || hovered ? heartFilledIcon : heartOutlineIcon}
+              alt="Wishlist"
+              className="wishlist-icon"
+            />
+            {isInWishlist ? "Added to Wishlist" : "Add to Wishlist"}
+          </button>
 
           {/* 📝 Infos principales */}
           <div className="game-info">
@@ -148,6 +157,8 @@ const GameDetails: React.FC = () => {
                 className="screenshot-image"
                 width={640} // Valeur à adapter selon la taille moyenne des images récupérées
                 height={360} // Pour conserver le ratio
+                loading="lazy"
+                fetchPriority="low"
               />
             ))}
           </div>
