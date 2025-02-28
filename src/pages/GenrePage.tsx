@@ -2,7 +2,9 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getGamesByGenre, getGameGenres } from "../services/GameService";
 import { Game } from "../services/GameService.types";
+import GameCard from "../components/GameCard/GameCard"; // ✅ Import du composant
 import "../styles/genrePage.css";
+import "../styles/pageLayout.css";
 
 const GenrePage: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -40,23 +42,23 @@ const GenrePage: React.FC = () => {
   }, [slug]);
 
   return (
-    <div className="genre-page">
-      <h1>🎮 Game {genreName}</h1>
-
-      {isLoading ? (
-        <p>Loading games...</p>
-      ) : error ? (
-        <p>{error}</p>
-      ) : (
-        <ul className="genre-list">
-          {games.map((game) => (
-            <li key={game.id} className="genre-item">
-              <img src={game.background_image} alt={game.name} />
-              <h3>{game.name}</h3>
-            </li>
-          ))}
-        </ul>
-      )}
+    <div className="page__wrapper">
+      <div className="genre-page">
+        {isLoading ? (
+          <p className="loading">⏳ Chargement des jeux...</p>
+        ) : error ? (
+          <p className="error-message">❌ {error}</p>
+        ) : (
+          <>
+            <h1>🎮 Game {genreName}</h1>
+            <div className="genre-list">
+              {games.map((game) => (
+                <GameCard key={game.id} game={game} />
+              ))}
+            </div>
+          </>
+        )}
+      </div>
     </div>
   );
 };

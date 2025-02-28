@@ -301,7 +301,7 @@ export const getGameGenres = async (): Promise<
 };
 
 /**
- * ✅ Récupérer les jeux selon un genre spécifique
+ * ✅ Récupérer les jeux selon un genre spécifique (sortis récemment)
  */
 export const getGamesByGenre = async (
   genreSlug: string,
@@ -309,13 +309,20 @@ export const getGamesByGenre = async (
   pageSize = 10
 ) => {
   try {
+    // ✅ Définir la plage de dates (dernières 2 ans)
+    const today = new Date().toISOString().split("T")[0];
+    const twoYearsAgo = new Date();
+    twoYearsAgo.setFullYear(twoYearsAgo.getFullYear() - 2);
+    const twoYearsAgoFormatted = twoYearsAgo.toISOString().split("T")[0];
+
     const response = await axios.get(`https://api.rawg.io/api/games`, {
       params: {
         key: API_KEY,
-        genres: genreSlug, // ✅ Ce paramètre permet de filtrer les jeux par genre
-        ordering: "-rating",
+        genres: genreSlug,
+        ordering: "-rating,-released", // 🔥 1. Trier par meilleure note, 2. Trier par date de sortie
+        dates: `${twoYearsAgoFormatted},${today}`, // ✅ Jeux sortis entre ces dates
         page,
-        page_size: pageSize,
+        page_size: pageSize, // On récupère seulement le nombre demandé
       },
     });
 

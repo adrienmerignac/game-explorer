@@ -4,6 +4,7 @@ import { registerUser } from "../services/AuthService";
 import { useNavigate } from "react-router-dom";
 import "../styles/register.css";
 import "../styles/buttons.css";
+import "../styles/pageLayout.css";
 
 const Register = () => {
   const { setUser } = useAuth(); // ✅ Récupération de setUser

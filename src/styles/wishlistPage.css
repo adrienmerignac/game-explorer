@@ -1,7 +1,15 @@
 /* Wishlist Page Styling */
 .wishlist-page {
-  padding: 20px;
-  text-align: center;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  width: 100%;
+}
+
+.wishlist-page h2 {
+  margin-top: 16px;
+  margin-bottom: 0;
 }
 
 .wishlist-grid {
@@ -98,7 +106,7 @@
   .wishlist-card {
     flex-direction: row;
     align-items: center;
-    width: 95%;
+    width: 90%;
     padding: 10px;
   }
 

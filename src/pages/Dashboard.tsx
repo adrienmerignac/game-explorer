@@ -4,6 +4,7 @@ import { getUserProfile, logoutUser } from "../services/AuthService";
 import { useNavigate } from "react-router-dom";
 import "../styles/dashboard.css";
 import "../styles/buttons.css";
+import "../styles/pageLayout.css";
 
 const Dashboard = () => {
   const { user, userData, setUserData, loading } = useAuth();

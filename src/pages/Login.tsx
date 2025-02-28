@@ -3,6 +3,7 @@ import { loginUser } from "../services/AuthService";
 import { useNavigate } from "react-router-dom";
 import "../styles/login.css";
 import "../styles/buttons.css";
+import "../styles/pageLayout.css";
 
 const Login = () => {
   const [email, setEmail] = useState("");

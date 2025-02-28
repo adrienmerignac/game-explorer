@@ -9,11 +9,11 @@ import {
 import { SearchProvider } from "./context/SearchContext";
 import { WishlistProvider } from "./context/WishlistContext";
 import { ThemeProvider } from "./context/ThemeContext";
-import { AuthProvider } from "./context/AuthContext"; // ✅ Remis en place
+import { AuthProvider } from "./context/AuthContext";
 
 import Header from "./components/Header/Header";
 import Home from "./pages/Home";
-import GenrePage from "./pages/GenrePage"; // Import de la page genre
+import GenrePage from "./pages/GenrePage";
 import WishlistPage from "./pages/WishlistPage";
 import GameDetails from "./components/GameDetails/GameDetails";
 import Footer from "./components/Footer/Footer";
@@ -22,35 +22,42 @@ import NotFound from "./pages/NotFound";
 
 import "./styles/App.css";
 
-// ✅ Chargement dynamique des pages liées à l'authentification
 const Login = lazy(() => import("./pages/Login"));
 const Register = lazy(() => import("./pages/Register"));
 const Logout = lazy(() => import("./pages/Logout"));
 const Dashboard = lazy(() => import("./pages/Dashboard"));
 const EditProfile = lazy(() => import("./pages/EditProfile"));
 
-// ✅ Gestion dynamique des classes <body> selon la page active
+/**
+ * ✅ Gestion dynamique des classes <body> selon la page active
+ */
 const BodyClassHandler = () => {
   const location = useLocation();
 
   useEffect(() => {
-    const newClass = location.pathname.replace("/", "") || "home";
-    if (document.body.className !== newClass) {
-      document.body.className = newClass;
+    // Supprimer toutes les classes avant d'ajouter la nouvelle
+    document.body.className = "";
+
+    // Déterminer si on est sur la Home ou non
+    const isHome = location.pathname === "/";
+
+    if (!isHome) {
+      document.body.classList.add("not-home");
     }
 
+    // Gestion du statut de connexion de l'utilisateur
     const getUserTokenFromLocalStorage = localStorage.getItem("userToken");
     if (getUserTokenFromLocalStorage) {
       document.body.classList.add("user-logged-in");
-    } else {
-      document.body.classList.remove("user-logged-in");
     }
   }, [location]);
 
   return null;
 };
 
-// ✅ Composant pour protéger les routes privées
+/**
+ * ✅ Composant pour protéger les routes privées
+ */
 const PrivateRoute = ({ children }: { children: JSX.Element }) => {
   return children ? children : <Navigate to="/login" />;
 };
@@ -70,7 +77,7 @@ const App: React.FC = () => {
               <Route path="/wishlist" element={<WishlistPage />} />
               <Route path="/genre/:slug" element={<GenrePage />} />
 
-              {/* Authentification avec Firebase (remis sous AuthProvider) */}
+              {/* Authentification */}
               <Route
                 path="/login"
                 element={

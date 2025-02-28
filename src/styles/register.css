@@ -1,33 +1,3 @@
-html,
-body {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-}
-
-#root {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-}
-
-.page__wrapper {
-  flex: 1; /* Permet au contenu de prendre tout l'espace restant */
-  display: flex;
-  flex-direction: column;
-  justify-content: center; /* Centre verticalement le contenu */
-  align-items: center; /* Centre horizontalement le contenu */
-}
-
-.main-container {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 /* Conteneur principal (centré et responsive) */
 .register-container {
   width: 90%;

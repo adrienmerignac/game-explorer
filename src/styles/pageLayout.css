@@ -1,0 +1,36 @@
+.not-home html,
+.not-home body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.not-home #root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.not-home .page__wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.not-home .main-container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Mobile only */
+@media (max-width: 600px) {
+  .not-home .main-container {
+    padding: 0 16px;
+  }
+}
