@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { getGamesByGenre, getGameGenres } from "../services/GameService";
 import { Game } from "../services/GameService.types";
 import GameCard from "../components/GameCard/GameCard"; // ✅ Import du composant
+import Loader from "../components/Loader/Loader";
 import "../styles/genrePage.css";
 import "../styles/pageLayout.css";
 
@@ -45,7 +46,7 @@ const GenrePage: React.FC = () => {
     <div className="page__wrapper">
       <div className="genre-page">
         {isLoading ? (
-          <p className="loading">⏳ Chargement des jeux...</p>
+          <Loader />
         ) : error ? (
           <p className="error-message">❌ {error}</p>
         ) : (

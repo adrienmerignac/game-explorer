@@ -20,6 +20,8 @@ import Footer from "./components/Footer/Footer";
 import ScrollToTop from "./components/ScrollToTop/ScrollToTop";
 import NotFound from "./pages/NotFound";
 
+import Loader from "./components/Loader/Loader"; // ✅ Import du Loader
+
 import "./styles/App.css";
 
 const Login = lazy(() => import("./pages/Login"));
@@ -35,17 +37,13 @@ const BodyClassHandler = () => {
   const location = useLocation();
 
   useEffect(() => {
-    // Supprimer toutes les classes avant d'ajouter la nouvelle
     document.body.className = "";
 
-    // Déterminer si on est sur la Home ou non
     const isHome = location.pathname === "/";
-
     if (!isHome) {
       document.body.classList.add("not-home");
     }
 
-    // Gestion du statut de connexion de l'utilisateur
     const getUserTokenFromLocalStorage = localStorage.getItem("userToken");
     if (getUserTokenFromLocalStorage) {
       document.body.classList.add("user-logged-in");
@@ -82,7 +80,8 @@ const App: React.FC = () => {
                 path="/login"
                 element={
                   <AuthProvider>
-                    <Suspense fallback={<p>Chargement...</p>}>
+                    <Suspense fallback={<Loader />}>
+                      {" "}
                       <Login />
                     </Suspense>
                   </AuthProvider>
@@ -92,7 +91,8 @@ const App: React.FC = () => {
                 path="/register"
                 element={
                   <AuthProvider>
-                    <Suspense fallback={<p>Chargement...</p>}>
+                    <Suspense fallback={<Loader />}>
+                      {" "}
                       <Register />
                     </Suspense>
                   </AuthProvider>
@@ -102,7 +102,8 @@ const App: React.FC = () => {
                 path="/logout"
                 element={
                   <AuthProvider>
-                    <Suspense fallback={<p>Déconnexion...</p>}>
+                    <Suspense fallback={<Loader />}>
+                      {" "}
                       <Logout />
                     </Suspense>
                   </AuthProvider>
@@ -115,9 +116,8 @@ const App: React.FC = () => {
                 element={
                   <AuthProvider>
                     <PrivateRoute>
-                      <Suspense
-                        fallback={<p>Chargement du tableau de bord...</p>}
-                      >
+                      <Suspense fallback={<Loader />}>
+                        {" "}
                         <Dashboard />
                       </Suspense>
                     </PrivateRoute>
@@ -129,7 +129,8 @@ const App: React.FC = () => {
                 element={
                   <AuthProvider>
                     <PrivateRoute>
-                      <Suspense fallback={<p>Chargement du profil...</p>}>
+                      <Suspense fallback={<Loader />}>
+                        {" "}
                         <EditProfile />
                       </Suspense>
                     </PrivateRoute>

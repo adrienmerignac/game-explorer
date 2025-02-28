@@ -11,12 +11,14 @@ import { useGameTracking } from "../../hooks/useGameTracking";
 import { useWishlist } from "../../context/WishlistContext";
 import "../../styles/gameDetails.css";
 
+import GameCard from "../GameCard/GameCard";
+import Loader from "../Loader/Loader"; // 🔥 Import du Loader
+
 import fallbackImage from "../../assets/images/fallback-image.webp";
 
 // ✅ Import des icônes Wishlist
 import heartOutlineIcon from "../../assets/images/icons/heart-outline.svg";
 import heartFilledIcon from "../../assets/images/icons/heart.svg";
-import GameCard from "../GameCard/GameCard";
 
 const GameDetails: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -69,7 +71,7 @@ const GameDetails: React.FC = () => {
 
   useGameTracking(game?.genres?.[0]?.slug || null);
 
-  if (state.loading) return <div>Loading game details...</div>;
+  if (state.loading) return <Loader />;
   if (state.error) return <div>{state.error}</div>;
 
   return (

@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import { getRecommendedGames } from "../../services/GameService";
 import { Game } from "../../services/GameService.types";
 import { Link } from "react-router-dom";
+import Loader from "../Loader/Loader"; // 🔥 Import du Loader
 import OptimizedImage from "../OptimizedImage/OptimizedImage";
 import fallbackImage from "../../assets/images/fallback-image.webp";
 import "../../styles/recommendedGames.css";
@@ -66,9 +67,8 @@ const RecommendedGames: React.FC = () => {
 
   return (
     <section className="recommended-section">
+      {loading && <Loader />}
       <h2>🎯 Recommended for you</h2>
-
-      {loading && <p className="loading-text">Loading recommendations...</p>}
       {error && <p className="error-text">{error}</p>}
       {!loading && !error && noRecommendations && (
         <p className="no-results-text">No recommendations found.</p>
