@@ -7,6 +7,7 @@ import {
   onSnapshot,
   Firestore,
 } from "firebase/firestore";
+import { getAuth, onAuthStateChanged, User } from "firebase/auth"; // Import de l'authentification Firebase
 import StarRating from "../StarRating/StarRating";
 import "./GameReviews.css";
 
@@ -24,6 +25,7 @@ const GameReviews: React.FC<{ gameId: string }> = ({ gameId }) => {
   const [comment, setComment] = useState("");
   const [loading, setLoading] = useState(false);
   const [db, setDb] = useState<Firestore | null>(null);
+  const [user, setUser] = useState<User | null>(null); // Stockage de l'utilisateur connecté
 
   useEffect(() => {
     const loadFirebase = async () => {
@@ -53,9 +55,19 @@ const GameReviews: React.FC<{ gameId: string }> = ({ gameId }) => {
     };
   }, [gameId]);
 
+  // Écouter les changements d'authentification
+  useEffect(() => {
+    const auth = getAuth();
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setUser(user);
+    });
+
+    return () => unsubscribe(); // Nettoyage du listener
+  }, []);
+
   const handleSubmit = async () => {
     if (rating === 0 || comment.trim() === "") {
-      alert("Please rate and write a review !");
+      alert("Please rate and write a review!");
       return;
     }
 
@@ -68,15 +80,15 @@ const GameReviews: React.FC<{ gameId: string }> = ({ gameId }) => {
     try {
       const reviewRef = collection(db, "games", gameId, "reviews");
       await addDoc(reviewRef, {
-        user: "Anonymous User",
+        user: user?.displayName || user?.email || "Unknown User", // Récupération du nom
         rating,
         comment,
         timestamp: Date.now(),
       });
-      setRating(0); // Réinitialisation après envoi
+      setRating(0);
       setComment("");
     } catch (error) {
-      console.error("Error sending notice :", error);
+      console.error("Error sending review:", error);
     }
     setLoading(false);
   };
@@ -91,7 +103,6 @@ const GameReviews: React.FC<{ gameId: string }> = ({ gameId }) => {
           reviews.map((review) => (
             <div key={review.id} className="review-item">
               <p className="review-user">{review.user}</p>
-              {/* Affichage des étoiles (non modifiable) */}
               <StarRating rating={review.rating} onRate={() => {}} />
               <p className="review-comment">{review.comment}</p>
             </div>
@@ -104,22 +115,31 @@ const GameReviews: React.FC<{ gameId: string }> = ({ gameId }) => {
       {/* Ajout d'un avis */}
       <div className="review-form">
         <h3 className="form-title">Give your opinion</h3>
-        {/* StarRating avec un état modifiable */}
-        <StarRating rating={rating} onRate={setRating} />
-        <textarea
-          className="review-textarea"
-          rows={3}
-          placeholder="Share your opinion..."
-          value={comment}
-          onChange={(e) => setComment(e.target.value)}
-        />
-        <button
-          onClick={handleSubmit}
-          disabled={loading}
-          className="submit-button"
-        >
-          {loading ? "Sending..." : "Submit"}
-        </button>
+        {
+          <>
+            <p>
+              Review as:{" "}
+              <strong>
+                {user?.displayName || user?.email || "Unknown User"}
+              </strong>
+            </p>
+            <StarRating rating={rating} onRate={setRating} />
+            <textarea
+              className="review-textarea"
+              rows={3}
+              placeholder="Share your opinion..."
+              value={comment}
+              onChange={(e) => setComment(e.target.value)}
+            />
+            <button
+              onClick={handleSubmit}
+              disabled={loading}
+              className="submit-button"
+            >
+              {loading ? "Sending..." : "Submit"}
+            </button>
+          </>
+        }
       </div>
     </div>
   );
