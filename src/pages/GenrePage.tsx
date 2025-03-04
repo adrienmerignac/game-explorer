@@ -54,41 +54,43 @@ const GenrePage: React.FC = () => {
   }, [slug]);
 
   return (
-    <div className="page__wrapper">
-      {/* Image de couverture améliorée */}
-      <div className="genre-header">
-        <picture
-          className={`genre-image-container ${imageLoaded ? "loaded" : ""}`}
-        >
-          <source srcSet={mainImageAvif} type="image/avif" />
-          <source srcSet={mainImageWebP} type="image/webp" />
-          <img
-            src={mainImage}
-            alt="Genre Cover"
-            className="genre-cover-img"
-            onLoad={() => setImageLoaded(true)}
-          />
-        </picture>
+    <>
+      {isLoading ? (
+        <Loader />
+      ) : error ? (
+        <p className="error-message">❌ {error}</p>
+      ) : (
+        <div className="page__wrapper">
+          {/* Image de couverture améliorée */}
+          <div className="genre-header">
+            <picture
+              className={`genre-image-container ${imageLoaded ? "loaded" : ""}`}
+            >
+              <source srcSet={mainImageAvif} type="image/avif" />
+              <source srcSet={mainImageWebP} type="image/webp" />
+              <img
+                src={mainImage}
+                alt="Genre Cover"
+                className="genre-cover-img"
+                onLoad={() => setImageLoaded(true)}
+              />
+            </picture>
 
-        <div className="genre-overlay">
-          <h1 className="genre-title">🎮 {genreName}</h1>
-        </div>
-      </div>
-
-      <div className="genre-page">
-        {isLoading ? (
-          <Loader />
-        ) : error ? (
-          <p className="error-message">❌ {error}</p>
-        ) : (
-          <div className="genre-list">
-            {games.map((game) => (
-              <GameCard key={game.id} game={game} width={640} height={360} />
-            ))}
+            <div className="genre-overlay">
+              <h1 className="genre-title">🎮 {genreName}</h1>
+            </div>
           </div>
-        )}
-      </div>
-    </div>
+
+          <div className="genre-page">
+            <div className="genre-list">
+              {games.map((game) => (
+                <GameCard key={game.id} game={game} width={640} height={360} />
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+    </>
   );
 };
 
