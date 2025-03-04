@@ -1,0 +1,87 @@
+.reviews-container {
+  padding: 16px;
+  background-color: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+}
+
+.reviews-title {
+  font-size: 1.5em;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.reviews-list {
+  margin-top: 10px;
+}
+
+.review-item {
+  background-color: rgba(255, 255, 255, 0.05);
+  padding: 12px;
+  margin-bottom: 8px;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+}
+
+.review-user {
+  font-weight: bold;
+  margin-bottom: 4px;
+}
+
+.review-comment {
+  font-size: 14px;
+  color: white;
+}
+
+.light-mode .review-comment {
+  color: black;
+}
+
+.no-reviews {
+  color: #888;
+  font-style: italic;
+}
+
+.review-form {
+  background-color: rgba(255, 255, 255, 0.05);
+  padding: 12px;
+  border-radius: 6px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.review-form > * {
+  margin: 0;
+}
+
+.form-title {
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+.review-textarea {
+  width: 99%;
+  padding: 12px 0px;
+  padding-left: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.submit-button {
+  background-color: #007bff !important;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.submit-button:hover {
+  background-color: #0056b3;
+}
+
+.submit-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}

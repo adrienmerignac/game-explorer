@@ -1,5 +1,6 @@
 import React, { useEffect, useReducer, useCallback, useState } from "react";
 import { useParams } from "react-router-dom";
+import { useGameDetails } from "../../context/GameDetailsContext"; // 🔥 Utilisation du provider Firebase
 import {
   getGameDetails,
   getGameScreenshots,
@@ -13,7 +14,8 @@ import { useWishlist } from "../../context/WishlistContext";
 import "../../styles/gameDetails.css";
 
 import GameCard from "../GameCard/GameCard";
-import Loader from "../Loader/Loader"; // 🔥 Import du Loader
+import GameReviews from "../GameReviews/GameReviews";
+import Loader from "../Loader/Loader"; // 🔥 Loader pour l'attente des données
 
 import fallbackImage from "../../assets/images/fallback-image.webp";
 import gameDetailsCoverAVIF from "../../assets/images/game-details-cover.avif";
@@ -26,6 +28,7 @@ import heartFilledIcon from "../../assets/images/icons/heart.svg";
 const GameDetails: React.FC = () => {
   usePreloadLCP(); // 🔥 Optimisation LCP automatique
   const { id } = useParams<{ id: string }>();
+  const { db } = useGameDetails(); // ✅ Accès à Firebase via le contexte
   const [state, dispatch] = useReducer(reducer, initialState);
   const [screenshots, setScreenshots] = useState<string[]>([]);
   const [similarGames, setSimilarGames] = useState<
@@ -92,6 +95,7 @@ const GameDetails: React.FC = () => {
         </picture>
         <h1 className="game-title">🎮 {game?.name || "Game Details"}</h1>
       </div>
+
       {game && (
         <div className="game-details-container">
           {/* ❤️ Bouton Wishlist */}
@@ -134,19 +138,6 @@ const GameDetails: React.FC = () => {
             </p>
           </div>
 
-          {/* 🔗 Recherche de trailer sur YouTube */}
-          <div className="youtube-link">
-            <a
-              href={`https://www.youtube.com/results?search_query=${encodeURIComponent(
-                game.name + " trailer"
-              )}`}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              🎥 Watch the trailers on YouTube
-            </a>
-          </div>
-
           {/* 📸 Galerie d'images */}
           <div className="screenshots-gallery">
             {screenshots.map((src, index) => (
@@ -155,8 +146,8 @@ const GameDetails: React.FC = () => {
                 src={src}
                 alt={`Screenshot ${index + 1}`}
                 className="screenshot-image"
-                width={640} // Valeur à adapter selon la taille moyenne des images récupérées
-                height={360} // Pour conserver le ratio
+                width={640}
+                height={360}
                 loading="lazy"
                 fetchPriority="low"
               />
@@ -181,7 +172,7 @@ const GameDetails: React.FC = () => {
             </ul>
           </div>
 
-          {/* 🔄 Jeux similaires avec GameCard */}
+          {/* 🔄 Jeux similaires */}
           {similarGames.length > 0 && (
             <div className="similar-games">
               <h2>Similar games :</h2>
@@ -196,14 +187,17 @@ const GameDetails: React.FC = () => {
                       released: "",
                       rating: undefined,
                     }}
-                    width={300} // Largeur fixe pour uniformiser
-                    height={170} // Ajuster selon le ratio
+                    width={300}
+                    height={170}
                     loading="lazy"
                   />
                 ))}
               </div>
             </div>
           )}
+
+          {/* 📝 Avis des utilisateurs (Firebase ne se charge que si `db` est disponible) */}
+          {db && <GameReviews gameId={game.id.toString()} />}
         </div>
       )}
     </>

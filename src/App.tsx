@@ -8,6 +8,7 @@ import {
 } from "react-router-dom";
 import { SearchProvider } from "./context/SearchContext";
 import { WishlistProvider } from "./context/WishlistContext";
+import { GameDetailsProvider } from "./context/GameDetailsContext";
 import { ThemeProvider } from "./context/ThemeContext";
 import { AuthProvider } from "./context/AuthContext";
 
@@ -15,7 +16,6 @@ import Header from "./components/Header/Header";
 import Home from "./pages/Home";
 import GenrePage from "./pages/GenrePage";
 import WishlistPage from "./pages/WishlistPage";
-import GameDetails from "./components/GameDetails/GameDetails";
 import Footer from "./components/Footer/Footer";
 import ScrollToTop from "./components/ScrollToTop/ScrollToTop";
 import NotFound from "./pages/NotFound";
@@ -29,6 +29,7 @@ const Register = lazy(() => import("./pages/Register"));
 const Logout = lazy(() => import("./pages/Logout"));
 const Dashboard = lazy(() => import("./pages/Dashboard"));
 const EditProfile = lazy(() => import("./pages/EditProfile"));
+const GameDetails = lazy(() => import("./components/GameDetails/GameDetails"));
 
 /**
  * ✅ Gestion dynamique des classes <body> selon la page active
@@ -71,9 +72,19 @@ const App: React.FC = () => {
             <Routes>
               {/* Pages publiques */}
               <Route path="/" element={<Home />} />
-              <Route path="/games/:id" element={<GameDetails />} />
               <Route path="/wishlist" element={<WishlistPage />} />
               <Route path="/genre/:slug" element={<GenrePage />} />
+
+              <Route
+                path="/games/:id"
+                element={
+                  <GameDetailsProvider>
+                    <Suspense fallback={<Loader />}>
+                      <GameDetails />
+                    </Suspense>
+                  </GameDetailsProvider>
+                }
+              />
 
               {/* Authentification */}
               <Route
