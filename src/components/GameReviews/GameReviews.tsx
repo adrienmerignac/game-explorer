@@ -55,12 +55,12 @@ const GameReviews: React.FC<{ gameId: string }> = ({ gameId }) => {
 
   const handleSubmit = async () => {
     if (rating === 0 || comment.trim() === "") {
-      alert("Veuillez donner une note et écrire un avis !");
+      alert("Please rate and write a review !");
       return;
     }
 
     if (!db) {
-      alert("Firebase n'est pas encore chargé. Veuillez patienter...");
+      alert("Firebase is not loaded yet. Please wait...");
       return;
     }
 
@@ -68,7 +68,7 @@ const GameReviews: React.FC<{ gameId: string }> = ({ gameId }) => {
     try {
       const reviewRef = collection(db, "games", gameId, "reviews");
       await addDoc(reviewRef, {
-        user: "Utilisateur Anonyme",
+        user: "Anonymous User",
         rating,
         comment,
         timestamp: Date.now(),
@@ -76,14 +76,14 @@ const GameReviews: React.FC<{ gameId: string }> = ({ gameId }) => {
       setRating(0); // Réinitialisation après envoi
       setComment("");
     } catch (error) {
-      console.error("Erreur lors de l'envoi de l'avis :", error);
+      console.error("Error sending notice :", error);
     }
     setLoading(false);
   };
 
   return (
     <div className="reviews-container">
-      <h2 className="reviews-title">Avis des joueurs</h2>
+      <h2 className="reviews-title">Player reviews</h2>
 
       {/* Affichage des avis */}
       <div className="reviews-list">
@@ -97,19 +97,19 @@ const GameReviews: React.FC<{ gameId: string }> = ({ gameId }) => {
             </div>
           ))
         ) : (
-          <p className="no-reviews">Aucun avis pour l’instant.</p>
+          <p className="no-reviews">No reviews yet.</p>
         )}
       </div>
 
       {/* Ajout d'un avis */}
       <div className="review-form">
-        <h3 className="form-title">Donner votre avis</h3>
+        <h3 className="form-title">Give your opinion</h3>
         {/* StarRating avec un état modifiable */}
         <StarRating rating={rating} onRate={setRating} />
         <textarea
           className="review-textarea"
           rows={3}
-          placeholder="Partagez votre avis..."
+          placeholder="Share your opinion..."
           value={comment}
           onChange={(e) => setComment(e.target.value)}
         />
@@ -118,7 +118,7 @@ const GameReviews: React.FC<{ gameId: string }> = ({ gameId }) => {
           disabled={loading}
           className="submit-button"
         >
-          {loading ? "Envoi..." : "Soumettre"}
+          {loading ? "Sending..." : "Submit"}
         </button>
       </div>
     </div>
