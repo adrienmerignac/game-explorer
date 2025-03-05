@@ -26,15 +26,6 @@ export const updateUserXP = async (uid: string, earnedXP: number) => {
       badges: existingBadges,
     });
 
-    console.log(
-      "New XP:",
-      newXP,
-      "New Level:",
-      newLevel,
-      "New Badges:",
-      newBadges
-    );
-
     await updateDoc(userRef, {
       xp: newXP,
       level: newLevel,

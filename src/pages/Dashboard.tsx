@@ -71,8 +71,8 @@ const Dashboard = () => {
                 <strong>Registration :</strong>{" "}
                 {userData.createdAt.toLocaleDateString()}
               </p>
-              <h2>Wishlist ({userData.wishlist.length} games)</h2>
 
+              {/* ✅ Ajout de la gestion de l'avatar */}
               <div className="avatar-container">
                 <img
                   src={userData.avatar}
