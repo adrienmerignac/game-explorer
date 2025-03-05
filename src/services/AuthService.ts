@@ -32,7 +32,7 @@ const getFirebaseAuth = async () => {
 };
 
 // ✅ Chargement dynamique de Firestore uniquement si nécessaire
-const getFirestoreInstance = async () => {
+export const getFirestoreInstance = async () => {
   try {
     const { loadFirebase } = await import("../firebaseConfig");
     const { db } = await loadFirebase();
@@ -164,14 +164,17 @@ export const getUserProfile = async (uid: string): Promise<UserData | null> => {
       const data = userDoc.data();
       const userData: UserData = {
         avatar: data.avatar || "",
-        uid: data.uid,
-        email: data.email,
-        displayName: data.displayName || "Utilisateur",
+        badges: data.badges || [],
         createdAt:
           data.createdAt && "seconds" in data.createdAt
             ? new Date(data.createdAt.seconds * 1000)
             : new Date(),
+        displayName: data.displayName || "Utilisateur",
+        email: data.email,
+        level: data.level || 1,
+        uid: data.uid,
         wishlist: Array.isArray(data.wishlist) ? data.wishlist : [],
+        xp: data.xp || 0,
       };
 
       localStorage.setItem("userAvatar", data.avatar || ""); // ✅ Évite de recharger Firestore inutilement

@@ -5,11 +5,14 @@ import { logoutUser, getUserProfile } from "../services/AuthService";
 
 export interface UserData {
   avatar?: string;
-  uid: string;
-  email: string;
-  displayName: string;
+  badges: string[];
   createdAt: Date;
+  displayName: string;
+  email: string;
+  level: number;
+  uid: string;
   wishlist: string[];
+  xp: number;
 }
 
 interface AuthContextType {

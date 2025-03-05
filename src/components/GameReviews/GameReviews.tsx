@@ -10,6 +10,7 @@ import {
 import { getAuth, onAuthStateChanged, User } from "firebase/auth"; // Import de l'authentification Firebase
 import StarRating from "../StarRating/StarRating";
 import "./GameReviews.css";
+import { updateUserXP } from "../../features/gamification/updateXP";
 
 interface Review {
   id: string;
@@ -87,6 +88,7 @@ const GameReviews: React.FC<{ gameId: string }> = ({ gameId }) => {
       });
       setRating(0);
       setComment("");
+      if (user) await updateUserXP(user.uid, 50); // Gagne 50 XP
     } catch (error) {
       console.error("Error sending review:", error);
     }
