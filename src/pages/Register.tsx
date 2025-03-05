@@ -10,6 +10,7 @@ const Register = () => {
   const { setUser } = useAuth(); // ✅ Récupération de setUser
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [displayName, setDisplayName] = useState(""); // ✅ Ajout du displayName
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
@@ -20,7 +21,7 @@ const Register = () => {
     setErrorMessage("");
 
     try {
-      const { user } = await registerUser(email, password);
+      const { user } = await registerUser(email, password, displayName);
       setUser(user); // ✅ Met à jour l'état utilisateur
       navigate("/dashboard");
     } catch (error) {
@@ -47,6 +48,16 @@ const Register = () => {
               onChange={(e) => setEmail(e.target.value)}
               required
               className="register-input"
+              autoComplete="email"
+            />
+            <input
+              type="text"
+              placeholder="Display Name"
+              value={displayName}
+              onChange={(e) => setDisplayName(e.target.value)}
+              required
+              className="register-input"
+              autoComplete="name"
             />
             <input
               type="password"
@@ -55,6 +66,7 @@ const Register = () => {
               onChange={(e) => setPassword(e.target.value)}
               required
               className="register-input"
+              autoComplete="new-password"
             />
             <button type="submit" className="btn-primary" disabled={loading}>
               {loading ? "Registration in progress..." : "Register"}

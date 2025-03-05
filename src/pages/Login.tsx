@@ -38,6 +38,7 @@ const Login = () => {
               onChange={(e) => setEmail(e.target.value)}
               required
               className="login-input"
+              autoComplete="email"
             />
             <input
               type="password"
@@ -46,6 +47,7 @@ const Login = () => {
               onChange={(e) => setPassword(e.target.value)}
               required
               className="login-input"
+              autoComplete="current-password"
             />
             <button type="submit" className="btn-primary" disabled={loading}>
               {loading ? "Connection in progress..." : "Log in"}

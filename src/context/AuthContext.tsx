@@ -4,6 +4,7 @@ import { User } from "firebase/auth";
 import { logoutUser, getUserProfile } from "../services/AuthService";
 
 export interface UserData {
+  avatar?: string;
   uid: string;
   email: string;
   displayName: string;
@@ -43,7 +44,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         if (firebaseUser) {
           const profileData = await getUserProfile(firebaseUser.uid);
           setUserData(profileData);
-          localStorage.setItem("userToken", JSON.stringify(firebaseUser));
+          localStorage.setItem("userToken", "true");
         } else {
           localStorage.removeItem("userToken");
         }

@@ -1,6 +1,7 @@
-import { useEffect } from "react";
-import { useAuth } from "../context/AuthContext";
-import { getUserProfile, logoutUser } from "../services/AuthService";
+import { useState } from "react";
+import { useAuth } from "../context/AuthContext"; // ✅ Vérifier l'importation
+import { uploadUserAvatarCloudinary } from "../services/AuthService";
+import { logoutUser } from "../services/AuthService";
 import { useNavigate } from "react-router-dom";
 import "../styles/dashboard.css";
 import "../styles/buttons.css";
@@ -8,22 +9,26 @@ import "../styles/pageLayout.css";
 
 const Dashboard = () => {
   const { user, userData, setUserData, loading } = useAuth();
+  const [uploading, setUploading] = useState(false);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const fetchData = async () => {
-      if (user && !userData) {
-        try {
-          const data = await getUserProfile(user.uid);
-          if (data) setUserData(data);
-        } catch (error) {
-          console.error("❌ Erreur lors de la récupération du profil :", error);
-        }
-      }
-    };
+  const handleAvatarUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.files || !user || !userData) return; // ✅ Vérification de userData
 
-    fetchData();
-  }, [user, userData, setUserData]);
+    const file = e.target.files[0];
+    setUploading(true);
+    try {
+      const avatarURL = await uploadUserAvatarCloudinary(user, file);
+      localStorage.setItem("userAvatar", avatarURL);
+      window.dispatchEvent(new Event("storage"));
+
+      // ✅ Correction : On met à jour setUserData avec un nouvel objet
+      setUserData({ ...userData, avatar: avatarURL });
+    } catch (error) {
+      console.error("Erreur lors de l'upload de l'avatar :", error);
+    }
+    setUploading(false);
+  };
 
   const handleLogout = async () => {
     await logoutUser();
@@ -38,7 +43,7 @@ const Dashboard = () => {
           <h1>Dashboard</h1>
 
           {loading ? (
-            <p className="loading-text">Chargement...</p>
+            <p>Chargement...</p>
           ) : userData ? (
             <div className="user-info">
               <p>
@@ -53,12 +58,32 @@ const Dashboard = () => {
               </p>
               <h2>Wishlist ({userData.wishlist.length} jeux)</h2>
 
+              <div className="avatar-container">
+                {userData.avatar ? (
+                  <img
+                    src={userData.avatar}
+                    alt="User Avatar"
+                    className="user-avatar"
+                  />
+                ) : (
+                  <p>No avatar uploaded.</p>
+                )}
+
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={handleAvatarUpload}
+                  disabled={uploading}
+                />
+                {uploading && <p>Uploading...</p>}
+              </div>
+
               <button className="btn-primary" onClick={handleLogout}>
                 Log out
               </button>
             </div>
           ) : (
-            <p className="error-text">Utilisateur introuvable.</p>
+            <p>Utilisateur introuvable.</p>
           )}
         </div>
       </div>

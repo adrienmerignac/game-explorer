@@ -1,4 +1,9 @@
-import { User, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import {
+  User,
+  GoogleAuthProvider,
+  signInWithPopup,
+  updateProfile,
+} from "firebase/auth";
 import { UserData } from "../context/AuthContext";
 
 // ✅ Interface pour le retour utilisateur
@@ -26,14 +31,13 @@ const getFirebaseAuth = async () => {
   }
 };
 
+// ✅ Chargement dynamique de Firestore uniquement si nécessaire
 const getFirestoreInstance = async () => {
   try {
-    const { getFirestore, doc, getDoc, setDoc } = await import(
-      "firebase/firestore"
-    );
     const { loadFirebase } = await import("../firebaseConfig");
     const { db } = await loadFirebase();
-    return { getFirestore, db, doc, getDoc, setDoc };
+    const firestore = await import("firebase/firestore");
+    return { db, ...firestore };
   } catch (error) {
     return handleFirebaseError(error, "Erreur lors du chargement de Firestore");
   }
@@ -57,7 +61,7 @@ const addUserToFirestore = async (user: User) => {
       await setDoc(userRef, userData);
 
       // ✅ Stocker dans `localStorage`
-      localStorage.setItem("userToken", JSON.stringify(userData));
+      localStorage.setItem("userToken", "true");
     }
   } catch (error) {
     return handleFirebaseError(
@@ -70,7 +74,8 @@ const addUserToFirestore = async (user: User) => {
 // ✅ Inscription avec Email/Password
 export const registerUser = async (
   email: string,
-  password: string
+  password: string,
+  displayName: string
 ): Promise<AuthResponse> => {
   try {
     const auth = await getFirebaseAuth();
@@ -81,10 +86,22 @@ export const registerUser = async (
       email,
       password
     );
+
+    // ✅ Met à jour le profil Firebase Auth
+    await updateProfile(user, { displayName });
+
+    // ✅ Ajoute l'utilisateur dans Firestore
     await addUserToFirestore(user);
 
-    // ✅ Stockage local de l'utilisateur
-    localStorage.setItem("userToken", JSON.stringify(user));
+    // ✅ Récupérer l'utilisateur depuis Firestore
+    const userProfile = await getUserProfile(user.uid);
+
+    if (userProfile) {
+      localStorage.setItem("userAvatar", userProfile.avatar || ""); // ✅ Stocke l'avatar
+    }
+
+    localStorage.setItem("userToken", "true"); // ✅ Stocke l'utilisateur
+    window.dispatchEvent(new Event("storage")); // ✅ Notifie les composants
 
     return { user };
   } catch (error) {
@@ -106,8 +123,15 @@ export const loginUser = async (
 
     const { user } = await signInWithEmailAndPassword(auth, email, password);
 
-    // ✅ Stocker l'utilisateur connecté
-    localStorage.setItem("userToken", JSON.stringify(user));
+    // ✅ Récupérer les infos de l'utilisateur depuis Firestore
+    const userProfile = await getUserProfile(user.uid);
+
+    if (userProfile) {
+      localStorage.setItem("userAvatar", userProfile.avatar || ""); // ✅ Stocke l'avatar
+    }
+
+    localStorage.setItem("userToken", "true"); // ✅ Stocke l'utilisateur
+    window.dispatchEvent(new Event("storage")); // ✅ Force la mise à jour en temps réel
 
     return { user };
   } catch (error) {
@@ -123,6 +147,7 @@ export const logoutUser = async (): Promise<void> => {
 
     await signOut(auth);
     localStorage.removeItem("userToken"); // ✅ Supprime la session utilisateur
+    window.dispatchEvent(new Event("storage"));
   } catch (error) {
     return handleFirebaseError(error, "Erreur lors de la déconnexion.");
   }
@@ -138,6 +163,7 @@ export const getUserProfile = async (uid: string): Promise<UserData | null> => {
     if (userDoc.exists()) {
       const data = userDoc.data();
       const userData: UserData = {
+        avatar: data.avatar || "",
         uid: data.uid,
         email: data.email,
         displayName: data.displayName || "Utilisateur",
@@ -148,8 +174,8 @@ export const getUserProfile = async (uid: string): Promise<UserData | null> => {
         wishlist: Array.isArray(data.wishlist) ? data.wishlist : [],
       };
 
-      // ✅ Stocker dans `localStorage` pour éviter de recharger Firestore inutilement
-      localStorage.setItem("userToken", JSON.stringify(userData));
+      localStorage.setItem("userAvatar", data.avatar || ""); // ✅ Évite de recharger Firestore inutilement
+      localStorage.setItem("userToken", "true");
 
       return userData;
     }
@@ -171,8 +197,7 @@ export const loginWithGoogle = async (): Promise<AuthResponse> => {
 
     await addUserToFirestore(user);
 
-    // ✅ Stockage local pour éviter un nouveau chargement de Firebase après connexion
-    localStorage.setItem("userToken", JSON.stringify(user));
+    localStorage.setItem("userToken", "true");
 
     return { user };
   } catch (error) {
@@ -180,5 +205,44 @@ export const loginWithGoogle = async (): Promise<AuthResponse> => {
       error,
       "Impossible de se connecter avec Google."
     );
+  }
+};
+
+// ✅ Upload Avatar vers Cloudinary et mise à jour Firestore
+export const uploadUserAvatarCloudinary = async (
+  user: User,
+  file: File
+): Promise<string> => {
+  try {
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("upload_preset", "game-explorer");
+    formData.append("folder", "avatars");
+
+    const response = await fetch(
+      `https://api.cloudinary.com/v1_1/dztvn0fon/image/upload`,
+      { method: "POST", body: formData }
+    );
+
+    const data = await response.json();
+
+    if (!data.secure_url) {
+      throw new Error("Upload failed on Cloudinary.");
+    }
+
+    const avatarURL = data.secure_url;
+    localStorage.setItem("userAvatar", avatarURL);
+    window.dispatchEvent(new Event("storage"));
+
+    await updateProfile(user, { photoURL: avatarURL });
+
+    const { db, doc, updateDoc } = await getFirestoreInstance();
+    const userRef = doc(db, "users", user.uid);
+    await updateDoc(userRef, { avatar: avatarURL });
+
+    return avatarURL;
+  } catch (error) {
+    console.error("Erreur lors de l'upload de l'avatar :", error);
+    throw new Error("Impossible de mettre à jour l'avatar.");
   }
 };
