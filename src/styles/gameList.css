@@ -21,6 +21,10 @@
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
 }
 
+.game-image {
+  max-height: 215px;
+}
+
 /* ✅ Informations sur le jeu */
 .game-info {
   display: flex;

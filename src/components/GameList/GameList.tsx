@@ -13,6 +13,8 @@ const GameList: React.FC<GameListProps> = ({ games }) => {
 
   const displayedGames = useMemo(() => loadedGames, [loadedGames]);
 
+  console.log("games", games);
+
   if (games.length === 0) {
     return <p className="no-games">Aucun jeu trouvé.</p>;
   }
@@ -38,13 +40,15 @@ const GameList: React.FC<GameListProps> = ({ games }) => {
       {displayedGames.map((game) => (
         <Link key={game.id} to={`/games/${game.id}`} className="game-card-link">
           <div className="game-card">
-            <picture>
-              {/* ✅ Utilisation du composant OptimizedImage */}
-              <OptimizedImage
-                src={getOptimizedImage(game.background_image)}
-                alt={game.name}
-              />
-            </picture>
+            <div className="game-image">
+              <picture>
+                {/* ✅ Utilisation du composant OptimizedImage */}
+                <OptimizedImage
+                  src={getOptimizedImage(game.background_image)}
+                  alt={game.name}
+                />
+              </picture>
+            </div>
             <div className="game-info">
               <h2 className="game-title-link">{game.name}</h2>
               <p className="game-release">{formatDate(game.released)}</p>
@@ -59,7 +63,7 @@ const GameList: React.FC<GameListProps> = ({ games }) => {
                       game.metacritic
                     )}`}
                   >
-                    {game.metacritic}
+                    {game.metacritic} / 100
                   </span>
                 )}
               </div>

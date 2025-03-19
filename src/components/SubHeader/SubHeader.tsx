@@ -40,7 +40,9 @@ const SubHeader: React.FC = () => {
             {/* ✅ Dropdown "See more" */}
             {genres.length > MAX_VISIBLE_GENRES && (
               <div className="sub-header__dropdown-container">
-                <button className="sub-header__button">See more</button>
+                <button className="sub-header__button">
+                  More categories ⬇️
+                </button>
 
                 {/* ✅ Liste des autres genres affichée uniquement au hover */}
                 <div className="sub-header__dropdown">
