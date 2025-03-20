@@ -1,0 +1,77 @@
+/* 📌 Conteneur du switch */
+.theme-toggle {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 26px;
+}
+
+/* 📌 Cacher l'input natif */
+.theme-toggle input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* 📌 Curseur (slider) */
+.theme-slider {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc; /* Light mode par défaut */
+  border-radius: 50px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 3px 6px;
+}
+
+/* 📌 Cercle interne (qui bouge) */
+.theme-slider::before {
+  content: "";
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  left: 3px; /* Light mode par défaut (curseur à gauche) */
+  bottom: 3px;
+  background-color: white;
+  border-radius: 50%;
+  transition: transform 0.3s ease-in-out;
+}
+
+/* 📌 Icônes Soleil & Lune */
+.theme-icon {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+/* ☀️ Soleil - Visible en mode Dark */
+.theme-icon.sun.visible {
+  left: 6px;
+  opacity: 1;
+  display: flex;
+}
+
+/* 🌙 Lune - Visible en mode Light */
+.theme-icon.moon.visible {
+  right: 6px;
+  opacity: 1;
+  display: flex;
+}
+
+/* 📌 Quand on passe en Dark Mode */
+.dark-mode .theme-slider {
+  background-color: #444;
+}
+
+/* 📌 Déplacement du curseur en Dark Mode */
+.dark-mode .theme-slider::before {
+  transform: translateX(24px);
+}
