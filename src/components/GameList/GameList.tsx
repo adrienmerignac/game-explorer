@@ -13,8 +13,6 @@ const GameList: React.FC<GameListProps> = ({ games }) => {
 
   const displayedGames = useMemo(() => loadedGames, [loadedGames]);
 
-  console.log("games", games);
-
   if (games.length === 0) {
     return <p className="no-games">Aucun jeu trouvé.</p>;
   }

@@ -15,7 +15,7 @@
   padding: 30px;
   text-align: center;
   width: 90%;
-  margin: 56px 0; /* Centrer */
+  margin: 150px 0 56px 0;
 }
 
 /* Mode clair */
@@ -138,4 +138,11 @@
 
 .btn-primary:hover {
   background-color: #0056b3 !important;
+}
+
+/* Mobile only */
+@media (max-width: 425px) {
+  .dashboard-container {
+    margin: 170px 0 56px 0;
+  }
 }

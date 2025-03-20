@@ -3,25 +3,29 @@ import { Link } from "react-router-dom";
 import { getGameGenres } from "../../services/GameService";
 import "./SubHeader.css";
 
-const MAX_VISIBLE_GENRES = 6; // Nombre max de genres affichés avant "See more"
+const MAX_VISIBLE_GENRES = 6;
 
-const SubHeader: React.FC = () => {
+interface SubHeaderProps {
+  isHidden: boolean; // ✅ Prop pour cacher le SubHeader
+}
+
+const SubHeader: React.FC<SubHeaderProps> = ({ isHidden }) => {
   const [genres, setGenres] = useState<
     { id: number; name: string; slug: string }[]
   >([]);
-  const [isLoading, setIsLoading] = useState(true); // ✅ Loader pour éviter le CLS
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchGenres = async () => {
       const fetchedGenres = await getGameGenres();
       setGenres(fetchedGenres);
-      setIsLoading(false); // ✅ Chargement terminé
+      setIsLoading(false);
     };
     fetchGenres();
   }, []);
 
   return (
-    <nav className="sub-header">
+    <nav className={`sub-header ${isHidden ? "hidden" : ""}`}>
       <div className="sub-header__wrapper">
         {isLoading ? (
           <div className="sub-header__loader">Loading...</div>
@@ -36,15 +40,11 @@ const SubHeader: React.FC = () => {
                 {genre.name}
               </Link>
             ))}
-
-            {/* ✅ Dropdown "See more" */}
             {genres.length > MAX_VISIBLE_GENRES && (
               <div className="sub-header__dropdown-container">
                 <button className="sub-header__button">
                   More categories ⬇️
                 </button>
-
-                {/* ✅ Liste des autres genres affichée uniquement au hover */}
                 <div className="sub-header__dropdown">
                   {genres.slice(MAX_VISIBLE_GENRES).map((genre) => (
                     <Link
