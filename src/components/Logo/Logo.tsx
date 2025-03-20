@@ -8,8 +8,8 @@ const Logo: React.FC = () => (
         src={logo}
         alt="Game Explorer Logo"
         className="header-logo"
-        width="75"
-        height="75"
+        width="70"
+        height="70"
       />
     </a>
   </div>

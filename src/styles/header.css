@@ -1,58 +1,79 @@
-/* Général */
+/* 📌 Fixe le header en haut */
 .page__header {
-  color: white;
-  font-family: Arial, sans-serif;
-  padding: 0px 40px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 70px;
+  z-index: 999999;
+  background-color: #222;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
-/* ✅ Ajout d'un espace pour éviter la superposition */
+/* ✅ Organisation des éléments du header */
 .header__wrapper {
   display: flex;
   align-items: center;
   justify-content: space-between;
   max-width: 1200px;
+  width: 100%;
   margin: 0 auto;
 }
 
-.header__item {
+/* 📌 Colonne Gauche (Sidebar + Logo) */
+.header__left {
   display: flex;
   align-items: center;
+  gap: 16px;
 }
 
-.header__item-link {
-  color: white;
-  text-decoration: none;
+.header__left .header__item {
+  height: 70px;
 }
 
-.logo {
+.header__left .sidebar-toggle {
+  display: none;
+}
+
+/* ✅ Checkbox cachée pour le toggle */
+.sidebar-toggle-checkbox {
+  display: none;
+}
+
+/* ✅ Style du bouton Sidebar */
+.sidebar-toggle {
+  background: none;
+  border: none;
   font-size: 24px;
-  font-weight: bold;
-  color: #fff; /* Couleur blanche du logo */
+  color: white;
+  cursor: pointer;
+  display: block;
+  padding: 10px;
+  transition: color 0.3s ease-in-out;
 }
 
-.header__item_search {
-  flex: 1;
+/* 📌 Colonne Centre (SearchBar) */
+.header__center {
+  flex-grow: 1;
   display: flex;
   justify-content: center;
 }
 
-/* Barre de recherche */
-.header__search__form {
-  display: flex;
-  position: relative;
-  width: 100%;
-}
-
-.header__search__input__area {
-  position: relative;
+/* 📌 Colonne Droite (Actions) */
+.header__right {
   display: flex;
   align-items: center;
-  width: 100%;
+  gap: 80px;
+  justify-content: space-evenly;
 }
 
+/* ✅ Correction de la SearchBar */
 .header__search__input {
   width: 350px;
-  padding: 12px;
+
+  padding: 10px;
   border-radius: 8px;
   border: none;
   font-size: 16px;
@@ -62,24 +83,35 @@
 }
 
 .header__search__input:focus {
-  width: 450px;
+  width: 400px;
   border-color: #0066cc;
   outline: none;
 }
 
-.header__search__hotkey-help__wrap {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  right: 10px;
+/* 📌 SearchBar en mobile */
+.header__mobile-search {
+  width: 100%;
+  padding: 8px 16px;
   display: flex;
-  align-items: center;
-  font-size: 12px;
-  color: #aaa;
+  justify-content: center;
 }
 
-.header__search__hotkey-help-key {
-  font-weight: bold;
+/* 📌 Correction du SubHeader */
+.sub-header {
+  position: fixed;
+  top: 70px;
+  left: 0;
+  width: 100%;
+  background-color: #333;
+  z-index: 900;
+  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+}
+
+.sub-header.hidden {
+  transform: translateY(-100%);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
 }
 
 /* Avatar et notifications */
@@ -115,38 +147,30 @@
   border-color: black; /* Bordure noire en mode clair */
 }
 
-/* Styles supplémentaires pour le menu et la bibliothèque */
-.header__library-link {
-  color: white;
-  padding: 10px 15px;
-  border-radius: 8px;
-  text-decoration: none;
-  background-color: #3a3a3a;
-}
-
-.header__library-link:hover {
-  background-color: #555;
-}
-
 /* 📌 Conteneur des suggestions */
 .search-suggestions {
   position: absolute;
   top: 100%;
   left: 0;
-  width: 100%;
+  width: 100%; /* 👈 Assurez-vous qu'il prend la largeur du parent */
   background: #444;
   color: white;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
   border-radius: 5px;
-  max-height: 200px;
+  max-height: 300px;
   overflow-y: auto;
   z-index: 1000;
   padding: 8px;
-  padding-right: 0;
   transition: max-height 0.3s ease;
 
   scrollbar-width: thin;
   scrollbar-color: #666 #333;
+}
+
+/* 📌 Assurez-vous que le parent positionné est la SearchBar */
+.header__search__input__area {
+  position: relative; /* 👈 Ajout pour que la liste reste dans la SearchBar */
+  width: 100%;
 }
 
 .search-suggestions::-webkit-scrollbar {
@@ -240,4 +264,122 @@
 
 .user-logged-in .login-logged-in {
   display: block; /* Affiche l'icône de profil */
+}
+
+/* ✅ Responsive */
+@media (max-width: 1024px) {
+  .header__left {
+    padding-inline-start: 16px;
+  }
+  .header__left .sidebar-toggle {
+    display: block;
+  }
+  .header__center {
+    display: flex; /* ✅ Afficher la SearchBar en tablette */
+  }
+  .sub-header {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .page__header {
+    height: 50px;
+    flex-direction: column;
+    padding: 10px 5px;
+  }
+
+  .header__wrapper {
+    flex-direction: row;
+    width: 100%;
+    padding-inline-start: 16px;
+  }
+
+  .header__mobile-search {
+    display: flex;
+  }
+
+  .header__left,
+  .header__right {
+    padding-inline-start: initial;
+    flex-grow: 1;
+  }
+
+  .header__right {
+    gap: 32px;
+  }
+
+  .header__search__input {
+    width: 200px;
+    max-width: 100%;
+  }
+
+  .header__search__input:focus {
+    width: 250px;
+  }
+
+  .sub-header {
+    display: none;
+  }
+}
+
+/* Mobile only */
+@media (max-width: 425px) {
+  .page__header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: auto;
+    padding: 16px;
+    gap: 16px;
+  }
+
+  .header__wrapper {
+    flex-direction: row;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between; /* Espacement équilibré */
+    padding: 0;
+  }
+
+  /* ✅ Sidebar Toggle & Logo */
+  .header__left {
+    display: flex;
+    align-items: center;
+    flex-grow: 0;
+    gap: 32px;
+    justify-content: space-between;
+  }
+
+  .header__left .header__item {
+    height: 45px;
+  }
+
+  .header__left .header-logo {
+    height: 45px;
+    width: 45px;
+  }
+
+  /* ✅ Icônes (Wishlist, Profil, etc.) */
+  .header__right {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    padding-inline-start: 32px;
+  }
+
+  /* ✅ Centrer la SearchBar */
+  .header__mobile-search {
+    width: 100%;
+    padding: initial;
+    display: block;
+  }
+
+  .header__search__input {
+    width: 87%;
+  }
+
+  .header__search__input:focus {
+    width: 87%;
+  }
 }
