@@ -57,6 +57,8 @@
   left: 6px;
   opacity: 1;
   display: flex;
+  justify-content: flex-start;
+  align-items: center;
 }
 
 /* 🌙 Lune - Visible en mode Light */
@@ -64,6 +66,12 @@
   right: 6px;
   opacity: 1;
   display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.theme-icon.moon.visible svg {
+  stroke: black;
 }
 
 /* 📌 Quand on passe en Dark Mode */

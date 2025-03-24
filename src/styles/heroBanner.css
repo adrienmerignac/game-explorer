@@ -64,6 +64,11 @@
   margin: 0;
 }
 
+.slide-overlay a {
+  text-decoration: underline;
+  font-weight: bold;
+}
+
 .light-mode .slide-overlay a {
   color: white;
 }

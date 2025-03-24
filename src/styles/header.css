@@ -324,7 +324,7 @@
 }
 
 /* Mobile only */
-@media (max-width: 425px) {
+@media (max-width: 430px) {
   .page__header {
     display: flex;
     flex-direction: column;

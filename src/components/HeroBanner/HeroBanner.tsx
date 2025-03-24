@@ -26,7 +26,7 @@ const HeroBanner: React.FC = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % games.length);
-    }, 10000);
+    }, 1000000);
 
     return () => clearInterval(interval);
   }, [games]);
