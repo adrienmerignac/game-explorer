@@ -1,5 +1,5 @@
 // HeroImage.tsx
-import React, { useState } from "react";
+import React from "react";
 import homePageImageAVIF from "../../assets/images/home-page-image.avif";
 import homePageImageWebP from "../../assets/images/home-page-image.webp";
 import homePageImageMobileAVIF from "../../assets/images/home-page-image-mobile.avif";
@@ -7,18 +7,9 @@ import homePageImageMobileWebP from "../../assets/images/home-page-image-mobile.
 import "../../styles/heroHeader.css";
 
 const HeroImage: React.FC = () => {
-  const [imageLoaded, setImageLoaded] = useState(false);
-
   return (
     <div className="hero-header__image">
-      <picture
-        className={`lcp-wrapper ${imageLoaded ? "image-loaded" : "preloading"}`}
-        style={{
-          visibility: "visible",
-          opacity: imageLoaded ? 1 : 0,
-          transition: "opacity 0.3s ease-in",
-        }}
-      >
+      <picture className="lcp-wrapper">
         <source
           srcSet={homePageImageMobileAVIF}
           type="image/avif"
@@ -36,10 +27,10 @@ const HeroImage: React.FC = () => {
           alt="Featured Game"
           className="lcp-image"
           loading="eager"
-          decoding="async"
           fetchPriority="high"
-          onLoad={() => setImageLoaded(true)}
-          style={{ visibility: "visible", opacity: 1 }}
+          decoding="auto" // ou tu peux même le supprimer complètement
+          width="800"
+          height="600"
         />
       </picture>
     </div>
