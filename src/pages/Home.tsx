@@ -56,7 +56,7 @@ const Home: React.FC = () => {
         <RecommendedGames />
         <TrendingGames />
         <GameSection
-          title="🔥 NEW AND TRENDING"
+          title="🔥 BEST RATED GAMES"
           subtitle="Based on metacritic score and user reviews"
         >
           {loading && page === 1 ? (

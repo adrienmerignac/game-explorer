@@ -93,6 +93,59 @@ body {
   height: 18px;
 }
 
+/* Le wrapper normal */
+.wishlist-sticky-wrapper {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  z-index: 1000;
+  animation: fadeSlideUp 0.3s ease-out;
+  pointer-events: none;
+}
+
+.wishlist-sticky-wrapper .wishlist-btn {
+  pointer-events: all;
+}
+
+/* Version mobile : bouton compact style FAB */
+@media (max-width: 600px) {
+  .wishlist-sticky-wrapper {
+    left: auto;
+    transform: none;
+    width: auto;
+  }
+
+  .wishlist-sticky-wrapper .wishlist-btn {
+    padding: 12px 14px;
+    border-radius: 50px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+  }
+
+  .wishlist-sticky-wrapper .wishlist-btn span {
+    display: none; /* Cache le texte "Add to Wishlist" */
+  }
+
+  .wishlist-sticky-wrapper .wishlist-icon {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+@keyframes fadeSlideUp {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0%);
+    opacity: 1;
+  }
+}
+
 /* 📜 Infos principales */
 .game-info {
   background: rgba(255, 255, 255, 0.05);
@@ -102,27 +155,6 @@ body {
 
 .game-info p {
   margin: 5px 0;
-}
-
-/* 🎥 Lien YouTube */
-.youtube-link {
-  text-align: center;
-  margin: 20px 0;
-}
-
-.youtube-link a {
-  display: inline-block;
-  background: rgba(255, 255, 255, 0.1);
-  color: white;
-  padding: 10px 15px;
-  border-radius: 5px;
-  text-decoration: none;
-  font-weight: bold;
-  transition: 0.3s;
-}
-
-.youtube-link a:hover {
-  background: #0077cc;
 }
 
 /* 📸 Screenshots */

@@ -1,11 +1,23 @@
-/* ✅ Bouton flottant pour remonter en haut */
+/* Animation slide-up */
+@keyframes fadeSlideUp {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0%);
+    opacity: 1;
+  }
+}
+
+/* Bouton scroll-to-top */
 .scroll-to-top {
   position: fixed;
   bottom: 20px;
   right: 20px;
   width: 50px;
   height: 50px;
-  background-color: #c0392b; /* 🔴 Rouge plus doux */
+  background-color: #d62c2c;
   color: white;
   border: none;
   border-radius: 50%;
@@ -21,28 +33,28 @@
   z-index: 1000;
 }
 
-/* ✅ Icône de la flèche */
+/* Icône */
 .scroll-icon {
-  width: 24px; /* Taille normale */
+  width: 24px;
   height: 24px;
-  fill: white !important; /* Force la couleur */
-  transform: scale(1.5); /* Agrandit la flèche */
+  fill: white !important;
+  transform: scale(1.5);
   transition: transform 0.2s ease-in-out;
 }
 
-/* ✅ Montre le bouton quand on scrolle */
+/* Affichage + animation */
 .scroll-to-top.show {
   opacity: 1;
   visibility: visible;
+  animation: fadeSlideUp 0.3s ease-out;
 }
 
-/* ✅ Effet au survol */
+/* Hover */
 .scroll-to-top:hover {
-  background-color: #a93226; /* 🔴 Encore plus doux au hover */
-  transform: scale(1.1);
+  background-color: #b52222;
 }
 
-/* ✅ Ajustement mobile */
+/* Responsive */
 @media (max-width: 768px) {
   .scroll-to-top {
     width: 45px;
@@ -52,7 +64,7 @@
   }
 
   .scroll-icon {
-    width: 24px; /* Ajuste la taille sur mobile */
+    width: 24px;
     height: 24px;
     transform: scale(2.5);
   }
