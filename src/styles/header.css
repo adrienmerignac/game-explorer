@@ -364,8 +364,8 @@
   .header__right {
     display: flex;
     align-items: center;
-    gap: 24px;
-    padding-inline-start: 32px;
+    gap: 12px;
+    padding-inline-start: 8px;
   }
 
   /* ✅ Centrer la SearchBar */

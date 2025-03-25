@@ -29,7 +29,7 @@ export const usePreloadLCP = () => {
     if (existingPreloadAVIF || existingPreloadWebP) return; // ⛔ Empêche les doublons
 
     const mobileQuery = window.matchMedia("(max-width: 768px)");
-    let avifImage, webpImage;
+    let avifImage: string, webpImage: string;
 
     if (location.pathname === "/") {
       avifImage = mobileQuery.matches
