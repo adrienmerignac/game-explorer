@@ -44,6 +44,10 @@ const Home: React.FC = () => {
           </p>
         </div>
         <HeroImage />
+        <div className="scroll-indicator-wrapper" aria-hidden="true">
+          <div className="scroll-indicator">↓</div>
+          <p className="scroll-hint">Scroll to explore</p>
+        </div>
       </section>
 
       <Suspense fallback={<div>Loading...</div>}>
