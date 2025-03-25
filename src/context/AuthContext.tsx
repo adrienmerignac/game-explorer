@@ -1,7 +1,6 @@
 // AuthContext.tsx
 import { createContext, useContext, useState, useEffect } from "react";
 import { User } from "firebase/auth";
-import { logoutUser, getUserProfile } from "../services/AuthService";
 
 export interface UserData {
   avatar?: string;
@@ -45,6 +44,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       onAuthStateChanged(auth, async (firebaseUser) => {
         setUser(firebaseUser);
         if (firebaseUser) {
+          // 🔥 Lazy-load AuthService au moment exact où on en a besoin
+          const { getUserProfile } = await import("../services/AuthService");
           const profileData = await getUserProfile(firebaseUser.uid);
           setUserData(profileData);
           localStorage.setItem("userToken", "true");
@@ -60,6 +61,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   const logout = async () => {
+    const { logoutUser } = await import("../services/AuthService");
     await logoutUser();
     setUser(null);
     setUserData(null);
