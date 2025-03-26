@@ -14,25 +14,46 @@ const SearchSuggestions: React.FC<SearchSuggestionsProps> = ({ searchRef }) => {
   const [showSuggestions, setShowSuggestions] = useState(false);
 
   useEffect(() => {
+    if (debouncedQuery.length < 2) {
+      setSuggestions([]);
+      setShowSuggestions(false);
+      return;
+    }
+
+    let isActive = true;
+    const memoryCache = new Map<string, Game[]>();
+
     const fetchSuggestions = async () => {
-      if (debouncedQuery.length > 1) {
-        try {
-          const data = await fetchGames(1, 5, debouncedQuery);
-          setSuggestions(data.results);
-          setShowSuggestions(true);
-        } catch (error) {
+      // ⏳ Si on a déjà cette recherche en mémoire → skip l’appel
+      if (memoryCache.has(debouncedQuery)) {
+        setSuggestions(memoryCache.get(debouncedQuery)!);
+        setShowSuggestions(true);
+        return;
+      }
+
+      try {
+        const data = await fetchGames(1, 5, debouncedQuery);
+
+        if (!isActive) return; // ✅ ignore si effet démonté
+
+        memoryCache.set(debouncedQuery, data.results);
+        setSuggestions(data.results);
+        setShowSuggestions(true);
+      } catch (error) {
+        if (isActive) {
           console.error(
             "Erreur lors de la récupération des suggestions :",
             error
           );
         }
-      } else {
-        setSuggestions([]);
-        setShowSuggestions(false);
       }
     };
 
     fetchSuggestions();
+
+    return () => {
+      isActive = false;
+    };
   }, [debouncedQuery]);
 
   useEffect(() => {

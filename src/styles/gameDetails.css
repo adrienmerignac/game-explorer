@@ -153,10 +153,6 @@ body {
   font-size: 0.9rem;
 }
 
-.game-info p {
-  margin: 5px 0;
-}
-
 /* 📸 Screenshots */
 .screenshots-gallery {
   display: grid;
