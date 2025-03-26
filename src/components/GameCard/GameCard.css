@@ -1,10 +1,13 @@
 .game-card-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 20px;
-  max-width: 1280px;
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(clamp(220px, 25%, 260px), 1fr)
+  );
+  gap: 24px;
   margin: 0 auto;
-  box-sizing: border-box;
+  padding: 0 16px;
+  max-width: 1280px;
 }
 
 .game-card {
@@ -51,6 +54,12 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+.game-added {
+  font-size: 0.9rem;
+  font-weight: bold;
+  color: #ffc107;
+  margin: 0;
 }
 
 .game-release {

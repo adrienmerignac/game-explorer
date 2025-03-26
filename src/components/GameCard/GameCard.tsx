@@ -5,6 +5,7 @@ import "./GameCard.css";
 
 interface GameCardProps {
   game: {
+    added?: number;
     id: number;
     name: string;
     background_image: string | null;
@@ -18,6 +19,7 @@ interface GameCardProps {
   showMetacritic?: boolean;
   size?: "sm" | "md" | "lg";
   loading?: "lazy" | "eager";
+  className?: string;
 }
 
 const formatDate = (dateString?: string) => {
@@ -39,13 +41,14 @@ const GameCard: React.FC<GameCardProps> = ({
   showMetacritic = false,
   size = "md",
   loading = "lazy",
+  className = "",
 }) => {
   const imageUrl = game.background_image
     ? game.background_image.replace("/media/", "/media/resize/640/-/")
     : fallbackImage;
 
   return (
-    <div className={`game-card game-card--${size}`}>
+    <div className={`game-card game-card--${size} ${className}`}>
       <Link to={`/games/${game.id}`} className="game-card-link">
         {showImage && (
           <div className="game-image">
@@ -54,13 +57,19 @@ const GameCard: React.FC<GameCardProps> = ({
               alt={`Cover of ${game.name}`}
               className="game-card-image"
               loading={loading}
-              style={{ width: "100%", objectFit: "cover" }}
+              style={{ width: "100%", height: "100%", objectFit: "cover" }}
             />
           </div>
         )}
 
         <div className="game-info">
           <h2 className="game-title-link">{game.name}</h2>
+
+          {className.includes("trending-custom") && game.added && (
+            <p className="game-added">
+              🧍 <strong>{game.added.toLocaleString("fr-FR")}</strong> joueurs
+            </p>
+          )}
 
           {showReleaseDate && game.released && (
             <p className="game-release">
@@ -70,19 +79,20 @@ const GameCard: React.FC<GameCardProps> = ({
 
           {showRating && typeof game.rating === "number" && (
             <p className="game-rating">
-              ⭐ <strong>User Rating: </strong> {game.rating.toFixed(1)} / 5
+              ⭐ <strong>User Rating:</strong> {game.rating.toFixed(1)}
             </p>
           )}
 
           {showMetacritic && typeof game.metacritic === "number" && (
-            <p
-              className={`game-metacritic ${getMetacriticClass(
-                game.metacritic
-              )}`}
-            >
-              <strong>🎯 Metacritic: </strong>
-              <span>{game.metacritic} / 100</span>
-            </p>
+            <>
+              <p
+                className={`game-metacritic ${getMetacriticClass(
+                  game.metacritic
+                )}`}
+              >
+                🎯<strong>Metacritic:</strong> {game.metacritic} / 100
+              </p>
+            </>
           )}
         </div>
       </Link>
