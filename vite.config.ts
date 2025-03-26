@@ -1,26 +1,20 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import viteCompression from "vite-plugin-compression";
+import asyncCSSLoader from "./plugins/async-css";
 
 export default defineConfig({
   cacheDir: ".vite_cache", // ✅ Déplace ici, hors de `build`
 
   plugins: [
     react(),
-
-    // ✅ Plugin de compression Brotli et Gzip (avec seuil)
     viteCompression({
       algorithm: "brotliCompress",
       ext: ".br",
-      deleteOriginFile: false,
-      threshold: 10240, // Ne compresse pas les fichiers < 10 KB pour éviter les coûts inutiles
-    }),
-    viteCompression({
-      algorithm: "gzip",
-      ext: ".gz",
-      deleteOriginFile: false,
       threshold: 10240,
     }),
+    viteCompression({ algorithm: "gzip", ext: ".gz", threshold: 10240 }),
+    asyncCSSLoader(),
   ],
 
   build: {
