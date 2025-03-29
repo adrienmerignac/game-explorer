@@ -1,4 +1,9 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, {
+  createContext,
+  useContext,
+  useLayoutEffect,
+  useState,
+} from "react";
 
 interface ThemeContextType {
   theme: string;
@@ -10,18 +15,22 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const storedTheme = localStorage.getItem("theme");
-  const prefersLight = window.matchMedia(
-    "(prefers-color-scheme: dark)"
-  ).matches;
+  const [theme, setTheme] = useState<string>("dark"); // valeur par défaut temporaire
 
-  // ✅ Dark mode par défaut, sauf si l'utilisateur a déjà choisi Light Mode
-  const [theme, setTheme] = useState(
-    storedTheme || (prefersLight ? "light" : "dark")
-  );
+  // On applique le thème dès que possible, synchroniquement
+  useLayoutEffect(() => {
+    const storedTheme = localStorage.getItem("theme");
+    const prefersLight = window.matchMedia(
+      "(prefers-color-scheme: dark)"
+    ).matches;
 
-  useEffect(() => {
-    const root = window.document.documentElement;
+    const initialTheme = storedTheme || (prefersLight ? "light" : "dark");
+    setTheme(initialTheme);
+  }, []);
+
+  useLayoutEffect(() => {
+    const root = document.documentElement;
+
     if (theme === "light") {
       root.classList.add("light-mode");
       root.classList.remove("dark-mode");
@@ -29,6 +38,7 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({
       root.classList.add("dark-mode");
       root.classList.remove("light-mode");
     }
+
     localStorage.setItem("theme", theme);
   }, [theme]);
 
