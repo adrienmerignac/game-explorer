@@ -20,7 +20,7 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({
     storedTheme || (prefersLight ? "light" : "dark")
   );
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const root = window.document.documentElement;
     if (theme === "light") {
       root.classList.add("light-mode");
