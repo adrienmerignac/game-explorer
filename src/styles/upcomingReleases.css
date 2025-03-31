@@ -19,7 +19,6 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: 20px;
-  padding: 0 20px;
   max-width: 1280px;
   margin: 0 auto;
   box-sizing: border-box;
@@ -104,8 +103,12 @@
     flex: 0 0 80%;
     min-width: 240px;
     max-width: 280px;
-    min-height: 380px; /* ajuste si besoin selon le design */
+    min-height: 360px; /* ajuste si besoin selon le design */
     scroll-snap-align: start;
+  }
+
+  .upcoming-wrapper .wishlist-btn {
+    margin-top: 0;
   }
 
   .upcoming-card {

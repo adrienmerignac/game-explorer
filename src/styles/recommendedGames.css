@@ -9,7 +9,6 @@
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   gap: 16px;
-  padding: 0 16px;
 }
 
 .recommended-games .game-card {
@@ -49,7 +48,6 @@
     gap: 20px;
     max-width: 1280px;
     margin: 0 auto;
-    padding: 0 16px;
     overflow: visible;
   }
 

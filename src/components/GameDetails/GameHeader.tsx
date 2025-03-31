@@ -7,7 +7,7 @@ const GameHeader: React.FC<{ title: string }> = ({ title }) => (
       <source srcSet={gameDetailsCoverAVIF} type="image/avif" />
       <source srcSet={gameDetailsCoverWebP} type="image/webp" />
       <img
-        src={gameDetailsCoverWebP}
+        src={gameDetailsCoverAVIF}
         alt="Game Details Cover"
         className="game-cover-img"
       />

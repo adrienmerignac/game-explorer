@@ -67,10 +67,18 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 20px;
-  padding: 10px;
+  padding: 12px;
   list-style: none;
   max-width: 1200px;
   margin: 0 auto;
+}
+
+.genre-list .game-info {
+  min-height: 150px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  gap: 24px;
 }
 
 /* 📱 Responsive */
@@ -103,6 +111,20 @@
     gap: 30px;
   }
   .genre-title {
-    margin-top: 6rem;
+    margin-top: 8rem;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .genre-header {
+    padding-top: 120px;
+  }
+  .genre-title {
+    font-size: 3rem;
+    padding: 16px 32px;
+  }
+  .genre-list {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 40px;
   }
 }

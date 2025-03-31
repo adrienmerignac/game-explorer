@@ -107,10 +107,6 @@
   .games-container {
     grid-template-columns: repeat(2, 1fr);
   }
-
-  .game-image {
-    height: 250px;
-  }
 }
 
 @media (max-width: 768px) {
@@ -119,10 +115,6 @@
     flex-direction: column;
     gap: 24px;
     margin: initial;
-  }
-
-  .game-image {
-    height: 250px;
   }
 }
 

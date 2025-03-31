@@ -1,4 +1,3 @@
-/* 📌 Général */
 html,
 body {
   overflow-x: hidden;
@@ -14,17 +13,17 @@ body {
   overflow-x: hidden;
 }
 
-/* 🎮 Header du jeu */
 .game-header {
   position: relative;
   width: 100%;
-  height: 300px;
+  height: 350px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding-top: 138px;
+  padding-top: 100px;
+  overflow: hidden;
 }
 
 .game-header picture {
@@ -33,7 +32,7 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: -1;
+  z-index: 0;
 }
 
 .game-header img {
@@ -43,7 +42,6 @@ body {
   filter: brightness(0.7);
 }
 
-/* Overlay pour meilleure lisibilité */
 .game-header::before {
   content: "";
   position: absolute;
@@ -52,28 +50,15 @@ body {
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0.4);
-  z-index: 0;
-}
-
-.game-title {
-  font-size: 2rem;
-  font-weight: bold;
-  color: #fff;
   z-index: 1;
 }
 
-.light-mode .game-title {
+.game-title {
+  z-index: 2;
+  position: relative;
   color: white;
 }
 
-/* ❤️ Wishlist */
-.game-details-container .wishlist-btn {
-  padding: 18px;
-  font-size: 18px;
-  margin-top: 0;
-}
-
-/* Le wrapper normal */
 .wishlist-sticky-wrapper {
   position: fixed;
   bottom: 20px;
@@ -85,70 +70,62 @@ body {
 
 .wishlist-sticky-wrapper .wishlist-btn {
   pointer-events: all;
+  padding: 12px 14px;
+  border-radius: 50px;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
 }
 
-.game-details-container .game-info {
-  border-radius: 8px;
-  gap: initial;
+.wishlist-sticky-wrapper .wishlist-btn span {
+  display: none;
 }
 
-/* Version mobile : bouton compact style FAB */
-@media (max-width: 600px) {
-  .wishlist-sticky-wrapper {
-    left: auto;
-    transform: none;
-    width: auto;
-  }
-
-  .wishlist-sticky-wrapper .wishlist-btn {
-    padding: 12px 14px;
-    border-radius: 50px;
-    font-size: 14px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-  }
-
-  .wishlist-sticky-wrapper .wishlist-btn span {
-    display: none;
-  }
-
-  .wishlist-sticky-wrapper .wishlist-icon {
-    width: 20px;
-    height: 20px;
-  }
+.wishlist-sticky-wrapper .wishlist-icon {
+  width: 20px;
+  height: 20px;
 }
 
-@keyframes fadeSlideUp {
-  from {
-    transform: translateY(100%);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0%);
-    opacity: 1;
-  }
+.game-details-container .wishlist-btn {
+  padding: 18px;
+  font-size: 16px;
 }
 
-/* 📜 Infos principales */
-.game-info {
+.game-info,
+.game-description {
   background: rgba(255, 255, 255, 0.05);
-  padding: 15px;
   font-size: 0.9rem;
+  min-height: 70px;
+  gap: initial;
+  border-radius: 8px;
+  padding: 16px;
 }
 
-/* 📸 Screenshots */
+.game-title {
+  font-size: 1.8rem;
+  line-height: 2.2rem;
+  z-index: 2;
+  position: relative;
+  color: white;
+  text-wrap: balance;
+}
+
+.light-mode .game-title {
+  color: white;
+}
+
 .screenshots-gallery {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
   gap: 10px;
   justify-items: center;
 }
 
 .screenshot-image {
   width: 100%;
-  height: 180px;
+  height: 160px;
   object-fit: cover;
   border-radius: 10px;
   transition: filter 0.3s ease-in-out, transform 0.2s ease-in-out;
@@ -159,25 +136,9 @@ body {
   transform: translateY(-3px);
 }
 
-.screenshot-image,
-.game-card img {
-  max-width: 100%;
-  height: auto;
-}
-
-/* 📝 Description du jeu */
-.game-description {
-  font-size: 1rem;
-  line-height: 1.4;
-  background: rgba(255, 255, 255, 0.05);
-  padding: 15px;
-  border-radius: 10px;
-}
-
-/* 🎮 Plateformes */
 .platform-list ul {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
   gap: 10px;
   padding: 0;
   list-style: none;
@@ -187,26 +148,30 @@ body {
   background: rgba(255, 255, 255, 0.1);
   padding: 8px 12px;
   border-radius: 5px;
-  display: inline-block;
   font-size: 0.9rem;
   text-align: center;
 }
 
-/* ✅ Wrapper de la section */
 .similar-game-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
   gap: 16px;
-  justify-content: center;
-  align-items: stretch;
-  width: 100%;
-  margin: 0 auto;
+}
+
+.similar-game-list::-webkit-scrollbar {
+  display: none;
+}
+
+.similar-game-list .game-image {
+  min-height: 150px;
 }
 
 .similar-game-list .game-card {
+  flex: 0 0 250px;
+  scroll-snap-align: start;
   background: rgba(255, 255, 255, 0.05);
   border-radius: 12px;
-  transition: transform 0.3s ease, box-shadow 0.2s ease;
   text-align: center;
   text-decoration: none;
   color: #fff;
@@ -214,11 +179,7 @@ body {
   flex-direction: column;
   height: 100%;
   overflow: hidden;
-}
-
-.similar-game-list .game-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.2s ease;
 }
 
 .similar-game-list .game-card-image {
@@ -228,33 +189,62 @@ body {
   border-radius: 12px 12px 0 0;
 }
 
-@media (max-width: 768px) {
+.similar-game-list .game-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+@media (min-width: 768px) {
+  .game-header {
+    height: 300px;
+    padding-top: 120px;
+  }
+
+  .game-details-container {
+    padding: 30px;
+  }
+
+  .game-title {
+    font-size: 2.4rem;
+    line-height: 2.8rem;
+  }
+
+  .wishlist-sticky-wrapper .wishlist-btn {
+    padding: 18px;
+    font-size: 18px;
+    border-radius: 12px;
+  }
+
+  .wishlist-sticky-wrapper .wishlist-btn span {
+    display: inline;
+  }
+
   .similar-game-list {
-    display: flex;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    gap: 16px;
-    padding: 0 16px 8px 16px;
-    justify-content: initial;
-  }
-
-  .similar-game-list .game-info {
-    min-height: 100px;
-    justify-content: center;
-  }
-
-  .similar-game-list::-webkit-scrollbar {
-    display: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
   }
 
   .similar-game-list .game-card {
-    flex: 0 0 250px;
-    scroll-snap-align: start;
-    min-width: 160px;
+    flex: 1 1 auto;
   }
 }
 
 @media (min-width: 1024px) {
+  .game-header {
+    height: 350px;
+    padding-top: 138px;
+  }
+
+  .game-details-container {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .game-title {
+    font-size: 3rem;
+    line-height: 3.4rem;
+  }
+
   .similar-game-list {
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   }

@@ -17,6 +17,10 @@
   max-width: 1200px;
 }
 
+.games-section .game-info {
+  gap: 24px;
+}
+
 /* 🏆 En-tête "New and Trending" */
 .home__discover {
   margin-bottom: 20px;
