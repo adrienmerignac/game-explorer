@@ -17,6 +17,7 @@ interface GameCardProps {
   showReleaseDate?: boolean;
   showRating?: boolean;
   showMetacritic?: boolean;
+  showWishlistButton?: boolean;
   size?: "sm" | "md" | "lg";
   loading?: "lazy" | "eager";
   className?: string;

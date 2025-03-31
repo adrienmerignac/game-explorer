@@ -1,9 +1,10 @@
-/* ✅ Conteneur principal */
+/* === Section principale === */
 .upcoming-releases {
   width: 100%;
+  padding: 32px 0;
 }
 
-/* ✅ Titre de la section */
+/* === Titre === */
 .section-title {
   font-size: 24px;
   font-weight: bold;
@@ -13,17 +14,29 @@
   text-transform: uppercase;
 }
 
-/* ✅ Conteneur des cartes */
+/* === Container === */
 .upcoming-container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: 20px;
-  padding: 0 20px; /* Ajoute un espace sur les bords */
-  scroll-behavior: smooth;
-  -webkit-overflow-scrolling: touch;
+  padding: 0 20px;
+  max-width: 1280px;
+  margin: 0 auto;
+  box-sizing: border-box;
 }
 
-/* ✅ Cartes de jeux */
+/* === Wrapper autour de chaque carte */
+.upcoming-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: space-between;
+  flex: 0 0 260px;
+  scroll-snap-align: start;
+  height: 100%;
+}
+
+/* === Card === */
 .upcoming-card {
   background-color: #222;
   border-radius: 10px;
@@ -32,114 +45,81 @@
   transition: transform 0.3s;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  text-align: center;
-  height: 100%; /* Assurer que toutes les cartes aient la même hauteur */
+  justify-content: space-between;
 }
 
 .upcoming-card:hover {
   transform: translateY(-5px);
 }
 
-/* ✅ Image */
-.upcoming-image {
+/* === Image === */
+.upcoming-card img {
   width: 100%;
   height: 180px;
   object-fit: cover;
-  border-radius: 10px 10px 0 0;
 }
 
-/* ✅ Infos */
-.upcoming-info {
-  padding: 15px;
-  text-align: center;
+/* === Infos === */
+.upcoming-wrapper .game-info {
+  flex-grow: 1;
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  flex-grow: 1; /* Permet d'étendre la section info pour pousser le bouton en bas */
-  justify-content: space-between; /* S'assure que les éléments s'alignent uniformément */
+  justify-content: space-evenly;
+  min-height: 110px; /* ✅ À ajuster pour équilibrer */
 }
 
-/* ✅ Titre du jeu */
-.upcoming-info h3 {
-  align-content: center;
-  color: #fff;
-  display: block;
+.upcoming-card .game-title-link {
   font-size: 16px;
-  line-height: 1.6em;
-  margin: 0;
-  max-height: 3.2em;
-  min-height: 3.2em; /* Assure une hauteur fixe pour l'alignement des cartes */
+  font-weight: bold;
+  line-height: 1.5;
+  min-height: 3em;
+  max-height: 3em;
   overflow: hidden;
-  padding: 0 10px;
-  text-align: center;
   text-overflow: ellipsis;
   white-space: normal;
+  display: block;
 }
 
-.upcoming-info p {
+.upcoming-card .game-release {
+  color: #ccc;
   font-size: 14px;
-  color: #aaa;
 }
 
-/* ✅ Bouton Wishlist */
-.upcoming-releases .wishlist-btn {
-  align-items: center;
-  background-color: #d62c2c;
-  border-radius: 5px;
-  border: none;
-  color: white;
-  cursor: pointer;
-  display: flex;
-  font-size: 14px;
-  font-weight: bold;
-  gap: 8px;
-  justify-content: center;
-  padding: 10px 14px;
-  transition: background 0.3s, transform 0.2s;
-  width: 100%;
-  margin-top: auto; /* Force le bouton à rester en bas */
-}
+/* === Wishlist button === */
 
-.upcoming-releases .wishlist-btn:hover {
-  background-color: #b52222;
-}
-
-/* ✅ Icône du cœur */
-.upcoming-releases .wishlist-icon {
-  width: 18px;
-  height: 18px;
-  fill: white;
-}
-
-/* 📱 Activation du scroll horizontal seulement sur mobile/tablette */
+/* === Mobile / Tablet scroll horizontal === */
 @media (max-width: 1023px) {
   .upcoming-container {
     display: flex;
     overflow-x: auto;
-    flex-wrap: nowrap;
     scroll-snap-type: x mandatory;
-    white-space: nowrap;
-    cursor: grab;
+    -webkit-overflow-scrolling: touch;
+    padding: 0 16px 16px;
+    gap: 16px;
   }
 
   .upcoming-container::-webkit-scrollbar {
-    height: 0px;
+    display: none;
   }
 
-  .upcoming-container {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
+  .upcoming-wrapper {
+    flex: 0 0 80%;
+    min-width: 240px;
+    max-width: 280px;
+    min-height: 380px; /* ajuste si besoin selon le design */
+    scroll-snap-align: start;
   }
 
-  .upcoming-container:active {
-    cursor: grabbing;
-  }
-}
-
-/* 📱 Mobile */
-@media (max-width: 768px) {
   .upcoming-card {
-    flex: 0 0 250px;
+    flex: 1 1 auto;
+  }
+
+  .wishlist-btn {
+    font-size: 14px;
+    padding: 12px;
+  }
+
+  .upcoming-card img {
+    height: 180px;
   }
 }
