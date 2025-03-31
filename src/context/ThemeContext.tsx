@@ -1,9 +1,4 @@
-import React, {
-  createContext,
-  useContext,
-  useLayoutEffect,
-  useState,
-} from "react";
+import React, { createContext, useContext, useState } from "react";
 
 interface ThemeContextType {
   theme: string;
@@ -15,35 +10,21 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const [theme, setTheme] = useState<string>("dark"); // valeur par défaut temporaire
-
-  // On applique le thème dès que possible, synchroniquement
-  useLayoutEffect(() => {
-    const storedTheme = localStorage.getItem("theme");
-    const prefersLight = window.matchMedia(
-      "(prefers-color-scheme: dark)"
-    ).matches;
-
-    const initialTheme = storedTheme || (prefersLight ? "light" : "dark");
-    setTheme(initialTheme);
-  }, []);
-
-  useLayoutEffect(() => {
-    const root = document.documentElement;
-
-    if (theme === "light") {
-      root.classList.add("light-mode");
-      root.classList.remove("dark-mode");
-    } else {
-      root.classList.add("dark-mode");
-      root.classList.remove("light-mode");
+  const [theme, setTheme] = useState(() => {
+    if (typeof window !== "undefined") {
+      return document.documentElement.classList.contains("light-mode")
+        ? "light"
+        : "dark";
     }
-
-    localStorage.setItem("theme", theme);
-  }, [theme]);
+    return "dark"; // fallback SSR
+  });
 
   const toggleTheme = () => {
-    setTheme((prevTheme) => (prevTheme === "light" ? "dark" : "light"));
+    const newTheme = theme === "light" ? "dark" : "light";
+    setTheme(newTheme);
+    document.documentElement.classList.remove("light-mode", "dark-mode");
+    document.documentElement.classList.add(`${newTheme}-mode`);
+    localStorage.setItem("theme", newTheme);
   };
 
   return (

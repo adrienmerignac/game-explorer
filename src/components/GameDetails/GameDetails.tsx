@@ -8,10 +8,9 @@ import {
 } from "../../services/GameService";
 import { initialState, reducer } from "./GameDetails.const";
 import { useGameTracking } from "../../hooks/useGameTracking";
-import { useWishlist } from "../../context/WishlistContext";
 import Loader from "../Loader/Loader";
 import GameHeader from "./GameHeader";
-import WishlistButton from "./WishlistButton";
+import WishlistButton from "../WishlistButton/WishlistButton";
 import GameReviews from "../GameReviews/GameReviews";
 import GameInfo from "./GameInfo";
 import ScreenshotsGallery from "./ScreenshotsGallery";
@@ -27,8 +26,6 @@ const GameDetails = () => {
   const [similarGames, setSimilarGames] = useState<
     { id: number; name: string; background_image: string | null }[]
   >([]);
-  const { wishlist, addToWishlist, removeFromWishlist } = useWishlist();
-  const isInWishlist = wishlist.some((g) => g.id === Number(id));
   const wishlistRef = useRef<HTMLDivElement | null>(null);
   const [isSticky, setIsSticky] = useState(false);
 
@@ -70,12 +67,11 @@ const GameDetails = () => {
 
     const observer = new IntersectionObserver(
       ([entry]) => {
-        console.log("🎯 Wishlist visible:", entry.isIntersecting);
         setIsSticky(!entry.isIntersecting);
       },
       {
         root: null,
-        threshold: 0.1, // optionnel : un peu de marge
+        threshold: 0.1,
       }
     );
 
@@ -83,6 +79,7 @@ const GameDetails = () => {
 
     return () => {
       if (wishlistRef.current) {
+        // eslint-disable-next-line react-hooks/exhaustive-deps
         observer.unobserve(wishlistRef.current);
       }
     };
@@ -96,30 +93,16 @@ const GameDetails = () => {
       <GameHeader title={state.game?.name || "Game Details"} />
       {state.game && (
         <div className="game-details-container">
-          {/* 👇 Observer pour détecter quand le bouton sort de l'écran */}
-          {/* 👇 Bouton Wishlist principal (dans le flow, ne bouge pas) */}
           <div ref={wishlistRef}>
-            <WishlistButton
-              isInWishlist={isInWishlist}
-              addToWishlist={addToWishlist}
-              removeFromWishlist={removeFromWishlist}
-              game={state.game}
-            />
+            <WishlistButton game={state.game} />
           </div>
 
-          {/* 👇 Bouton sticky (dupliqué) */}
           {isSticky && (
             <div className="wishlist-sticky-wrapper">
-              <WishlistButton
-                isInWishlist={isInWishlist}
-                addToWishlist={addToWishlist}
-                removeFromWishlist={removeFromWishlist}
-                game={state.game}
-              />
+              <WishlistButton game={state.game} />
             </div>
           )}
 
-          {/* 👉 Le reste du contenu */}
           <GameInfo game={state.game} />
           <ScreenshotsGallery screenshots={screenshots} />
           <GameDescription description={state.game.description} />

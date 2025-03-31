@@ -67,30 +67,10 @@ body {
 }
 
 /* ❤️ Wishlist */
-.wishlist-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: #d62c2c;
-  color: white;
-  font-size: 18px;
-  font-weight: bold;
-  border: none;
-  gap: 8px;
-  border-radius: 5px;
+.game-details-container .wishlist-btn {
   padding: 18px;
-  cursor: pointer;
-  transition: 0.3s ease;
-  width: 100%;
-}
-
-.wishlist-btn:hover {
-  background: #b52222;
-}
-
-.wishlist-icon {
-  width: 18px;
-  height: 18px;
+  font-size: 18px;
+  margin-top: 0;
 }
 
 /* Le wrapper normal */
@@ -105,6 +85,11 @@ body {
 
 .wishlist-sticky-wrapper .wishlist-btn {
   pointer-events: all;
+}
+
+.game-details-container .game-info {
+  border-radius: 8px;
+  gap: initial;
 }
 
 /* Version mobile : bouton compact style FAB */
@@ -126,7 +111,7 @@ body {
   }
 
   .wishlist-sticky-wrapper .wishlist-btn span {
-    display: none; /* Cache le texte "Add to Wishlist" */
+    display: none;
   }
 
   .wishlist-sticky-wrapper .wishlist-icon {
@@ -169,7 +154,6 @@ body {
   transition: filter 0.3s ease-in-out, transform 0.2s ease-in-out;
 }
 
-/* 🌟 Effet subtil au hover */
 .screenshot-image:hover {
   filter: brightness(1.2);
   transform: translateY(-3px);
@@ -208,121 +192,79 @@ body {
   text-align: center;
 }
 
-/* 📌 Section des jeux similaires */
-.similar-games {
-  margin-top: 30px;
-}
-
-/* ✅ Grille des jeux similaires */
+/* ✅ Wrapper de la section */
 .similar-game-list {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  column-gap: 15px;
-  row-gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 16px;
   justify-content: center;
   align-items: stretch;
-  max-width: 1200px;
+  width: 100%;
   margin: 0 auto;
 }
 
-/* ✅ Appliquer les styles de `.game-card` dans `.similar-game-list` */
 .similar-game-list .game-card {
   background: rgba(255, 255, 255, 0.05);
-  border-radius: 10px;
-  transition: transform 0.3s ease-in-out, box-shadow 0.2s ease-in-out;
+  border-radius: 12px;
+  transition: transform 0.3s ease, box-shadow 0.2s ease;
   text-align: center;
   text-decoration: none;
-  color: black;
+  color: #fff;
   display: flex;
   flex-direction: column;
-  justify-content: space-between; /* ✅ Force la description en bas */
-  height: 100%; /* ✅ Garde une hauteur égale */
-  min-height: 200px; /* ✅ Force une hauteur minimale */
+  height: 100%;
+  overflow: hidden;
 }
 
-/* ✅ Images des jeux similaires */
+.similar-game-list .game-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
 .similar-game-list .game-card-image {
   width: 100%;
-  height: 120px; /* ✅ Fixe une hauteur uniforme */
-  object-fit: cover; /* ✅ Recadre proprement */
-  border-radius: 5px;
-  aspect-ratio: 16 / 9; /* ✅ Fixe un format standard */
+  height: 140px;
+  object-fit: cover;
+  border-radius: 12px 12px 0 0;
 }
 
-/* ✅ Nom du jeu */
-.similar-game-list .game-card-content {
-  font-size: 0.9rem;
-  font-weight: bold;
-  margin-top: auto; /* ✅ Positionne le texte en bas */
-  padding: 10px;
-}
-
-@media (min-width: 768px) and (max-width: 1024px) {
+@media (max-width: 768px) {
   .similar-game-list {
-    grid-template-columns: repeat(
-      3,
-      minmax(180px, 1fr)
-    ); /* ✅ Forcer 3 colonnes */
-    row-gap: 25px; /* ✅ Augmenter l’espace entre les lignes */
-    column-gap: 20px; /* ✅ Équilibrer l'espacement horizontal */
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: 16px;
+    padding: 0 16px 8px 16px;
+    justify-content: initial;
   }
 
-  .screenshots-gallery {
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 15px;
+  .similar-game-list .game-info {
+    min-height: 100px;
+    justify-content: center;
   }
 
-  .screenshot-image {
-    height: 200px; /* ✅ Hauteur adaptée aux grands écrans */
-  }
-}
-
-/* 📌 Responsive Desktop */
-@media (min-width: 1024px) {
-  .game-header {
-    height: 350px;
-  }
-  .game-details-container {
-    max-width: 900px;
-    padding: 30px;
-    margin: 0 auto;
-  }
-
-  .game-title {
-    font-size: 2.5rem;
-    text-align: left;
-  }
-
-  .screenshots-gallery {
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 15px;
-  }
-
-  .screenshot-image {
-    height: 200px;
-  }
-
-  .similar-game-list {
-    grid-template-columns: repeat(
-      auto-fit,
-      minmax(200px, 1fr)
-    ); /* ✅ Ajustement */
+  .similar-game-list::-webkit-scrollbar {
+    display: none;
   }
 
   .similar-game-list .game-card {
-    min-height: 200px; /* ✅ Augmente la hauteur sur grand écran */
-  }
-
-  .similar-game-list .game-card-image {
-    height: 160px; /* ✅ Meilleure adaptation sur desktop */
-  }
-
-  .platform-list ul {
-    flex-wrap: wrap;
+    flex: 0 0 250px;
+    scroll-snap-align: start;
+    min-width: 160px;
   }
 }
 
-/* Light mode  */
+@media (min-width: 1024px) {
+  .similar-game-list {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+
+  .similar-game-list .game-card-image {
+    height: 160px;
+  }
+}
+
+/* Light mode */
 .light-mode .game-info,
 .light-mode .game-description,
 .light-mode .platform-list li,
