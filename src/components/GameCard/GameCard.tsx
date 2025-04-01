@@ -90,6 +90,7 @@ const GameCard: React.FC<GameCardProps> = ({
                 className={`game-metacritic ${getMetacriticClass(
                   game.metacritic
                 )}`}
+                aria-label="Metacritic score"
               >
                 🎯<strong>Metacritic:</strong> {game.metacritic} / 100
               </p>

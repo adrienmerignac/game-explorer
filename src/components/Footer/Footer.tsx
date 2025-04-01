@@ -28,9 +28,15 @@ const Footer = () => {
         <div className="footer-col footer-social">
           <p className="footer-social-label">Suivez-nous</p>
           <div className="social-links">
-            <a href="#">🐦 Twitter</a>
-            <a href="#">💬 Discord</a>
-            <a href="#">📺 YouTube</a>
+            <a href="#" aria-label="Twitter">
+              🐦 Twitter
+            </a>
+            <a href="#" aria-label="Discord">
+              💬 Discord
+            </a>
+            <a href="#" aria-label="Youtube">
+              📺 YouTube
+            </a>
           </div>
         </div>
       </div>

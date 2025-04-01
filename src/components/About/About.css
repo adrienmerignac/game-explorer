@@ -59,6 +59,6 @@ footer {
   }
 }
 
-.light-mode p {
+.light-mode .about-container p {
   color: black;
 }
