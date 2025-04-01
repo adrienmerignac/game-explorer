@@ -17,6 +17,7 @@
   z-index: 1000;
   border-top-left-radius: 12px;
   border-top-right-radius: 12px;
+  touch-action: pan-y;
 }
 
 /* ✅ Open drawer */

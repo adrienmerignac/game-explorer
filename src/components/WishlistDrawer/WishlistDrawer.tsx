@@ -24,6 +24,7 @@ const WishlistDrawer: React.FC<WishlistDrawerProps> = ({ isOpen, onClose }) => {
       const isScrolledToTop = contentRef.current.scrollTop === 0;
 
       if (deltaY > 80 && isScrolledToTop) {
+        e.preventDefault(); // 👈 bloque uniquement si vrai swipe
         setSwipeClosing(true);
         setTimeout(() => {
           onClose();
