@@ -50,10 +50,15 @@
 .game-title-link {
   font-size: 1.1rem;
   font-weight: 600;
-  white-space: normal;
+  color: #fff;
+  line-height: 1.3;
+  max-height: 2.6em; /* 2 lignes à 1.3 line-height */
   overflow: hidden;
   text-overflow: ellipsis;
+  display: block;
+  white-space: nowrap; /* ❗️Coupe après une ligne, si tu veux 2 lignes => Option B */
 }
+
 .game-added {
   font-size: 0.9rem;
   font-weight: bold;

@@ -49,14 +49,7 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.4);
   z-index: 1;
-}
-
-.game-title {
-  z-index: 2;
-  position: relative;
-  color: white;
 }
 
 .wishlist-sticky-wrapper {
@@ -93,8 +86,8 @@ body {
   font-size: 16px;
 }
 
-.game-info,
-.game-description {
+.game-details-container .game-info,
+.game-details-container .game-description {
   background: rgba(255, 255, 255, 0.05);
   font-size: 0.9rem;
   min-height: 70px;
@@ -105,6 +98,9 @@ body {
 
 .game-title {
   font-size: 1.8rem;
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: 8px;
+  padding: 16px;
   line-height: 2.2rem;
   z-index: 2;
   position: relative;
