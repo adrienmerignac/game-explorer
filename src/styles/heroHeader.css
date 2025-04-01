@@ -150,6 +150,11 @@
     margin-top: 0.3rem;
     opacity: 0.7;
   }
+
+  .light-mode .scroll-indicator,
+  .light-mode .scroll-hint {
+    color: #666;
+  }
 }
 
 @keyframes bounce {

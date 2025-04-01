@@ -123,5 +123,11 @@
 }
 
 .light-mode .footer-copy {
-  opacity: 0.6;
+  color: #666;
+  opacity: 1;
+}
+
+.light-mode .footer-note {
+  color: #666;
+  opacity: 1;
 }
