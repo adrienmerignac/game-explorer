@@ -72,7 +72,11 @@ const WishlistDrawer: React.FC<WishlistDrawerProps> = ({ isOpen, onClose }) => {
                 />
                 <div className="wishlist-info">
                   <p className="wishlist-title">{game.name}</p>
-                  <Link to={`/games/${game.id}`} className="wishlist-link">
+                  <Link
+                    to={`/games/${game.id}`}
+                    className="wishlist-link"
+                    onClick={onClose}
+                  >
                     View the game
                   </Link>
                 </div>
