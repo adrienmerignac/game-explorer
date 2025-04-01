@@ -126,7 +126,7 @@
   .home-container {
     gap: 48px;
     padding: 150px 16px;
-    margin: 0 auto;
+    margin: initial;
   }
 }
 

@@ -1,10 +1,9 @@
-/* Footer Mobile First (Optimisé) */
 .footer {
-  background-color: #1e1e1e; /* Même couleur que le header */
+  background-color: #1e1e1e;
   color: #ffffff;
-  padding: 10px 0; /* ✅ Réduction du padding */
-  text-align: center;
-  font-size: 12px; /* ✅ Texte plus petit */
+  padding: 48px 0 48px;
+  font-size: 13px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .footer-container {
@@ -13,91 +12,116 @@
   margin: 0 auto;
   display: flex;
   flex-direction: column;
+  gap: 32px;
   align-items: center;
-  gap: 10px; /* ✅ Moins d'espace entre les sections */
+  text-align: center;
 }
 
-/* ✅ Taille du texte et des marges réduites */
-.footer-logo h2 {
-  font-size: 16px;
-  font-weight: bold;
+.footer-col {
+  width: 100%;
 }
 
-.footer-logo p {
-  font-size: 11px;
+/* Logo bloc */
+.footer-title {
+  font-size: 18px;
+  font-weight: 700;
+  margin: 0 0 4px;
+}
+
+.footer-copy {
+  font-size: 12px;
   margin: 0;
-}
-
-/* ✅ Liste des liens plus compacte */
-.footer-nav ul {
-  list-style: none;
-  padding: 0;
-  display: flex;
-  flex-wrap: wrap; /* ✅ Permet une meilleure adaptation sur mobile */
-  justify-content: center;
-  gap: 8px; /* ✅ Moins d'espace entre les liens */
-  font-size: 12px; /* ✅ Texte plus petit */
-}
-
-/* ✅ Réduction de la taille des liens et icônes */
-.footer-nav ul li a,
-.social-links a {
-  text-decoration: none;
-  color: #ffffff;
-  transition: opacity 0.3s;
-  font-size: 12px; /* ✅ Réduction de la taille des liens */
-}
-
-.footer-nav ul li a:hover,
-.social-links a:hover {
   opacity: 0.7;
 }
 
-/* ✅ Regroupement des icônes sociales pour gagner de l'espace */
-.footer-socials p {
-  font-size: 12px;
+/* Nav bloc */
+.footer-nav ul {
+  list-style: none;
+  padding: 0;
   margin: 0;
-  font-weight: bold;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
-/* ✅ Alignement horizontal des réseaux sociaux sur mobile */
+.footer-nav ul li a {
+  color: #ffffff;
+  text-decoration: none;
+  transition: opacity 0.3s;
+}
+
+.footer-nav ul li a:hover {
+  opacity: 0.6;
+}
+
+/* Réseaux */
+.footer-social-label {
+  font-weight: 600;
+  font-size: 13px;
+  margin-bottom: 8px;
+}
+
 .social-links {
   display: flex;
-  flex-wrap: wrap; /* ✅ Permet un meilleur ajustement sur mobile */
+  flex-wrap: wrap;
+  gap: 12px;
   justify-content: center;
-  gap: 8px; /* ✅ Moins d'espace entre les icônes */
-  font-size: 12px;
 }
 
-/* ✅ Desktop : meilleure disposition */
-@media (min-width: 768px) {
-  .footer {
-    padding: 15px 0; /* ✅ Un peu plus de padding sur grand écran */
-  }
+.social-links a {
+  text-decoration: none;
+  color: #ffffff;
+  font-size: 13px;
+  transition: opacity 0.3s;
+}
 
+.social-links a:hover {
+  opacity: 0.6;
+}
+
+/* Note */
+.footer-note {
+  font-size: 11px;
+  opacity: 0.6;
+  text-align: center;
+  margin-top: 32px;
+}
+
+/* === Desktop === */
+@media (min-width: 768px) {
   .footer-container {
     flex-direction: row;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
+    text-align: left;
+    text-align-last: center;
+  }
+
+  .footer-col {
+    flex: 1 1 0;
   }
 
   .footer-nav ul {
-    flex-direction: row;
+    padding: initial;
+    margin: initial;
   }
 
-  .social-links {
-    flex-direction: row;
+  .footer-note {
+    margin-top: 40px;
   }
 }
 
-/* ✅ Light mode optimisé */
-.light-mode .footer-logo p,
-.light-mode .footer-nav ul li a,
-.light-mode .footer-socials p,
-.light-mode .social-links a {
-  color: #333333;
-}
-
-.light-mode footer {
+/* === Light mode === */
+.light-mode .footer {
   background-color: #f8f9fa;
+  color: #222;
+}
+
+.light-mode .footer-nav ul li a,
+.light-mode .social-links a {
+  color: #222;
+}
+
+.light-mode .footer-copy {
+  opacity: 0.6;
 }

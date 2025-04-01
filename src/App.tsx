@@ -23,6 +23,7 @@ import NotFound from "./pages/NotFound";
 import Loader from "./components/Loader/Loader"; // ✅ Import du Loader
 
 import "./styles/App.css";
+import About from "./components/About/About";
 
 const Login = lazy(() => import("./pages/Login"));
 const Register = lazy(() => import("./pages/Register"));
@@ -74,6 +75,7 @@ const App: React.FC = () => {
               <Route path="/" element={<Home />} />
               <Route path="/wishlist" element={<WishlistPage />} />
               <Route path="/genre/:slug" element={<GenrePage />} />
+              <Route path="/about" element={<About />} />
 
               <Route
                 path="/games/:id"

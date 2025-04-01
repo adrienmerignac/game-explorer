@@ -1,43 +1,41 @@
-import "../../styles/footer.css"; // Assurez-vous d'ajouter ce fichier CSS
+import "../../styles/footer.css";
 
 const Footer = () => {
   return (
     <footer className="footer">
       <div className="footer-container">
-        {/* Logo et Nom du Projet */}
-        <div className="footer-logo">
-          <h2>Game Explorer</h2>
-          <p>© {new Date().getFullYear()} All rights reserved.</p>
+        <div className="footer-col footer-logo">
+          <h2 className="footer-title">🎮 Game Explorer</h2>
+          <p className="footer-copy">
+            © {new Date().getFullYear()} All rights reserved.
+          </p>
         </div>
 
-        {/* Liens de navigation */}
-        <nav className="footer-nav">
+        <div className="footer-col footer-nav">
           <ul>
             <li>
-              <a href="/">Home</a>
-            </li>
-            <li>
-              <a href="/popular">Popular Games</a>
-            </li>
-            <li>
-              <a href="/upcoming">Upcoming</a>
+              <a href="/">Accueil</a>
             </li>
             <li>
               <a href="/wishlist">Wishlist</a>
             </li>
+            <li>
+              <a href="/about">À propos</a>
+            </li>
           </ul>
-        </nav>
+        </div>
 
-        {/* Réseaux sociaux */}
-        <div className="footer-socials">
-          <p>Follow us :</p>
+        <div className="footer-col footer-social">
+          <p className="footer-social-label">Suivez-nous</p>
           <div className="social-links">
-            <a href="#">Twitter</a>
-            <a href="#">Discord</a>
-            <a href="#">YouTube</a>
+            <a href="#">🐦 Twitter</a>
+            <a href="#">💬 Discord</a>
+            <a href="#">📺 YouTube</a>
           </div>
         </div>
       </div>
+
+      <p className="footer-note">Fait avec ❤️ en React & RAWG API</p>
     </footer>
   );
 };
