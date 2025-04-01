@@ -12,15 +12,18 @@ const WishlistDrawer: React.FC<WishlistDrawerProps> = ({ isOpen, onClose }) => {
   const { wishlist, removeFromWishlist, clearWishlist } = useWishlist();
   const startYRef = useRef<number | null>(null);
   const [swipeClosing, setSwipeClosing] = useState(false);
+  const contentRef = useRef<HTMLDivElement | null>(null);
 
   const handleTouchStart = (e: React.TouchEvent) => {
     startYRef.current = e.touches[0].clientY;
   };
 
   const handleTouchMove = (e: React.TouchEvent) => {
-    if (startYRef.current !== null) {
+    if (startYRef.current !== null && contentRef.current) {
       const deltaY = e.touches[0].clientY - startYRef.current;
-      if (deltaY > 80) {
+      const isScrolledToTop = contentRef.current.scrollTop === 0;
+
+      if (deltaY > 80 && isScrolledToTop) {
         setSwipeClosing(true);
         setTimeout(() => {
           onClose();
@@ -55,7 +58,7 @@ const WishlistDrawer: React.FC<WishlistDrawerProps> = ({ isOpen, onClose }) => {
           </button>
         )}
 
-        <div className="wishlist-content">
+        <div className="wishlist-content" ref={contentRef}>
           {wishlist.length === 0 ? (
             <p className="empty">Your wishlist is empty.</p>
           ) : (
