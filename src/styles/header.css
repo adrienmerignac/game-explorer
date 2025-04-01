@@ -364,7 +364,7 @@
   .header__right {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 8px;
     padding-inline-start: 8px;
   }
 
@@ -381,5 +381,9 @@
 
   .header__search__input:focus {
     width: 87%;
+  }
+
+  .sidebar-toggle {
+    padding: 0;
   }
 }
