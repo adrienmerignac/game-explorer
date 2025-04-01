@@ -15,7 +15,6 @@ import { AuthProvider } from "./context/AuthContext";
 import Header from "./components/Header/Header";
 import Home from "./pages/Home";
 import GenrePage from "./pages/GenrePage";
-import WishlistPage from "./pages/WishlistPage";
 import Footer from "./components/Footer/Footer";
 import ScrollToTop from "./components/ScrollToTop/ScrollToTop";
 import NotFound from "./pages/NotFound";
@@ -73,7 +72,6 @@ const App: React.FC = () => {
             <Routes>
               {/* Pages publiques */}
               <Route path="/" element={<Home />} />
-              <Route path="/wishlist" element={<WishlistPage />} />
               <Route path="/genre/:slug" element={<GenrePage />} />
               <Route path="/about" element={<About />} />
 
