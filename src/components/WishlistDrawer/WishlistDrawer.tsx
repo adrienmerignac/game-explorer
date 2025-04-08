@@ -35,12 +35,6 @@ const WishlistDrawer: React.FC<WishlistDrawerProps> = ({ isOpen, onClose }) => {
     }
   };
 
-  const showCustomToast = (message: string) => {
-    toast.info(message, {
-      className: "custom-toast",
-    });
-  };
-
   return (
     <>
       {isOpen && <div className="wishlist-backdrop" onClick={onClose} />}
@@ -65,7 +59,7 @@ const WishlistDrawer: React.FC<WishlistDrawerProps> = ({ isOpen, onClose }) => {
             className="clear-button"
             onClick={() => {
               clearWishlist();
-              showCustomToast("Wishlist cleared");
+              toast.info("Wishlist cleared");
             }}
           >
             🗑️ Clear wishlist
@@ -96,7 +90,7 @@ const WishlistDrawer: React.FC<WishlistDrawerProps> = ({ isOpen, onClose }) => {
                 <button
                   onClick={() => {
                     removeFromWishlist(game.id);
-                    showCustomToast("Removed from wishlist");
+                    toast.info("Removed from wishlist");
                   }}
                   className="remove-btn"
                 >

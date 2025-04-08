@@ -57,6 +57,34 @@ const BodyClassHandler = () => {
   return null;
 };
 
+useEffect(() => {
+  const observer = new MutationObserver(() => {
+    const toasts = document.querySelectorAll(".Toastify__toast");
+    const containers = document.querySelectorAll(".Toastify__toast-container");
+
+    // Ajoute les classes custom
+    toasts.forEach((toast) => {
+      toast.classList.add("custom-toast");
+    });
+
+    containers.forEach((container) => {
+      container.classList.add("custom-toast-container");
+    });
+
+    // Supprime les boutons close injectés dynamiquement
+    document.querySelectorAll(".Toastify__close-button").forEach((btn) => {
+      btn.remove();
+    });
+  });
+
+  observer.observe(document.body, {
+    childList: true,
+    subtree: true,
+  });
+
+  return () => observer.disconnect();
+}, []);
+
 /**
  * ✅ Composant pour protéger les routes privées
  */
