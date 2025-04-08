@@ -1,5 +1,5 @@
-/* --- Toast global style --- */
-.Toastify__toast {
+/* --- Toast global style (dark mode) --- */
+body .Toastify__toast {
   background: #1a1a1a !important;
   color: white !important;
   position: relative !important;
@@ -15,8 +15,8 @@
   max-width: 360px !important;
 }
 
-/* --- Barre bleue verticale via ::before --- */
-.Toastify__toast--info::before {
+/* --- Barre bleue verticale (accent) --- */
+body .Toastify__toast--info::before {
   content: "";
   display: block;
   position: absolute;
@@ -24,25 +24,26 @@
   bottom: 0;
   left: 0;
   width: 4px;
-  background: #4eaaff;
+  background: #4eaaff !important;
   border-top-left-radius: 6px;
   border-bottom-left-radius: 6px;
 }
 
-/* --- Supprimer l’icône circulaire par défaut --- */
-.Toastify__toast-icon {
+/* --- Supprimer l’icône circulaire --- */
+body .Toastify__toast-icon {
   display: none !important;
 }
 
-/* --- Désactiver bouton close --- */
-.Toastify__close-button {
+/* --- Supprimer le bouton de fermeture --- */
+body .Toastify__close-button {
   display: none !important;
 }
 
-/* --- Mobile tweaks --- */
+/* --- Position responsive sur mobile --- */
 @media screen and (max-width: 768px) {
-  .Toastify__toast-container--bottom-center {
+  body .Toastify__toast-container--bottom-center {
     bottom: calc(env(safe-area-inset-bottom, 0px) + 5rem) !important;
+    padding: 0 !important;
     width: 100% !important;
     display: flex !important;
     justify-content: center !important;
@@ -50,27 +51,25 @@
     z-index: 999999 !important;
   }
 
-  .Toastify__toast {
+  body .Toastify__toast {
     width: 90% !important;
     max-width: 320px !important;
-    padding: 12px 16px 12px 20px !important;
     font-size: 0.85rem !important;
+    padding: 12px 16px 12px 20px !important;
   }
 }
 
-/* 🌞 Light mode – Toast global style */
-.light-mode .Toastify__toast {
+/* 🌞 Light mode via body class */
+html.light-mode .Toastify__toast {
   background: #f5f5f5 !important;
   color: #1a1a1a !important;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1) !important;
 }
 
-/* Light mode – barre bleue sur la gauche */
-.light-mode .Toastify__toast--info::before {
+html.light-mode .Toastify__toast--info::before {
   background: #007acc !important;
 }
 
-/* Light mode – désactiver l’icône close aussi */
-.light-mode .Toastify__close-button {
+html.light-mode .Toastify__close-button {
   display: none !important;
 }
