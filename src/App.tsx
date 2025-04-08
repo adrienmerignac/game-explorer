@@ -21,10 +21,11 @@ import NotFound from "./pages/NotFound";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+import About from "./components/About/About";
 import Loader from "./components/Loader/Loader"; // ✅ Import du Loader
 
 import "./styles/App.css";
-import About from "./components/About/About";
+import "./styles/toastOverrides.css";
 
 const Login = lazy(() => import("./pages/Login"));
 const Register = lazy(() => import("./pages/Register"));
