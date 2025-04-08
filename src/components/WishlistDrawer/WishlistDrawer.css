@@ -307,7 +307,7 @@
 /* --- Mobile tweaks --- */
 @media screen and (max-width: 768px) {
   .Toastify__toast-container--bottom-center {
-    bottom: 1rem !important;
+    bottom: calc(env(safe-area-inset-bottom, 0px) + 5rem) !important;
     width: 100% !important;
     display: flex !important;
     justify-content: center !important;
