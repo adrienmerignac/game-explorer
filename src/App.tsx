@@ -18,6 +18,8 @@ import GenrePage from "./pages/GenrePage";
 import Footer from "./components/Footer/Footer";
 import ScrollToTop from "./components/ScrollToTop/ScrollToTop";
 import NotFound from "./pages/NotFound";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import Loader from "./components/Loader/Loader"; // ✅ Import du Loader
 
@@ -157,6 +159,16 @@ const App: React.FC = () => {
           </Router>
         </SearchProvider>
       </WishlistProvider>
+      <ToastContainer
+        position="bottom-center"
+        autoClose={2000}
+        hideProgressBar
+        newestOnTop
+        closeOnClick
+        pauseOnHover={false}
+        draggable={false}
+        theme="dark"
+      />
     </ThemeProvider>
   );
 };

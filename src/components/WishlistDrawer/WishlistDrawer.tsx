@@ -2,6 +2,7 @@ import React, { useRef, useState } from "react";
 import "./WishlistDrawer.css";
 import { useWishlist } from "../../context/WishlistContext";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 
 interface WishlistDrawerProps {
   isOpen: boolean;
@@ -24,7 +25,7 @@ const WishlistDrawer: React.FC<WishlistDrawerProps> = ({ isOpen, onClose }) => {
       const isScrolledToTop = contentRef.current.scrollTop === 0;
 
       if (deltaY > 80 && isScrolledToTop) {
-        e.preventDefault(); // 👈 bloque uniquement si vrai swipe
+        e.preventDefault();
         setSwipeClosing(true);
         setTimeout(() => {
           onClose();
@@ -54,7 +55,13 @@ const WishlistDrawer: React.FC<WishlistDrawerProps> = ({ isOpen, onClose }) => {
         <p className="drawer-tip">You can swipe down or tap away to close.</p>
 
         {wishlist.length > 0 && (
-          <button className="clear-button" onClick={clearWishlist}>
+          <button
+            className="clear-button"
+            onClick={() => {
+              clearWishlist();
+              toast.info("Wishlist cleared");
+            }}
+          >
             🗑️ Clear wishlist
           </button>
         )}
@@ -81,7 +88,10 @@ const WishlistDrawer: React.FC<WishlistDrawerProps> = ({ isOpen, onClose }) => {
                   </Link>
                 </div>
                 <button
-                  onClick={() => removeFromWishlist(game.id)}
+                  onClick={() => {
+                    removeFromWishlist(game.id);
+                    toast.info("Removed from wishlist");
+                  }}
                   className="remove-btn"
                 >
                   ✕
