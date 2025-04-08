@@ -22,7 +22,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import About from "./components/About/About";
-import Loader from "./components/Loader/Loader"; // ✅ Import du Loader
+import Loader from "./components/Loader/Loader";
 
 import "./styles/App.css";
 import "./styles/toastOverrides.css";
@@ -34,9 +34,6 @@ const Dashboard = lazy(() => import("./pages/Dashboard"));
 const EditProfile = lazy(() => import("./pages/EditProfile"));
 const GameDetails = lazy(() => import("./components/GameDetails/GameDetails"));
 
-/**
- * ✅ Gestion dynamique des classes <body> selon la page active
- */
 const BodyClassHandler = () => {
   const location = useLocation();
 
@@ -57,42 +54,38 @@ const BodyClassHandler = () => {
   return null;
 };
 
-useEffect(() => {
-  const observer = new MutationObserver(() => {
-    const toasts = document.querySelectorAll(".Toastify__toast");
-    const containers = document.querySelectorAll(".Toastify__toast-container");
-
-    // Ajoute les classes custom
-    toasts.forEach((toast) => {
-      toast.classList.add("custom-toast");
-    });
-
-    containers.forEach((container) => {
-      container.classList.add("custom-toast-container");
-    });
-
-    // Supprime les boutons close injectés dynamiquement
-    document.querySelectorAll(".Toastify__close-button").forEach((btn) => {
-      btn.remove();
-    });
-  });
-
-  observer.observe(document.body, {
-    childList: true,
-    subtree: true,
-  });
-
-  return () => observer.disconnect();
-}, []);
-
-/**
- * ✅ Composant pour protéger les routes privées
- */
 const PrivateRoute = ({ children }: { children: JSX.Element }) => {
   return children ? children : <Navigate to="/login" />;
 };
 
 const App: React.FC = () => {
+  // ✅ MutationObserver bien placé ici
+  useEffect(() => {
+    const observer = new MutationObserver(() => {
+      const toasts = document.querySelectorAll(".Toastify__toast");
+      const containers = document.querySelectorAll(".Toastify__toast-container");
+
+      toasts.forEach((toast) => {
+        toast.classList.add("custom-toast");
+      });
+
+      containers.forEach((container) => {
+        container.classList.add("custom-toast-container");
+      });
+
+      document.querySelectorAll(".Toastify__close-button").forEach((btn) => {
+        btn.remove();
+      });
+    });
+
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true,
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <ThemeProvider>
       <WishlistProvider>
@@ -101,7 +94,6 @@ const App: React.FC = () => {
             <BodyClassHandler />
             <Header />
             <Routes>
-              {/* Pages publiques */}
               <Route path="/" element={<Home />} />
               <Route path="/genre/:slug" element={<GenrePage />} />
               <Route path="/about" element={<About />} />
@@ -117,13 +109,11 @@ const App: React.FC = () => {
                 }
               />
 
-              {/* Authentification */}
               <Route
                 path="/login"
                 element={
                   <AuthProvider>
                     <Suspense fallback={<Loader />}>
-                      {" "}
                       <Login />
                     </Suspense>
                   </AuthProvider>
@@ -134,7 +124,6 @@ const App: React.FC = () => {
                 element={
                   <AuthProvider>
                     <Suspense fallback={<Loader />}>
-                      {" "}
                       <Register />
                     </Suspense>
                   </AuthProvider>
@@ -145,21 +134,18 @@ const App: React.FC = () => {
                 element={
                   <AuthProvider>
                     <Suspense fallback={<Loader />}>
-                      {" "}
                       <Logout />
                     </Suspense>
                   </AuthProvider>
                 }
               />
 
-              {/* Routes protégées */}
               <Route
                 path="/dashboard"
                 element={
                   <AuthProvider>
                     <PrivateRoute>
                       <Suspense fallback={<Loader />}>
-                        {" "}
                         <Dashboard />
                       </Suspense>
                     </PrivateRoute>
@@ -172,15 +158,12 @@ const App: React.FC = () => {
                   <AuthProvider>
                     <PrivateRoute>
                       <Suspense fallback={<Loader />}>
-                        {" "}
                         <EditProfile />
                       </Suspense>
                     </PrivateRoute>
                   </AuthProvider>
                 }
               />
-
-              {/* Page 404 */}
               <Route path="*" element={<NotFound />} />
             </Routes>
             <ScrollToTop />
