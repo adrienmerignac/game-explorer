@@ -17,7 +17,7 @@ const Header: React.FC = () => {
       setIsScrolled(window.scrollY > 75);
     };
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 

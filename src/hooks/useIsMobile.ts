@@ -5,7 +5,7 @@ export const useIsMobile = (maxWidth = 480) => {
 
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth <= maxWidth);
-    window.addEventListener("resize", handleResize);
+    window.addEventListener("resize", handleResize, { passive: true });
     return () => window.removeEventListener("resize", handleResize);
   }, [maxWidth]);
 

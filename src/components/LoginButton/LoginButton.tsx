@@ -21,7 +21,7 @@ const LoginButton: React.FC = () => {
     // ✅ Ajoute un écouteur sur `storage`
     const handleStorageChange = () => updateUserState();
 
-    window.addEventListener("storage", handleStorageChange);
+    window.addEventListener("storage", handleStorageChange, { passive: true });
 
     return () => {
       window.removeEventListener("storage", handleStorageChange);
