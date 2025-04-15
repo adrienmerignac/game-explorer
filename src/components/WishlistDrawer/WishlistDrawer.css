@@ -259,6 +259,7 @@
   color: #1a1a1a;
 }
 
+.light-mode .empty,
 .light-mode .drawer-tip {
   color: #535353;
 }

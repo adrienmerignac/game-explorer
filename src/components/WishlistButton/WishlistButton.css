@@ -1,7 +1,7 @@
 /* === Wishlist button === */
 .wishlist-btn {
   align-items: center;
-  background-color: #d62c2c; /* ❤️ Rouge par défaut */
+  background-color: #d62c2c;
   border-radius: 8px;
   border: none;
   color: white;
@@ -15,6 +15,7 @@
   transition: background 0.3s ease, transform 0.2s ease;
   width: 100%;
   margin-top: 10px;
+  position: relative;
 }
 
 .wishlist-btn:hover {
@@ -23,41 +24,35 @@
 
 /* === Ajouté à la wishlist === */
 .wishlist-btn.added {
-  background-color: #2e7d32; /* ✅ Vert */
+  background-color: #2e7d32;
 }
-
 .wishlist-btn.added:hover {
-  background-color: #27682c; /* ✅ Vert foncé */
+  background-color: #27682c;
 }
 
-/* === Icônes === */
+/* Icônes */
 .wishlist-icon {
   width: 18px;
   height: 18px;
-  transition: opacity 0.2s ease;
   display: none;
 }
 
-/* === État par défaut (non ajouté) */
+/* Par défaut → on montre le cœur vide */
 .wishlist-btn:not(.added) .heart-outline {
   display: inline;
 }
 
-/* === État ajouté (coeur plein, sauf au hover) */
-.wishlist-btn.added:not(:hover) .heart-filled {
-  display: inline;
-}
-
-/* === Hover d'un jeu déjà ajouté (coeur vide pour suppression) */
-.wishlist-btn.added:hover .heart-outline {
-  display: inline;
-}
-
-/* === Hover (état par défaut : non ajouté) */
-.wishlist-btn:not(.added):hover .heart-outline {
+/* Par défaut → et on masque le plein */
+.wishlist-btn:not(.added) .heart-filled {
   display: none;
 }
 
-.wishlist-btn:not(.added):hover .heart-filled {
+/* Si ajouté → on affiche le cœur plein */
+.wishlist-btn.added .heart-filled {
   display: inline;
 }
+.wishlist-btn.added .heart-outline {
+  display: none;
+}
+
+/* ✅ Plus besoin de hover spécifiques */
