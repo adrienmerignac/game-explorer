@@ -26,6 +26,7 @@ import Loader from "./components/Loader/Loader";
 
 import "./styles/App.css";
 import "./styles/toastOverrides.css";
+import ChallengePage from "./pages/ChallengePage";
 
 const Login = lazy(() => import("./pages/Login"));
 const Register = lazy(() => import("./pages/Register"));
@@ -63,7 +64,9 @@ const App: React.FC = () => {
   useEffect(() => {
     const observer = new MutationObserver(() => {
       const toasts = document.querySelectorAll(".Toastify__toast");
-      const containers = document.querySelectorAll(".Toastify__toast-container");
+      const containers = document.querySelectorAll(
+        ".Toastify__toast-container"
+      );
 
       toasts.forEach((toast) => {
         toast.classList.add("custom-toast");
@@ -97,6 +100,17 @@ const App: React.FC = () => {
               <Route path="/" element={<Home />} />
               <Route path="/genre/:slug" element={<GenrePage />} />
               <Route path="/about" element={<About />} />
+
+              <Route
+                path="/challenges"
+                element={
+                  <AuthProvider>
+                    <Suspense fallback={<Loader />}>
+                      <ChallengePage />
+                    </Suspense>
+                  </AuthProvider>
+                }
+              />
 
               <Route
                 path="/games/:id"

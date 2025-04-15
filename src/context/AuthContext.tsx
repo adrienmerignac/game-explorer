@@ -6,6 +6,13 @@ export interface UserData {
   avatar?: string;
   badges: string[];
   createdAt: Date;
+  challenges: {
+    [challengeId: string]: {
+      status: "not-started" | "in-progress" | "completed";
+      startedAt?: string;
+      completedAt?: string;
+    };
+  };
   displayName: string;
   email: string;
   level: number;
